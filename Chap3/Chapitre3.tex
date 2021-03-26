@@ -1,0 +1,464 @@
+\chapter{{\fontfamily{lmss}\selectfont \'Evaluation et validation locale: Le bassin versant du Rhône}}
+\label{chap:etude-locale}
+\minitoc
+
+Les étapes d'évaluation et de validation sont incontournables dans le développement d'un modèle afin de quantifier les modifications induites par son intégration et de vérifier son bon fonctionnement. Pour cela, il convient de comparer les données simulées avant et après introduction de la nouvelle physique pour ensuite les évaluer sur la base d'observations locales. Les observations, et notamment les forçages atmosphériques, sont souvent de meilleure qualité que des données globales et permettent donc une comparaison précise. De plus, restreindre l'étude à une zone réduite engendre des coûts de calculs moindres et facilite la multiplication des configurations à tester. \\
+La zone d'étude choisie dans cette thèse est le bassin versant du Rhône. Au vu de l'importance hydrologique du Léman dans le bassin versant et de l'existence de jeux de données climatiques et hydrologiques vastes et précis, le bassin rhodanien est une zone propice à l'évaluation et la validation du modèle.\\
+~\\
+
+\noindent Quatre stations de jaugeage sur le linéaire du Rhône ont été sélectionnées pour caractériser l'effet des lacs sur chaque région hydrographique du bassin\footnote{Partie d'un bassin hydrographique désignée comme le premier ordre de découpage hydrographique français. Il existe en France 24 régions hydrographiques dont quatre sur le bassin versant du Rhône.}. Profitant des forçages issus de la chaîne hydrométéorologique opérationelle SAFRAN-ISBA-MODCOU, il est possible de directement forcer CTRIP pour vérifier la cohérence des débits simulés avant et après l'introduction des lacs dans le modèle tout en réduisant sa sensibilité à la variabilité spatiale des forçages. En plus d'évaluer l'intérêt de MLake pour la simulation hydrologique, la validation se focalise aussi sur les performances de MLake à modéliser les débits du Rhône et les variations de niveau du Léman par rapport à des observations.
+
+\section{{\fontfamily{lmss}\selectfont Le bassin versant du Rhône}}
+\label{sec:bv-rhone}
+
+\subsection*{Morphologie du bassin}
+
+Long de 812 km, le Rhône assure un lien privilégié entre les glaciers alpins et la mer Méditerranée. Divisé entre la Suisse et la France, le Rhône draine une surface de 98 000 km$^{2}$ dont plus de 90 \% se trouve sur le territoire français (Figure \ref{bv_rhone_dem}). Cette frontière géographique est aussi une frontière morphologique qui divise le Rhône entre sa partie amont et sa partie aval. La partie amont correspond à la zone située entre la source du Rhône au glacier de Furka et l'exutoire du Léman à Genève. La partie aval, quant à elle, débute au sortir de Genève pour s'écouler et rejoindre la mer Méditerranée par son delta. Malgré cette distinction, le Rhône reste un fleuve alpin majoritairement influencé par les massifs montagneux qui l'alimentent puisque 50 \% de son bassin se situe au-dessus de 500 m (asl) et 15 \% au-dessus de 1500 m (asl). 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{bv_rhone_dem}
+\caption{Bassin versant du Rhône et sa topographie.}
+\label{bv_rhone_dem}
+\end{figure}
+
+\subsection*{Climat}
+D'un point de vue climatique, le bassin versant du Rhône est particulièrement intéressant  car il peut être divisé en quatre zones climatiques dont les caractéristiques sont regroupées dans le tableau \ref{tab_rhone}\footnote{Pour plus d'informations sur la classification climatologique de Köppen-Geiger, le lecteur se tournera vers \citep{beck2017}}. La tête du bassin est soumise à un climat tempéré humide avec des cumuls de précipitations assez importants, principalement sous forme de neige. L'est et le nord du bassin sont influencés par un climat continental avec des hivers froids. Enfin la partie sud est influencée par le climat méditerranéen caractérisé par des étés secs et chauds, des cumuls annuels de précipitations faibles au contraire des intensités de précipitations saisonnières qui peuvent atteindre des valeurs extrêmes (plus de 300 mm en 12h).
+
+\begin{table}[h!]
+ \caption{Principales caractéristiques du bassin versant du Rhône avant son delta.}
+ \label{tab_rhone}
+ \begin{tabularx}{\textwidth}{cXXXX}
+ \hline
+ & Rhône alpestre & Haut Rhône français & Rhône moyen & Rhône inférieur\\
+ \hline
+  Altitude moyenne ($m$)&1655&&699&\\
+  Surface drainée ($km^{2}$)&8000&12300&46150&29150\\
+  Cumul annuel de précipitations ($mm$)&1000&900&890&695\\
+  Débit moyen annuel ($m^{3}.s^{-1}$)&335&600&1400&1700\\ 
+  Classification Köppen-Geiger &ET/Cfb&Cfb&Cfa&Csa\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+\subsection*{Hydrologie}
+\label{sec:hydrologie}
+
+Avec un module aux alentours de 1700 $m^{3}.s^{-1}$, le Rhône est le plus puissant des fleuves français. La variété des climats sur son bassin lui confère aussi un régime hydrologique complexe caractérisé par un déphasage entre la tête et l'aval du bassin (Figure \ref{debit_r2d2}). La contribution de ses principaux affluents (Ain, Saône, Isère, Durance) est conséquente et compte pour 55\% du débit du Rhône à l'exutoire \citep{edl2019}. De plus, ces apports se classent selon trois composantes hydrologiques: pluviale, nivale et glaciaire. Cette triple alimentation assure un débit saisonnier constant mais présente une variabilité spatiale forte. \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.\textwidth]{debit_stations_r2d2}
+\caption{Chroniques de débits observés et cycle annuel issues de la Banque Hydro pour des stations situées dans les unités hydrographiques du Rhône. A) Porte du Scex (Suisse), B) Pougny, C) Mâcon, D) Valence, E) Beaucaire.}
+\label{debit_r2d2}
+\end{figure}
+
+\noindent Suivant les régimes hydrologiques qui les caractérisent, le bassin versant se découpe en quatre sous-bassins hydrologiques:
+
+\begin{itemize}
+\item[$\bullet$] Sur la partie en amont du Léman, le Rhône possède un régime nivo-glaciaire dominé par les apports glaciaires. Ce régime s'identifie par des périodes de basses eaux hivernales (novembre-avril) et des périodes de hautes eaux au printemps issues de la fonte nivale;\\
+
+\item[$\bullet$] Jusqu'à sa confluence avec la Saône, le régime reste nivo-glaciaire car influencé par de grands affluents (l'Arve, l'Ain, le Fier et le Guiers) dont l'alimentation saisonnière est régulière. Contrairement à la partie amont, les crues sur cette partie sont atténuées par la présence du Léman qui joue son rôle de tampon hydrologique;\\
+
+\item[$\bullet$] Le régime de la partie médiane entre la Saône et l'Eyrieux est pluvial, notamment par l'apport des eaux de la Saône, soumis à un climat océanique. On observe, ici, une inversion des régimes de débits se traduisant par une période de hautes eaux en hiver et une période de basses eaux en été;\\
+
+\item[$\bullet$] Enfin la partie aval, influencée par le climat méditerranéen, concourt à modifier totalement le régime hydrologique du Rhône. Sur cette zone, les cours d'eau souffrent de sévères étiages en été et participent à la propagation de crues rapides lors des épisodes méditerranéens automnaux.\\
+\end{itemize}
+
+
+En lien avec ces régimes hydrologiques et sur la base de leurs caractéristiques spatiales et temporelles, quatre grands types de crues se produisent sur le linéaire du Rhône :
+
+\begin{itemize}
+\item[$\bullet$] les \textbf{crues océaniques} se déclenchent suite à des cumuls de précipitations importants pendant les mois d'hiver sur la partie du bassin soumise à l'influence océanique venant de l'ouest et sont propagées par la Saône. Ces crues, de type fluvial, se caractérisent par des temps de concentration lents et une période de crue longue;\\
+
+\item[$\bullet$] les \textbf{crues méditerranéennes} sont la conséquence directe des fortes intensités de précipitations tombant à l'automne sur le pourtour méditerranéen. Ces crues exceptionnelles se distinguent par des temps de concentration très courts et des pics de crues très importants issus de la contribution majeure des ruissellements torrentiels. Elles sont souvent associées à des crues dites "éclair" qui durent généralement quelques heures mais présentent des temps de réponse et des marnages importants;\\
+
+\item[$\bullet$] Lorsque les épisodes méditerranéens ont des extensions spatiales importantes les crues associées n'ont plus ce caractère localisé, on parle alors de \textbf{crues méditerranéennes extensives}. Dans cette configuration, la crue est accentuée par la contribution des affluents et affecte la totalité du bassin rhodanien. C'est ce type de crue qui a provoqué la crue historique du Rhône de décembre 2003;\\
+
+\item[$\bullet$] Lorsque les conditions météorologiques affectent la totalité du bassin alors il est possible de parler de \textbf{crues généralisées}. Ce type de crue est généralement provoqué par une combinaison des composantes océanique et méditerranéenne extensive.
+\end{itemize} 
+\clearpage
+\subsection*{Intérêt économique}
+Le corridor Rhône-Méditerranée a été, de tout temps, un axe économique majeur. Même s'il ne représente que 10 \% de la superficie du territoire il constitue un tissu économique pour le quart de la population française et plus du tiers des industries du bassin \citep{edl2019}. L'apport économique est aussi lié à l'attrait touristique de son bassin composé d'une importante diversité de territoire permettant notamment le développement d'activités nautiques. La gestion des eaux du Rhône a été cédée en 1933 et pour 90 ans à la Compagnie Nationale du Rhône (CNR)\footnote{L'échéance étant pour 2023, un projet de prolongation est en cours et devrait donner lieu, courant du printemps 2021, à un avenant ainsi qu'à un décret en conseil d'État pour une durée de concession allongée de 18 ans.}.\\
+
+Les eaux du Rhône sont utilisées pour de nombreux usages. Entre autres, le potentiel énergétique du Rhône est important grâce à un débit conséquent. L'augmentation exponentielle du nombre d'ouvrages hydroélectriques, au milieu du 20\ieme{} siècle, donne aujourd'hui aux eaux du Rhône une importance capitale dans la production électrique française et suisse. Pour la partie suisse du Rhône, la capacité cumulée des réservoirs est de 1.2 km$^{3}$ pour une production de 1.5 milliard de kWh.an$^{-1}$ \citep{olivier2009}. Sur la partie française, le Rhône compte 20 centrales hydroélectriques gérées par la CNR. Pour satisfaire à la production électrique, un dédoublement du Rhône sur environ 180 km assure une alimentation constante en eau des stations hydroélectriques. En moyenne annuelle, ces centrales produisent 16400 GWh d'électricité, soit 93 \% de la production hydroélectrique française \citep{rhone2008}. \\
+À cela s'ajoute l'utilisation des eaux du Rhône pour le refroidissement des centrales thermiques et nucléaires. Au total, les eaux du Rhône contribuent à 20 \% de la production électrique française. \\
+
+Un autre vecteur économique important sur le Rhône concerne le transport, notamment sur son axe principal Rhône-Saône. Celui-ci est supporté par une forte anthropisation du linéaire fluvial et la construction de 14 écluses grand gabarit. Même s'il reste loin des grands fleuves comme le Saint-Laurent ou le Mississipi, le transport fluvial rhodanien s'élève à 22 millions de tonnes par an de marchandises. Ce transport s'axe principalement sur des fluxs de minéraux bruts (42 \%), de produits agricoles (13\%) et pétroliers (10 \%) \citep{rhone2008}. \\
+
+Les eaux du Rhône sont, évidemment, d'une importance majeure en tant que ressource pour l'approvisionnement en eau potable et pour l'agriculture. Le Rhône est utilisé pour irriguer environ 108 000 hectares de terres agricoles sur une superficie totale de 190 000 hectares de surface irriguée \citep{rhone2008}.\\
+Concernant l'eau potable, environ 0.2 km$^{3}$ d'eau est prélevé dans la nappe alluviale pour approvisionner 3 millions d'habitants \citep{olivier2009}.
+
+\section{{\fontfamily{lmss}\selectfont Les lacs du bassin versant du Rhône}}
+
+\subsection{{\fontfamily{lmss}\selectfont Caractéristiques générales}}
+La France n'est pas un grand pays lacustre comparé à la Finlande ou au Canada mais elle compte un nombre important d'étangs, de lacs et de zones humides. Plus spécifiquement, 8.5\% du bassin du Rhône (France et Suisse incluses) est recouvert de lacs pour la majeure partie contenue dans cinq grands lacs \citep{olivier2009}: le Léman,  le lac du Bourget, le Lac d'Annecy, le lac de Serre-Ponçon et le lac de Sainte-Croix (Figure \ref{reseau_hydro_rhone}). Par ailleurs le lac du Bourget avec ses 3.6 km$^{3}$ est le plus grand lac naturel de France. Le tableau \ref{tab:lacs_rhone} présente les caractéristiques de ces cinq lacs.\\
+
+\begin{figure}[h!]
+     \subfloat[Principaux affluents du Rhône\label{rhone_riv}]{%
+       \includegraphics[width=0.45\textwidth]{BV_rhone_rivieres}
+     }
+     \hfill
+     \subfloat[Principaux lacs \label{rhone_lac}]{%
+       \includegraphics[width=0.45\textwidth]{BV_rhone_lacs}
+     }
+     \hfill
+     \caption{Représentation du réseau hydrographique du Rhône à 90m de résolution issue de MERIT-HYDRO.}
+     \label{reseau_hydro_rhone}
+\end{figure}
+
+\begin{table}[h!]
+ \caption{Caractéristiques des principaux lacs du bassin versant du Rhône.}
+ \label{tab:lacs_rhone}
+ \begin{tabularx}{\textwidth}{cXXXX}
+ \hline
+ Nom& Profondeur moyenne (m) & Profondeur maximale (m) & Superficie (km$^{2}$)& Volume (km$^{3}$)\\
+ \hline
+  Léman&154&310&580&89\\
+  Lac du Bourget &85&145&44.5&3.6\\
+  Lac d'Annecy &41&82&27.8&1.1\\
+  Lac de Serre-Ponçon&72&90&28&1.3\\ 
+  Lac de Sainte-Croix &30&93&22&0.76\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+~\\
+~\\
+~\\
+\subsection{{\fontfamily{lmss}\selectfont Le Léman et son rôle central}}
+\label{sec:leman}
+
+\'Etant données ses dimensions et sa localisation, le Léman joue un rôle central dans l'hydrologie du Rhône, il est donc important de s'intéresser brièvement à ses caractéristiques.\\
+
+Le Léman a acquis ses lettres de noblesse en limnologie dès le 19\ieme{} siècle grâce au fondateur de cette science: le suisse François-Alphonse Forel. D'origine glaciaire et formé par l'effondrement d'une moraine, le Léman, avec ses 89 km$^{3}$, est le plus grand bassin d'eau douce d'Europe Occidentale \citep{cipel2019}. Sa morphologie est dominée par la présence des Alpes sur sa rive Sud-Est et du Jura sur sa rive Nord-Ouest donnant ainsi au lac une forme allongée dans une orientation Est-Ouest. Le Léman est constitué de deux grands bassins: à l'Est, le Grand Lac d'une superficie de 499 km$^{2}$ et de profondeur maximale 310 m, à l'Ouest, le Petit Lac d'une superficie de 81 km$^{2}$ et de profondeur maximale 76 m (Tableau \ref{tab_leman}).\\ 
+
+\begin{table}[h!]
+ \caption{Principales caractéristiques du Léman. Adapté de \citet{cipel2019}.}
+ \label{tab_leman}
+ \begin{tabularx}{\textwidth}{cXXX}
+ \hline
+ & Léman & Grand Lac & Petit Lac \\
+ \hline
+  Altitude moyenne (m)& 372.05 &&\\
+  Surface libre (km$^{2}$&580.1&498.90&81.2\\
+  Profondeur moyenne (m)&152.7&172&41\\
+  Profondeur maximale (m)&309.7&309.7&76\\ 
+  Volume (km$^{3}$) &89&86&3\\
+  Temps de séjour théorique &\multicolumn{3}{c}{11 ans}\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+Cette physionomie joue sur l'évolution des profils de température, avec une tendance du Petit Lac à réagir plus rapidement aux forçages extérieurs. D'un point de vue dynamique, chaque bassin engendre des courants généraux au sein du lac qui conduisent à la formation de gyres lacustres spécifiques pendant une grande partie de l'année \citep{lethi2012}. \\
+Tout cela contribue à un répartition particulière des caractéristiques physiques du lac avec des eaux, en moyenne, plus chaudes au niveau du Petit Lac tandis que le Grand Lac présente des amplitudes saisonnières plus marquées.\\
+Au-delà des légères disparités entre les bassins, le cycle annuel du profil vertical de température au sein du lac suit la même dynamique. Ainsi au printemps et en automne une stratification des eaux se met en place avant que l'hiver ne force le mélange des eaux pour tendre vers un profil homogène. Cette situation contribue au classement des eaux du Léman en bon état écologique \citep[Figure \ref{soulignacfig},][]{soulignac2019}. \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{soulignac2019}
+\caption{Distribution spatiale des états écologiques du Léman exprimée en terme de probabilité d'occurrence sur la base de 1000 échantillons prélevés en 2010. \textit{Chla}, \textit{NH4}, \textit{NO3}, \textit{TP} représente respectivement les concentrations en chlorophylle-a, ammonium, nitrate et phosphore total. \textit{SDD} est la profondeur du disque de Secchi. Source: \citet{soulignac2019}.}
+\label{soulignacfig}
+\end{figure}
+
+Sur le plan hydrologique, le Léman est alimenté en eau douce par six affluents dont le principal est le Rhône avec ses 201 m$^{3}$.s$^{-1}$ (\url{https://www.hydrodaten.admin.ch/fr/2009.html}) (Figure \ref{bv-leman-cipel}). Du fait de l'assèchement continental des masses d'air océaniques venant de l'Ouest et du renforcement des pluies par effet orographique, la pluviométrie sur le bassin du Léman se répartit de façon croissante suivant un axe Ouest-Est. L'influence du climat montagnard assure un régime pluvio-nival avec un maximum entre le mois de mars et d'août et des basses eaux atteintes en hiver.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{bv_leman}
+\caption{Bassin versant du Léman et du Rhône aval jusqu'à la frontière franco-suisse. Les croix rouges localisent les stations de mesures d'où sont issues les observations de niveau d'eau fournies par Damien Bouffard (EAWAG/EPFL). Adapté de \citet{soulignac2019}.}
+\label{bv-leman-cipel}
+\end{figure}
+
+\noindent Le Léman est anthropisé depuis le 19\ieme{} siècle, époque à laquelle la ville de Genève a construit un barrage pour alimenter les usines de la ville. La forte variation des niveaux du lac a contraint les cantons de Vaud et du Valais à co-signer, en 1884, un accord de gestion des eaux du Léman afin de garantir des variations acceptables. C'est sur cette base que s'est appuyée la construction du barrage poids de Seujet en 1995. Ce barrage de 73 m de long pour 1.5 m de haut fût construit avec comme double objectif de réguler les niveaux du Léman (par la même occasion le débit en sortie) et de produire de l'électricité pour la ville de Genève. Ainsi la convention signée oblige la ville de Genève a maintenir les niveaux du lac entre 372.3 m (asl\footnote{above sea level}) et 371.5 m (asl).\\
+Cette régulation marque ainsi le pas entre le régime glaciaire du Rhône amont et le régime fluvial français, même si ce dernier reste dans un régime pluvio-fluvial grâce à l'apport des eaux de l'Arve \citep{ruiz2015}.
+
+\section{{\fontfamily{lmss}\selectfont La chaîne SAFRAN-ISBA-MODCOU}}
+SAFRAN-ISBA-MODCOU \citep{habets2008,lemoigne2020} désigne la chaîne hydrométérologique résultante de la collaboration entre le CNRM et Mines ParisTech \citep{etchevers2000}. Par la suite, d'autres partenaires dont le CETP \footnote{aujourd'hui LATMOS} et le Cemagref \footnote{aujourd'hui INRAE} ont été intégré au projet. Cette chaîne est composée de trois sous-systèmes: le Système d'Analyse Fournissant des Renseignements Atmosphériques à la Neige \citep[SAFRAN,][]{durand1993} fournissant les forçages atmosphériques, le modèle de surface ISBA résolvant les bilans d'eau et d'énergie et le modèle hydrogéologique MODCOU \citep{ledoux1989} qui simule les débits de rivières et la hauteur d'eau des aquifères. Ces données sont disponibles sur une grille régulière de 8 km projetée en Lambert II sur la France métropolitaine (Figure\ref{fig_sim}). \\
+
+~\\
+\noindent Ce système, à base physique, a été initialement validé sur des grands bassins hydrographiques comme le bassin Adour-Garonne \citep{voirin2003} ou le Rhône \citep{etchevers2001} avant d'être étendu à la France entière \citep{habets2008, quintana2008}. Il est utilisé à la fois en recherche et, depuis 2003, en opérationnel au sein de services comme la Direction de la Climatologie et des Services Climatiques (DCSC) de Météo-France. En parallèle, les travaux se sont portés sur la mise en place d'une base de données spatialisées des paramètres hydrométéorologiques depuis 1958 nécessaire à la prévision du risque inondation, la gestion de la ressource ou encore les effets du changement climatique appliqués en hydrologie \citep{soubeyroux2008, bonnet2017, dayon2018}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{sim}
+\caption{Représentation de la chaîne hydrométéorologique Safran-Isba-Modcou. Source: \citet{soubeyroux2008}.}
+\label{fig_sim}
+\end{figure}
+~\\
+
+Dans cette thèse, les ruissellements de surface et le drainage issus de SIM sur le bassin du Rhône ont été utilisés pour forcer CTRIP sur la période 1958-2016. Comme la grille régulière à 8 km de SIM est différente de la grille en longitude/latitude de CTRIP à 1/12°, les forçages atmosphériques ont été préalablement interpolés sur la grille CTRIP.\\
+\clearpage
+\noindent La suite du paragraphe décrit de façon succinte les deux sous-systèmes SAFRAN et MODCOU. Pour plus de détails le lecteur pourra se tourner vers les nombreuses publications disponibles.
+
+\subsection*{Le système de réanalyse SAFRAN}
+
+Développé au Centre d'\'Etudes de le Neige (CEN) pour la prévision du risque d'avalanches, SAFRAN fournit une analyse de huit variables atmosphériques ensuite utilisées par ISBA en tant que forçages atmosphériques. Ces huit variables sont: les précipitations liquides et solides, la température à 2 m, la vitesse du vent à 10 m, l'humidité spécifique à 2 m, la nébulosité, le rayonnement solaire et le rayonnement infrarouge (Figure \ref{safran}).\\
+Le système repose sur le découpage du territoire en zones climatiques irrégulières pour lesquelles les variables atmosphériques sont considérées homogènes et seulement influencées par la topographie. Le zonage utilisé par Météo-France définit 615 zones qui ne dépassent pas 1000 km$^{2}$ de superficie. SAFRAN utilise alors un processus itératif de comparaison entre variables observées et analysées qui sont ensuite interpolées au pas de temps horaire suivant une méthode d'interpolation optimale. Cette interpolation se fait sur une grille régulière horizontale de 8 km couvrant la France métropolitaine ainsi que certaines zones extérieures faisant partie des bassins hydrographiques amont (\textit{e.g.} la Suisse pour le bassin du Rhône). Cette méthode d'optimisation s'appuie sur des observations ainsi que des ébauches issues du modèle atmosphérique globale ARPEGE pour produire des analyses sur les 9892 cellules de la grille.\\
+
+\noindent En sortie, SAFRAN produit une analyse horaire des variables atmosphériques pour la période 1958-2016. D'abord validé sur le bassin du Rhône \citep{etchevers2001}, il a été étendu à l'ensemble du territoire métropolitain par \citet[][]{lemoigne2002}.
+
+\begin{figure}[h!]
+\includegraphics[scale=1]{safran}
+\caption{Moyenne annuelle sur la période 1958-2018 de: a) température à 2m, b) humidité spécifique à 2m, c) vitesse du vent à 10m, d) précipitation totale annuelle, e) rayonnement solaire direct, f) rayonnement solaire diffus. Source: \citet{lemoigne2020}.}
+\label{safran}
+\end{figure}
+\clearpage
+
+\subsection*{Le modèle hydrogéologique MODCOU}
+
+Le principe du modèle MODCOU repose sur la résolution d'une équation de diffusion pour le calcul des variations de niveaux des aquifères en réponse au ruissellement et au drainage issus d'ISBA. Connaissant ces niveaux, le modèle résout les équations de transfert à l'interface aquifère-rivière pour en déduire le stock de surface. Le transfert est ensuite assuré au sein de chaque bassin versant par un schéma numérique basé sur l'analyse des zones isochrones simulant les débits.\\
+Le code initial de MODCOU a été employé pour développer la plateforme de modélisation EauDyssée utilisée pour simuler des bassins versants de tailles variés \citep{saleh2011}. Aujourd'hui ces modèles sont intégrés dans une plateforme de modélisation hydrogéologique Aqui-FR \citep{vergnes2020}.\\
+Dans cette thèse, CTRIP s'occupe du routage en réponse aux forçages de SAFRAN-ISBA et le modèle MODCOU n'est donc pas utilisé.
+\section{{\fontfamily{lmss}\selectfont Les configurations utilisées pour FLake et CTRIP}}
+\label{sec:config_rhone}
+
+Les flux de masse au niveau du lac Léman sont déduits d'une estimation du bilan entre l'évaporation et les précipitations. Les estimations d'évaporation tri-horaires ont été calculées par le biais de FLake avec la configuration proposée par \citet{lemoigne2016}. Parmi les paramètres importants, la profondeur est fixée à sa valeur maximale 60m et le coefficient d'extinction à 0.5 m$^{-1}$.\\
+Les forçages générés par SAFRAN donnent donc une estimation des cumuls de précipitations solides/liquides au pas de temps horaire. Pour le lac, un calcul préliminaire simule un correction des forçages en prenant la différence entre la précipitation et l'évaporation au-dessus du lac. Cela permet de déduire la masse d'eau qui contribue directement au bilan sur le masque de ruissellement du lac (voir section \ref{sec:MLake}).\\
+
+\begin{figure}[!h]
+     \subfloat[Largeur des rivières]{%
+       \includegraphics[width=0.5\textwidth]{river_width_rhone}
+     }
+     \hfill
+     \subfloat[Numéro de séquence]{%
+       \includegraphics[width=0.5\textwidth]{sequence_number_rhone}
+     }
+     \hfill
+     \caption{Représentation de (a) la largeur des rivières et (b) du numéro de séquence sur le bassin du Rhône à 1/12° dans CTRIP avant l'introduction des lacs.}
+     \label{param_ctrip}
+\end{figure}
+
+Concernant les paramètres de CTRIP, la configuration utilisée sur le bassin du Rhône prend seulement en compte le schéma d'aquifère qui est essentiel pour simuler correctement les débits dans la partie karstique du Rhône. La topographie et la largeur des rivières sont représentées sur la figure \ref{param_ctrip}. CTRIP est forcé par les sorties de SAFRAN-ISBA sur la période 1958-2016 et interpolées sur la grille CTRIP à 1/12°. Ces forçages sont ceux corrigés au niveau du Léman pour prendre en compte l'évaporation du lac sur cette même période.
+~\\
+~\\
+~\\
+
+\section{{\fontfamily{lmss}\selectfont Les données de validation }}
+\label{sec:observations_rhone}
+Dans le processus de développement d'un modèle il est nécessaire de vérifier que les processus physiques sont correctement représentés et il convient ensuite d'évaluer la qualité du modèle. Tout cela s'organise dans une étape de validation qui consiste en une comparaison des résultats de simulation avec des observations. Pour être significative, l'étape de validation doit se baser sur un grand nombre de données, ce qui est souvent le facteur limitant dans les études à grande échelle.\\
+La validation de MLake sur le bassin versant du Rhône correspond finalement à une double validation. Tout d'abord, elle s'attache à déterminer les performances de CTRIP-MLake à simuler les débits du fleuve par rapport à une simulation de référence de CTRIP puis à les confronter à des observations. Ensuite comme MLake introduit une nouvelle variable diagnostique sur les variations de hauteur de lac, il est important de justifier cette introduction dans CTRIP.\\
+Cette validation s'appuie sur des jeux de données présentés ici pour le bassin versant du Rhône.
+
+\subsection*{{\fontfamily{lmss}\selectfont Débits}}
+
+Le bassin du Rhône compte un nombre important de stations de jaugeage issues de la Banque Hydro et du GRDC. Il est évident que plus le nombre d'observations ayant passé le contrôle de qualité est important, meilleure est la qualité de l'analyse. Pour autant, le choix des stations doit respecter certaines règles. Ainsi les séries temporelles des stations doivent contenir au minimum, trois ans de données continues sur une période minimale totale de 10 ans. Dans le cas où deux stations se trouvent sur la même maille CTRIP, la station choisie est celle qui possède l'aire de drainage la plus grande. De plus, l'objet de l'étude porte sur l'influence des lacs dans un modèle de routage et de l'apport de leur dynamique sur les débits du Rhône. Pour cela, quatre sites d'études ont été choisis: Porte du Scex, Pougny, Valence et Beaucaire. Ce choix n'est pas arbitraire et repose sur des conditions strictes.\\
+
+\noindent Sur la totalité des stations du bassin, un filtrage sur la disponibilité des données et la localisation a été effectué. Ainsi, seules les stations présentes sur le Rhône avec des données continues sur notre période d'étude (1958-2016) ont été sélectionnées. Parmi toutes les stations possibles, une seule station a été choisie par unité hydrographique dont une station de contrôle et trois stations d'évaluation (Figure \ref{fig_5stat}). \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{BV_rhone_5stat}
+\caption{Localisation des stations de jaugeage utilisées pour la validation des débits du modèle CTRIP-MLake.}
+\label{fig_5stat}
+\end{figure}
+
+~\\
+
+Le choix s'est donc porté sur:\\
+
+\begin{itemize}
+\item \textbf{Une station de contrôle amont}: la station de Porte du Scex qui se situe en amont du Léman. Cette station assure une cohérence dans les simulations et notamment contrôle que l'introduction de MLake ne modifie pas la stabilité du modèle dans la résolution de la dynamique en amont des lacs. Le cumul de précipitations moyen annuel au niveau de la station, issu des réanalyses SAFRAN, est de 1363 mm;\\
+
+\item \textbf{Sur le Rhône amont français}: la station de Pougny qui est la station française directement en aval du Léman. Elle est d'une importance primordiale pour juger de l'influence directe du Léman sur les débits. Le cumul de précipitations moyen annuel au niveau de la station, issu des réanalyses SAFRAN, est de 1079 mm;\\
+
+\item \textbf{Après la confluence de la Saône et de l'Isère}: la station de Valence. Comme les principaux affluents représentent plus de la moitié du débit (Figure \ref{sec:hydrologie}), cette station permet de quantifier l'importance de la dynamique du Rhône par rapport à celle des affluents avals. Le cumul de précipitations moyen annuel au niveau de la station, issu des réanalyses SAFRAN, est de 892 mm; \\
+
+\item \textbf{À l'exutoire du bassin}: la station de Beaucaire. Située juste avant le début du Delta du Rhône, la station informe d'une part sur les apports d'eau issus de la totalité du bassin mais aussi sur l'influence de l'hydrologie locale. La propagation des crues est, dans cette unité hydrographique, très rapide du fait du climat méditerranéen et la station de Beaucaire nous permettra de valider le modèle dans un contexte où les débits sont très variables. Le cumul de précipitations moyen annuel au niveau de la station, issu des réanalyses SAFRAN, est de 655 mm.
+\end{itemize}
+
+\subsection*{{\fontfamily{lmss}\selectfont Hauteurs de lac}}
+
+Pour les hauteurs de lac, la validation s'est concentrée sur le Léman qui influence directement l'alimentation du Rhône (section \ref{sec:leman}). Même si elles sont d'une importance majeure, il existe peu de données disponibles sur les hauteurs du Léman. Par ailleurs, que les données soient issues de stations limnimétriques ou d'observations satellitaires, les observations de cote d'eau ne sont pas directement accessibles.\\
+Les données concernant le Léman ont été gracieusement fournies par Damien Bouffard (Eawag/EPFL) par le biais de l'Office Fédéral de l'Environnement Suisse. Ces données sont issues de trois stations de mesures placées sur les sites présentés en figure \ref{bv-leman-cipel} et fournissant des données continues entre 1974 et 2013. Deux stations sont situées sur la partie Grand Lac du Léman et une station est placée proche de l'exutoire. Ainsi, n'ayant aucune information sur la qualité des observations, les données des trois stations ont été moyennées pour calculer une hauteur moyenne du lac à comparer à la variable diagnostique issue de CTRIP-MLake.
+
+\section{{\fontfamily{lmss}\selectfont Intégration des lacs sur le bassin versant du Rhône}}
+Pour les quatre stations de référence, trois configurations de CTRIP-MLake ont été testées. Ces configurations, détaillées dans le tableau \ref{ctrip_config}, servent à évaluer le modèle CTRIP-MLake et à réaliser une analyse de sensibilité du modèle à la largeur du seuil du lac, seul paramètre ajustable. L'analyse statistique se base sur les scores présentés dans l'Annexe \ref{chap:critere-evaluation}.
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{table}[h!]
+ \caption{Configuration des différentes simulations effectuées sur le bassin versant du Rhône.}
+ \label{ctrip_config}
+ \begin{tabularx}{\textwidth}{p{3.5cm}p{3.5cm}p{7cm}}
+ \hline
+ Configuration&Forçages&Détails\\
+ \hline
+  $ctrip\_nolake$&SAFRAN-ISBA& \footnotesize{Simulation référence d'ISBA-CTRIP sans MLake}\\
+  $ctrip\_mlake\_w1$&SAFRAN-ISBA&\footnotesize{Simulation CTRIP-MLake initialisée avec une largeur de seuil $weir\_w$ égale à la largeur de rivière aval}\\
+  $ctrip\_mlake\_w0.5$&SAFRAN-ISBA&\footnotesize{Simulation CTRIP-MLake initialisée avec une largeur de seuil $weir\_w$ divisée par un facteur 2}\\
+  $ctrip\_mlake\_w5$&SAFRAN-ISBA&\footnotesize{Simulation CTRIP-MLake initialisée avec une largeur de seuil $weir\_w$ multipliée par un facteur 5}\\
+  \hline
+ \end{tabularx}
+\end{table}}
+
+
+\subsection{{\fontfamily{lmss}\selectfont Apport des lacs sur les simulations de CTRIP}}
+\label{subsec:apport}
+Avant toute chose, il est important de vérifier que MLake a un effet significatif sur les simulations de CTRIP. Pour cela, il convient d'évaluer l'effet de MLake sur les performances de CTRIP en comparant les simulations à des sorties de référence CTRIP sans MLake. Cette partie se focalise donc principalement sur une analyse qualitative du processus de bilan d'eau lacustre et sur la sensibilité du modèle à la largeur du seuil du lac.\\
+
+\noindent Le modèle a besoin d'une période de mise à l'équilibre (appelée spin-up) car la hauteur du seuil des lacs est initialisée \textit{a priori} et ne correspond pas à un état équilibré. Après plusieurs simulations, la durée de spin-up pour le Rhône est estimée à deux ans. Les résultats sur ces deux premières années de simulation ne sont donc pas pris en compte et la période d'évaluation sur le Rhône débute en 1960 et se termine en 2016.\\
+
+\noindent La variabilité du Rhône est relativement élevée ce qui complique l'analyse qualitative des hydrographes. Dans un souci de lisibilité, la figure \ref{q_sensi_rhone} montre les résultats relatifs aux quatre stations de mesures choisies sur la période réduite 2000-2003. Néanmoins, l'analyse statistique et les scores portent bien sur la période d'étude complète 1960-2016.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subplot_q_sensi_rhone}
+\caption{Hydrogramme du Rhône simulé par CTRIP-MLake pour les quatre stations de mesures sur la période 2000-2003. A) Porte du Scex, B) Pougny, C) Valence, D) Beaucaire.}
+\label{q_sensi_rhone}
+\end{figure}
+\clearpage
+Il n'apparaît aucune modification des débit amont au niveau de la station de contrôle. Cela confirme que MLake n'introduit pas de modification des débits en amont des lacs. \\
+Par contre, sur l'ensemble des stations d'évaluation, la prise en compte des lacs provoque une contraction des débits du Rhône autour du module moyen annuel avec une réduction des pics de crues et une augmentation des débits d'étiage. Ainsi, la dynamique introduite par les lacs dans les simulations a tendance à lisser l'hydrogramme et cet effet est d'autant plus important que la station est proche du lac. Par exemple, le pic de débit simulé pour la crue extensive de l'automne 2002 est en nette diminution. L'introduction des lacs dans le modèle réduit de 17\% le pic de crue simulé du 26 novembre 2002 à la station de Beaucaire. Cette diminution amène le débit simulé de 12444 m$^{3}$.s$^{-1}$ dans la simulation de référence à une moyenne de 10362 m$^{3}$.s$^{-1}$ pour les simulations CTRIP-MLake. Sachant que le débit maximal observé ce jour là est de 10200 m$^{3}$.s$^{-1}$, la modélisation des lacs permet une meilleure représentation des crues spatialement étendues. Il est évident que des sources d'erreurs non prises en compte limitent l'interprétation de ces résultats mais ceux-ci sont encourageants.\\
+
+Les effets de lacs se retrouvent aussi sur la partie amont du bassin avec un léger décalage temporel de l'hydrogramme. Cet effet est moins visible en aval du fait de la contribution importante des affluents du Rhône.\\ 
+La réduction moyenne de variabilité temporelle pour les trois stations est de 17.8 \% même si  cette réduction est relativement plus forte pour les stations à l'aval (Valence, Beaucaire). D'un autre côté, le module annuel est significativement modifié pour la station de Pougny, avec une réduction de 30\%. Les autres stations voient leurs débits avals rester stable et les légers écarts sont introduits par l'utilisation de FLake dans CTRIP-MLake qui modifie les forçages (Tableau \ref{hydrology_metrics_rhone}).\\
+
+%performance metrics for the river discharge for the Rhone river basin
+\begin{table}[h!]
+\footnotesize
+	\caption{Comparaison des scores entre les débits observés et simulés au niveau des quatre stations de mesures}
+	\label{hydrology_metrics_rhone}
+	\centering
+	\begin{tabularx}{\textwidth}{p{1.3cm}p{2.7cm}p{0.9cm}p{0.9cm}p{0.9cm}p{0.7cm}p{0.8cm}p{0.8cm}p{0.8cm}p{0.7cm}p{0.7cm}}
+               \hline
+		Station& Configuration & NSE &NSE log&KGE &NIC & $\overline{Q}$ \tiny{(m$^3$.s$^{-1}$)} &  $\sigma$ \tiny{(m$^3$.s$^{-1}$)} & RMSD \tiny{(m$^3$.s$^{-1}$)} &$\overline{Q_{s}}/\overline{Q_{o}}$ &$\sigma_{s}/\sigma_{o}$\\
+               \hline
+                \multirow{4}{4cm}{Porte du \\Scex}&\footnotesize{$ctrip\_nolake$}&-4.34&-3.9&0.31&-&231&288&229&1.26&2.91\\
+		&\footnotesize{$ctrip\_mlake\_w1$}&-4.31&-3.74&-0.31&-&231&288&228&1.26&2.91\\
+		&\footnotesize{$ctrip\_mlake\_w0.5$}&-4.28&-3.73&-0.30&-&231&287&227&1.26&2.90\\
+		&\footnotesize{$ctrip\_mlake\_w5$}&-4.32&-3.74&-0.31&-&231&288&228&1.26&2.91\\
+		&\footnotesize{$observations$}&-&-&-&-&182&99&-&-&-\\
+               \hline
+                \multirow{4}{4cm}{Pougny}&\footnotesize{$ctrip\_nolake$}&-1.58&-1.61&-0.07&-&336&317&245&1&2.10\\
+		&\footnotesize{$ctrip\_mlake\_w1$}&-0.74&-0.60&0.33&0.32&340&269&201&1.01&1.80\\
+		&\footnotesize{$ctrip\_mlake\_w0.5$}&-0.52&-0.39&0.41&0.39&340&251&188&1.01&1.64\\
+		&\footnotesize{$ctrip\_mlake\_w5$}&-1.13&-1.12&0.17&0.17&340&298&223&1.01&1.95\\
+		&\footnotesize{$observations$}&-&-&-&-&336&153&-&-&-\\
+		\hline
+		\multirow{4}{4cm}{Valence}&\footnotesize{$ctrip\_nolake$}&0.50&0.35&0.74&-&1568&1074&552&1.12&1.37\\
+		&\footnotesize{$ctrip\_mlake\_w1$}&0.59&0.63&0.85&0.18&1589&831&502&1.14&1.05\\
+		&\footnotesize{$ctrip\_mlake\_w0.5$}&0.62&0.64&0.83&0.24&1589&802&483&1.14&1.03\\
+		&\footnotesize{$ctrip\_mlake\_w5$}&0.55&0.61&0.86&0.10&1589&875&525&1.14&1.12\\
+		&\footnotesize{$observations$}&-&-&-&-&1400&782&-&-&-\\
+		\hline
+                \multirow{4}{4cm}{Beaucaire}&\footnotesize{$ctrip\_nolake$}&0.54&0.39&0.76&-&1925&1347&668&1.13&1.36\\
+		&\footnotesize{$ctrip\_mlake\_w1$}&0.64&0.65&0.83&0.22&1948&1057&591&1.15&1.07\\
+		&\footnotesize{$ctrip\_mlake\_w0.5$}&0.67&0.66&0.82&0.28&1948&1026&568&1.15&1.04\\
+		&\footnotesize{$ctrip\_mlake\_w5$}&0.61&0.64&0.84&0.15&1948&1098&617&1.15&1.11\\
+		&\footnotesize{$observations$}&-&-&-&-&1698&989&-&-&-\\
+		\hline
+	\end{tabularx}
+\end{table}
+
+La sensibilité à la largeur du seuil est nette et constante sur les trois stations d'évaluation. Le fait de réduire la largeur du seuil réduit l'amplitude des débits et augmente l'effet de lissage de l'hydrogramme. Ainsi, en utilisant le schéma CTRIP-MLake, les pics de crues sont plus faibles et les étiages plus importants. Cet effet est proportionnel à la largeur du seuil. Plus la largeur est grande, plus les débits simulés se rapprochent de la simulation de référence. Parmi les trois configurations, c'est pour la configuration $ctrip\_mlake\_w05$ que la variabilité est la plus faible avec une réduction moyenne du débit de 24\% par rapport aux simulations de référence. À l'inverse, l'augmentation de la largeur du seuil provoque un transfert d'eau plus rapide vers l'aval se traduisant par une variabilité moins forte du débit. Dans cette configuration la dynamique du Rhône se rapproche des simulations de référence et la variabilité moyenne, calculée à partir de l'écart-type, diminue de 10\%. \\
+
+\noindent Ces conclusions concordent avec nos attentes concernant les effets de déversoirs. Un seuil plus large a tendance à renforcer la dynamique des débits en favorisant les temps de réponse courts. Cela se traduit par une baisse plus rapide des débits en période de basses eaux et une augmentation aussi plus importante en période de crue. À l'inverse, la diminution de la largeur du seuil allonge les temps de réponse du lac face aux forçages et engendre donc une variation plus lente des niveaux d'eau. L'alternance entre les périodes de basses et hautes eaux diminue et les amplitudes qui en résultent sont réduites.\\
+
+\noindent La comparaison de CTRIP-MLake aux simulations de référence informe sur les apports de la nouvelle physique sur les simulations de débits. Cependant elle n'indique pas le réalisme du modèle et il donc est nécessaire de confronter ces résultats à des observations.
+
+
+\subsection{{\fontfamily{lmss}\selectfont Validation du modèle CTRIP-MLake}}
+
+L'objectif de cette deuxième étape d'évaluation est de valider les résultats des simulations du modèle CTRIP-MLake par rapport aux observations sur les stations choisies. Les simulations et leurs configurations restent similaires à celles utilisées dans la section précédente \ref{subsec:apport}.\\
+Les résultats généraux présentés dans la suite s'appuient sur les figures \ref{q_rhone_obs}, \ref{q_rhone_moving}, \ref{seasonal_q_rhone} et le tableau \ref{hydrology_metrics_rhone}. De plus, l'analyse statistique se base sur les scores présentés dans l'Annexe \ref{chap:critere-evaluation}.
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subplot_q_flake_rhone.png}
+\caption{Hydrogrammes du Rhône simulés par CTRIP-MLake et observés pour les quatre stations de mesures sur la période 1960-2016. A) Porte du Scex, B) Pougny, C) Valence, D) Beaucaire.}
+\label{q_rhone_obs}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{q_rhone_moving}
+\caption{Hydrogrammes du Rhône simulés par CTRIP-MLake et observés pour les quatre stations de mesures sur la période 1960-2016 en moyenne glissante sur 30 jours. A) Porte du Scex, B) Pougny, C) Valence, D) Beaucaire.}
+\label{q_rhone_moving}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{seasonal_q_flake_rhone.png}
+\caption{Cycles saisonniers des débits du Rhône simulés par CTRIP-MLake et observés pour les quatre stations de mesures sur la période 1960-2016. A) Porte du Scex, B) Pougny, C) Valence, D) Beaucaire.}
+\label{seasonal_q_rhone}
+\end{figure}
+\clearpage
+\subsubsection*{{\fontfamily{lmss}\selectfont Débits}}
+Dans sa partie amont, le Rhône présente un régime nivo-glaciaire unimodal dont le pic de débit se produit au début de l'été. Cette saisonnalité est bien représentée par CTRIP-MLake même si une surestimation des débits de hautes eaux et une sous-estimation des basses eaux persistent dans toutes les configurations. Malgré une réduction de la variabilité introduite par MLake, des biais persistent dans la simulation des extrêmes de débit notamment au niveau de la station de Pougny. \\
+
+\noindent Ce manque de représentativité altère les performances du modèle et se traduit par des critères Nash-Sutcliffe Efficiency (NSE) négatifs pour toutes les configurations ($\overline{NSE}$ = -0.80). Il en est de même pour le logarithmique du NSE: $\overline{NSE}_{log}$ = -0.70. Ces deux scores traduisent la difficulté de CTRIP-MLake à reproduire la dynamique observée et notamment le NSE$_{log}$ informe sur la faible performance du modèle à simuler les étiages. Comme ces scores donnent un poids assez fort à la corrélation, il est intéressant de les recouper avec le critère Kling-Gupta Efficiency (KGE), un score hydrologique moins sensible à la corrélation (voir dans l'annexe \ref{chap:critere-evaluation}). Ce score est positif sur toutes les stations ($\overline{KGE}=0.30$) ce qui indique bien que la principale cause amenant à de faibles scores provient d'une faible corrélation entre les hydrogrammes simulés et observés. Le rapport des écarts-types confirme une trop grande variabilité des débits simulés, écart que l'on retrouve sur le cycle saisonnier (Figure \ref{seasonal_q_rhone}). En tout état de cause, même si les scores restent faibles, le Normalized Information Contribution (NIC), avec une valeur moyenne de 29\%, indique une contribution positive de MLake dans la simulation des débits du Rhône par CTRIP en sortie du Léman.\\
+
+Dans sa partie aval, le régime du Rhône est pluvial bimodal avec une période de hautes eaux au printemps et une période d'étiages pendant l'été. Les stations choisies sur cette zone sont représentatives de la dynamique totale du bassin versant. Comme sur la partie amont, la saisonnalité est bien respectée même si la tendance à une surestimation des hautes eaux et une sous-estimation des étiages dans les simulations se retrouvent aussi sur cette partie du Rhône. Excepté le pic de débit printanier qui est mal représenté, la dynamique du débit entre fin juin et mars reste particulièrement bien simulée par le modèle. \\
+Les résultats des stations de Valence et de Beaucaire sont similaires avec une variabilité du débit réduite de 22\% pour Valence et de 21\% pour Beaucaire. Ce résultat signifie que les lacs influencent les débits du bassin hydrographique jusqu'à l'aval et que leurs signaux dans la variation des débits ne sont pas dilués par la contribution des affluents. Les scores hydrologiques sont, par ailleurs, nettement améliorés avec des hausses moyennes de 0.09 pour le NSE à Valence et de 0.10 pour le NSE de Beaucaire (Tableau \ref{hydrology_metrics_rhone}). \\
+Les résultats sur la partie aval confirment l'impact positif de l'introduction de MLake pour la représentation des pics de crues. En effet, l'ajout des lacs permet de retrouver des pics de crues plus proches des observations. De plus, il y a une amélioration dans la représentation des étiages avec des NSE$_{log}$ qui augmentent en moyenne de 0.28 à Valence et 0.25 à Beaucaire (Tableau \ref{hydrology_metrics_rhone}). La hausse est moins importante pour le critère KGE, par contre les valeurs atteintes dénotent une excellente représentation des débits sur ces stations ($\overline{KGE}_{valence}$ = 0.85, $\overline{KGE}_{beaucaire}$ = 0.83). Enfin l'amélioration qu'introduit MLake sur la simulation des débits est confirmée par le NIC qui se trouve en moyenne être de 17\% à Valence et de 22\% à Beaucaire.\\
+
+\noindent Le critère NSE s'améliore sur le linéaire du fleuve avec les meilleurs scores pour les stations proches de l'exutoire. On remarque ainsi que pour la configuration $ctrip\_mlake\_w1$ le NSE passe de -0.74 à Pougny à 0.59 à Valence et enfin 0.64 à Beaucaire. Ces scores indiquent que le débit à l'exutoire d'un bassin versant représente mieux la dynamique totale du bassin mais aussi est moins influencé par les variations hautes fréquences apparaissant notamment à l'exutoire du Léman.\\
+Ces résultats mettent en avant l'impact du modèle de lac sur le lissage des hydrogrammes et qui conduit à des améliorations significatives de l'amplitude et de la temporalité des simulations de débits sur le bassin versant. Ce phénomène est particulièrement visible sur l'alternance de crues entre 2002 et 2003 et les périodes d'étiages estivaux. \\
+
+L'évaluation du modèle est finalement conclue par un test sur la sensibilité des débits simulés par le modèle à la largeur du seuil à l'exutoire du lac. Ce paramètre est est important dans le modèle et son évaluation en étant l'unique paramètre ajustable à ce stade. Ce test est réalisé suivant une approche 'one at a time', c'est-à-dire en prenant successivement des valeurs différentes. Ces facteurs multiplicatifs sont 0.5, 1 et 5. La valeur unitaire correspond à la valeur par défaut de la largeur de la rivière en aval du lac dans le réseau CTRIP.\\
+Le test, dont la figure \ref{taylor_q_rhone} illustre les résultats, montre l'amélioration générale des performances dans les trois configurations par rapport à la simulation de référence CTRIP sans les lacs. La configuration $ctrip\_mlake\_w05$ se dégage des deux autres sans pour autant représenter une nette amélioration. Le diagramme montre aussi que l'élargissement de la largeur du seuil dégrade légèrement les scores tout en rapprochant les simulations de la configuration de référence sans lac.\\
+Dans l'ensemble, la largeur du seuil semble être un paramètre robuste et la valeur initiale prescrite dans CTRIP peut donc être conservée sur le bassin versant du Rhône.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{taylor_q_rhone}
+\caption{Diagramme de Taylor représentant les performances des différentes configurations à simuler les débits pour les quatre stations de mesures sur la période 1960-2016. A) Porte du Scex, B) Pougny, C) Valence, D) Beaucaire.}
+\label{taylor_q_rhone}
+\end{figure}
+\clearpage
+\subsubsection*{{\fontfamily{lmss}\selectfont Hauteurs}}
+
+La variation de la cote d'eau est une variable diagnostique de MLake. Celle-ci est calculée sur la base du stock en eau à la fin du pas de temps et reflète les fluctuations saisonnières du volume d'eau du lac. Les résultats sont présentés sur la figure \ref{subplot_h_rhone}, figure \ref{season_h_rhone} ainsi que dans le tableau \ref{tab:level_metrics_rhone}.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subplot_h_rhone}
+\caption{Séries temporelles des variations de niveau des eaux du Léman simulées par CTRIP-MLake et observées en trois stations sur la période 1974-2013.}
+\label{subplot_h_rhone}
+\end{figure}
+
+
+%performance metrics for the lake levels
+\begin{table}[h!]
+	\caption{Scores détaillant les performances des différentes configurations pour la simulation des niveaux du Léman.}
+	\label{tab:level_metrics_rhone}
+	\centering
+	\begin{tabularx}{\textwidth}{p{2cm}p{3cm}p{1cm}p{2cm}p{2cm}p{2cm}}
+               \hline
+		Lac & Configuration&$r$&$h_{max}$/$h_{min}$&$\sigma_{s}$ (m) &RMSD (m) \\
+               \hline
+                \multirow{3}{4cm}{Léman}&\footnotesize{$ctrip\_mlake\_w1$}&0.30&2.02/-0.84&0.55 (2.39&0.53\\
+		&\footnotesize{$ctrip\_mlake\_w0.5$}&0.37&2.80/-1.22&0.81 &0.76\\
+		&\footnotesize{$ctrip\_mlake\_w5$}&0.21&0.94/-0.3&0.20 &0.27\\
+		&\footnotesize{$observations$}&0.23&0.53/-0.69&-&-\\
+               \hline
+	\end{tabularx}
+\end{table} 
+
+\noindent Dans l'ensemble, malgré une bonne représentation des variations de niveaux, les pics de débits et les étiages sont atteints prématurément par rapport aux observations et avec des amplitudes trop importantes. Alors que les amplitudes maximales observées restent autour de 0.5 m, cette surestimation systématique peut atteindre jusqu'à 2.8 m pour la configuration $ctrip\_mlake\_w05$. Seule la configuration $ctrip\_mlake\_w5$ donne des séries temporelles comparables aux séries observées.\\
+Pour ce qui est des scores généraux, la corrélation est plutôt médiocre ($\bar{r}$ = 0.29) traduisant une faiblesse du modèle à représenter les variations de cote du Léman. Cela se traduit aussi par des écarts-types significatifs et un coefficient de variation moyen de 2.3 ($\overline{\sigma}_{s}$ = 0.52). Ces écarts sont expliqués en partie par la surestimation des hautes eaux dont le ratio moyen est de 2.6. Ces surestimations sont particulièrement fortes pour les configurations $ctrip\_mlake\_w05$ et $ctrip\_mlake\_w1$.\\
+
+Contrairement aux résultats sur les débits et malgré une bonne corrélation relativement aux autres configurations (r = 0.37), $ctrip\_mlake\_w05$ présente de moins bons résultats. Cela s'explique par un temps de réponse plus long aux évolutions du forçage, les hauteurs d'eau qui en résultent sont logiquement plus élevées notamment en période de crue (les volumes additionnels étant stockés plus longtemps) et représentent une dynamique plus lente du lac. À l'inverse, la configuration $ctrip\_mlake\_w5$ présente les erreurs les plus faibles (RMSD = 0.27 m) ce qui se traduit par un cycle saisonnier plus réaliste (Figure \ref{season_h_rhone}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{season_h_rhone}
+\caption{Cycles saisonniers des variations de niveau des eaux du Léman simulés par CTRIP-MLake et observés en trois stations sur la période 1974-2013.}
+\label{season_h_rhone}
+\end{figure}
+
+L'effet sous-jacent à cette sensibilité est que la dynamique du marnage est inversement proportionnelle à la largeur du seuil. Cela est physiquement correct puisque dans le cas d'une largeur de seuil plus grande, le temps de réponse aux forçages est atténué et le transfert d'eau vers l'aval plus long. De plus, l'analyse du cycle saisonnier indique que la configuration $ctrip\_mlake\_w5$ est celle qui respecte le mieux le cycle annuel des niveaux du Léman.
+
+
+\subsection{{\fontfamily{lmss}\selectfont Discussions}}
+
+\noindent Dans l'ensemble, les résultats indiquent un effet positif de l'ajout des lacs dans CTRIP sur le bassin versant du Rhône. Cet effet est particulièrement significatif pour le soutien des étiages dans la partie méditerranéenne, secteur à enjeux concernant la ressource en eau. L'apport des lacs sur le bassin versant du Rhône a déjà été mis en avant par \citet{zajac2017} et notre étude confirme l'intérêt de prendre en compte le bilan de masse des lacs sur cette zone. \\
+Le test de sensibilité a montré que les débits et hauteurs simulés semblent relativement sensibles à la largeur du seuil de déversement. Toutefois seules trois configurations ont été testées et pour confirmer ces résultats, le test doit être étoffé pour prendre un intervalle de valeurs plus important. Une autre méthode pour affiner les résultats serait d'avoir accès à une estimation de la largeur de l'exutoire ou à une méthode de calcul indirect. Sur la base du travail de \citet{vergnes2012}, il serait ainsi opportun de tester la méthode de calcul des largeurs de rivière directement sur les débits en sortie de lac. Ce type d'information n'est à ce jour pas assez développé à l'échelle globale et souvent difficile à mesurer voire à estimer et varie notamment avec le niveau du lac. \\
+
+\noindent Des biais importants perdurent dans les résultats notamment sur les cycles saisonniers entre observations et simulations. Quelles que soient les configurations choisies, les étiages restent sous-estimés et les pics de crues trop importants. \citet{decharme2010} a montré que ces défauts étaient intrinsèques au modèle CTRIP et ont été partiellement résolus par l'introduction d'un schéma d'aquifères \citep{vergnes2012}. Pourtant ces biais systématiques sont visibles dès l'exutoire du Léman et associés à des marnages beaucoup trop importants. Une des origines de ces différences provient de la présence du barrage de Seujet régulant l'exutoire du Léman. L'impact du barrage sur le cycle hydrologique du lac est clair avec un seuillage systématique des niveaux du lac lors des périodes de hautes eaux. Cela engendre une quasi-absence de pics de débits au printemps au profit d'une décroissance lente de l'hydrogramme. Lors des étiages, la présence des barrages-réservoirs assure des étiages moins importants et une disponibilité en eau accrue. Dans notre module, le choix a été fait de ne considérer que le bilan de masse naturel pour les lacs. Plus globalement, la pression anthropique sur le bassin versant du Rhône est très forte et limite donc la modélisation d'un comportement naturel du système hydrographique. La plupart des lacs sont contrôlés par des barrages et la Durance elle-même est dévié de façon significative. Dans sa version actuelle, MLake ne prend en compte ni les règles de gestion de barrage ni la pression anthropique présente sur ce matin. Comme nous avons vu dans la section \ref{sec:leman}, le marnage d'un réservoir est contrôlé dans un intervalle de niveau qui ne traduit pas la dynamique naturelle de celui-ci mais plutôt un besoin industriel ou social. Dans le cas du Léman, il est même soumis à un accord. Pour avoir une vision complète de la dynamique sur le bassin versant du Rhône et réduire les biais, il est par conséquent nécessaire de prendre en compte ces processus.
+\clearpage
+
+\section{{\fontfamily{lmss}\selectfont Conclusion}}
+
+Dans son étude sur la France, \citet{vergnes2012} a mis en évidence l'apport posifif du schéma d'aquifère sur les débits d'étiage. Cependant l'ajout de ce module dans le modèle CTRIP ne corrige pas totalement les surestimations systématiques des simulations de débits.\\ 
+L'ajout d'un module résolvant le bilan d'eau des lacs dans CTRIP engendre, sur le bassin versant du Rhône, une réduction des biais sur les débits et une meilleure représentation des étiages notamment sur la partie aval du bassin. Les résultats sur les pics de débits sont moins visibles même si une atténuation des débits de pointe est observée. Le fait de prendre en compte une dynamique lacustre, plus lente comparée à un tronçon de rivière, retarde légèrement les débits de pointe mais surtout atténue sensiblement leurs amplitudes. Cela s'explique par la capacité de rétention des lacs, moins impactés par les modifications atmosphériques à court terme, à assurer un soutien de l'étiage lors des périodes sèches. Cela est bien visible sur le cycle saisonnier des débits du Rhône avec un cycle globalement respecté sur chaque unité hydrographique. \\
+
+Cette étude locale a montré l'intérêt de considérer les lacs dans l'hydrologie locale et régionale et cela même dans un bassin où l'importance des lacs est relativement modeste.
+En se basant sur une approche de bilan de masse où les débits à l'exutoire sont représentés par une équation de déversoir rectangulaire à seuil épais, il est possible de réduire les biais sur les simulations de débits ainsi que de modéliser une dynamique des niveaux d'eau réaliste. Les résultats sont en nette amélioration par rapport à la version de CTRIP initiale. Ainsi la contribution moyenne de MLake aux performances sur les débits est de 23\% avec un critère KGE croissant sur le linéaire du Rhône ($\overline{KGE}$ = 0.66). L'apport principal de MLake est de proposer un diagnostic des variations de niveaux de lac avec des résultats probants pour le Léman dans la configuration $ctrip\_mlake\_w5$ (RMSD= 0.27 m et CV = 1.05).\\
+
+Malgré tout des biais persistent notamment sur les débits de crues et marquent les limites du modèle. Le modèle développé ne prend pas en compte l'anthropisation qui modifie profondément la dynamique naturelle du lac. Ces biais relativement importants sur la partie amont ont, cependant, tendance à être gommés dans la partie aval du bassin.
+Cette méthode montre des résultats satisfaisants qui confirment l'intérêt de son application à l'échelle globale. Pour cela il est nécessaire de trouver des sites d'études instrumentés. Au vu des résultats du test de sensibilité, l'étude globale doit porter sur un intervalle plus important de variation du facteur multiplicatif à appliquer à la largeur du seuil afin de caractériser plus précisément la réactivité du modèle à ce paramètre. Tout cela justifie l'implémentation à l'échelle globale de MLake pour vérifier sa cohérence et son applicabilité sur des bassins contrastés.
