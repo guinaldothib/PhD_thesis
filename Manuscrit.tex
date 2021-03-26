@@ -1,0 +1,136 @@
+\documentclass[a4paper,12pt,twoside]{StyleThese}
+
+\include{formatAndDefs}
+
+\begin{document}
+
+
+\include{TitlePage}
+\cleardoublepage
+\pagenumbering{roman}
+
+\setcounter{page}{1}
+\cleardoublepage
+\chapter*{\fontfamily{lmss}\selectfont Remerciements}
+
+\textit{Verba volant, scripta manent.}\\
+
+
+\noindent Il est d’usage, en préambule d’un travail de thèse, de remercier ceux qui ont contribué à produire ce qui remplacera, pour certains, leur livre favori et, pour d’autres, servira d’excellent cale-meuble. Loin d’être un passage obligatoire, ce moment unique offre l’opportunité d’avoir une attention pour chacune des personnes ayant marqué ces trois années de travaux.\\
+
+\noindent En premier lieu, je souhaiterais adresser un immense remerciement à mes directeurs de thèse. Tout d’abord aux deux officiels: Aaron A. Boone et Patrick Le Moigne, sans qui je n’aurais pas pris part à cette merveilleuse aventure. Merci pour votre excellence tant sur le plan scientifique qu'humain.
+\noindent Ensuite j’aimerais remercier un directeur officieux: Simon Munier dont nos discussions sont un exemple parfait de la notion de relativité.\\
+
+\noindent Merci à Christine Lac, sans jeu de mots, qui est une chercheuse talentueuse mais surtout une personne humaine et bienveillante.\\
+
+\noindent Débuter un travail de thèse c’est aussi intégrer une équipe. D’abord MOSAYC, rapidement devenue SURFACE, j’aimerais remercier des personnes qui me sont chères: 
+Delphine, dich dich à mon Google Python personnel. Adiou Marie, la serial potière du couloir. Le duo de l’extrême: Antoine et Stéphane. Adrien qui, même au GEMAP, a su me conseiller tout au long de la thèse, Sylvie pour son écoute, Diane pour sa bienveillance et sa capacité à faire la fête, Gaëtan et Malak les petits jeunes qui feront la fierté de l’équipe. Théo et Maxime les inoubliables stagiaires.\\
+Une pensée aussi pour VILLE et VEGEO.
+
+\noindent Dans la grande famille du CNRM, j’aimerais remercier tous les doctorants que j’ai pu rencontrer. D’abord les anciens, Hélène D., Carole P., Tiphaine S., Quentin R., Quentin F., César S., Léo D., Alexane L., Najda V., Yann C., Marine G., Thomas R. Puis les docteurs ou presques-docteurs Damien S., Zied.S., Clément S., Daniel. S., Martin C., Mayeul D.\\
+\noindent Une attention particulière à Pierre-Antoine, mon petit karaté-geek. Mary pour l’aide, les conseils et les blagues sur les footballeuses.\\
+
+\noindent Enfin les copains Météo qui m’ont accepté à leur table: Julie, Hélène, Marine, Alice, Lucas et Benoit. Je ne pouvais pas finir sans citer des copains en or: Thomas le plus rayonnant des Bretons, Olivier le plus Vendéen des punks, Hugo le plus chic des Basques, Marc le plus bel accent de France et Axel le plus beau mannequin maillot de bain moulant.\\
+
+\noindent Le CNRM c’est aussi une équipe administrative dévouée: Ouria, Anita, Régine et ma chère Martine. Que la vie au CNRM est simple lorsqu’on est bien entouré! \\
+
+\noindent J’aimerais ponctuer ce tour d’horizon du laboratoire en remerciant tout d’abord CTI pour leur aide et leur soutien. Vous êtes un pilier important, central et irremplaçable. \\
+\noindent Je voudrais avoir une pensée particulière pour les copains/copines du vélo : Olivier T., Véronique M., Fred S., Jean-Marie D.\\
+\noindent A la confluence de ces deux remerciements, je terminerais en remerciant celui qui est sûrement le  plus atypique et inoubliable des compagnons de route: Serge Blin.\\
+
+\noindent Une réussite de thèse, ce sont aussi des personnes externes qui comptent beaucoup pour moi.\\
+\noindent Elise, une rencontre par delà les étoiles. À nos bières du vendredi après-midi, à tes poules et à Locky.\\
+\noindent Mes amis de longues dates. Arnaud présent depuis la 6ème, copilote de rodéo en tracteur tondeuse. David, présent depuis la 2nd, même si tu as eu un titre de docteur avant moi, tu restes avant tout un arracheur de dent.
+Merci à tous les copains de JDA: Laurène, Cassandre, Axel, Marine, Paul.\\
+Agathe, que le temps a passé depuis la maternelle. À nos soirées post-journée pédagogique, aux fourmis écrasées entre lames et lamelles, à la technique australienne. Je suis heureux que tu aies trouvé chaussure à ton pied. Thomas tu es un garçon exceptionnel, tu rayonnes et c'est toujours un plaisir que de passer du temps avec toi.\\
+
+\noindent J’aimerais conclure en ayant une attention particulière pour ma famille. Papa, Maman, merci de votre patience, d’avoir contribué au développement de mon oreille interne, de m’avoir toujours soutenu dans mes projets (même lorsqu’il s’agissait de partir au Sud Soudan). Vincent,  je t’ai parfois fait porté le chapeau mais j’ai fait tout mon possible  pour te laisser de la place, que ce soit enfant lors de nos soirées pyjama improvisées ou plus tard lors des retours de fêtes à Juillan.\\
+\noindent La famille s’agrandit aussi du côté du Sud-Est et cela grâce à Isa, Pascal, Axelle, Arthur et maintenant Elliot. Merci de m’avoir accepté. Je remercie aussi la Bonne Mère!\\
+
+\noindent Je souhaite conclure avec la personne sans qui je ne serais jamais arrivé jusqu’ici. Pauline, merci pour le nombre incalculables d’heures passées à me soutenir, à me conseiller et surtout à m’écouter parler de mes lacs, de mes doutes comme de mes certitudes. Je mesure la chance que j’ai.
+
+\cleardoublepage
+
+\begin{vcenterpage}
+\chapter*{{\fontfamily{lmss}\selectfont Résumé}}
+\label{chap:résumé}
+\addstarredchapter{Résumé}
+\markboth{\uppercase{Résumé}}{}
+\noindent L'hydrologie continentale s'intéresse à tous les aspects du cycle de l'eau des terres émergées et représente les flux de masse d'eau qui y sont échangés. Que ce soit dans le sous-sol ou dans le brassage continu des torrents, l'eau et les processus hydrologiques associés entretiennent un lien direct avec la dynamique atmosphérique et la variabilité climatique. De nombreuses publications révèlent l'importance des lacs dans ce cycle tout en pointant le manque de représentation dans les modèles de surface utilisés en applications climatiques.
+\\
+L'étude, à l'échelle globale, de ces processus hydrologiques s'appuie sur des techniques de modélisation qui, au CNRM, passent par un système couplé composé du modèle de surface ISBA et du modèle de routage en rivière CTRIP. Ces dernières années, les progrès réalisés sur les paramétrisations et la représentation des nouveaux processus dans ces modèles ont abouti à une nette amélioration des performances du système pour des applications hydrologiques couplées avec un modèle de climat.
+\\
+Dans la continuité de ces efforts, l'objectif principal de cette thèse est de développer une paramétrisation des lacs pour intégrer leur bilan de masse dans le modèle global CTRIP à 1/12°. Par ailleurs, le modèle développé, MLake, propose un diagnostic sur le marnage des lacs afin de permettre le suivi du niveau d'eau basé sur des mesures satellitaires.
+\\
+Bénéficiant d'un réseau de mesures dense et de forçages climatiques haute résolution, le bassin versant du Rhône a été choisi pour évaluer localement MLake sur la période 1960-2016. Les résultats sur trois stations de jaugeage montrent une nette progression des performances de CTRIP dans la simulation des débits du Rhône. Cela se caractérise par un effet tampon avec écrêtement des débits de crues et soutien à l'étiage. La confrontation du diagnostic sur les niveaux d'eau du Léman avec des mesures locales révèle une capacité du modèle à suivre les cycles annuels et interannuels du marnage.
+\\
+Une deuxième évaluation s'est ensuite portée à l'échelle globale pour confirmer le comportement du modèle dans des conditions hydroclimatiques contrastées. Cette évaluation confirme la capacité du modèle à simuler des débits réalistes mais révèle la perturbation importante du cycle hydrologique naturel par l'anthropisation. Enfin les résultats préliminaires d'une simulation globale démontrent l'intérêt d'utiliser MLake notamment par le fait que sur les 21\% des stations impactées, principalement dans les régions arctiques, 68\% d'entre elles voient un apport positif.
+\\
+Enfin, l'introduction d'une bathymétrie gaussienne en paramétrant l'hypsométrie des lacs, engage une réflexion sur les perspectives d'améliorations du modèle en vue d'un couplage avec un modèle de climat et de l'utilisation des données de la future mission spatiale SWOT.
+
+\chapter*{{\fontfamily{lmss}\selectfont Abstract}}
+\label{chap:abstract}
+\addstarredchapter{Abstract}
+\markboth{\uppercase{Abstract}}{}
+\noindent The water cycle encompasses the main processes related to mass fluxes that influence the atmosphere and climate variability. More specifically, continental hydrology refers to the water transfer occurring at the land surface and sub-surface. Recent publications reveal the importance of lakes within the water cycle, but they also highlight the lack of representation of their dynamics in land surface models which are used for climate studies.
+\\
+Modelling is one of the main methods used for the representation of these processes at regional to global scales. The land surface model system used in this thesis is composed of the ISBA land surface model coupled to the river routing model TRIP that combines the CNRM’s latest developments for use in stand-alone hydrological applications or coupled to a climate model.
+\\
+This PhD is focused on the development and evaluation of lake mass-balance dynamics and water level diagnostics using a new non-calibrated model called MLake which has been incorporated into the 1/12° version of the CTRIP model. 
+\\
+Simulated river flows forced by high resolution hydrometeorological forcings are evaluated for the Rhone river basin against \textit{in situ} observations coming from three river gauges over the period 1960-2016. Results reveal the positive contribution of MLake in simulating Rhone discharge and in representing the lake buffer effects on peak discharge. Moreover, the evaluation of the simulated and observed water level variations show the ability of MLake to reproduce the natural seasonal and interannual cycles. 
+\\
+Based on the same framework, a final evaluation was conducted in order to assess the value of the non-calibrated MLake model for global hydrological applications. The results confirmed the capability of the model to simulate realistic river discharges worldwide. At 68\% of the 2000 river gauge stations impacted by the addition of the lake dynamics, which are mostly located within regions of high lake density, the new model resulted in improved simulated river discharge. The results also highlighted the strong effect of anthropization on the alterations of river dynamics, and the need for a global representation of human-impacted flows in the model. 
+\\
+This study has lead to several future perspectives, such as the incorporation of a parametrization of lake hypsometry for use at global scale under the hypothesis that lake bathymetry could be approximated by a Gaussian function. The implementation of such developments will improve the representation of vertical water dynamics and facilitate both the coupling of MLake within the CNRM earth system model framework and the future spatial mission SWOT for improved future global hydrological and water resource projections.
+
+\end{vcenterpage}
+%%
+\cleardoublepage
+%begin epigraphe
+\vspace*{\fill} \epigraph{\itshape L’histoire d’un ruisseau, même de celui qui naît et se perd dans la mousse, est l’histoire de l’infini. Ces gouttelettes qui scintillent ont traversé le granit, le calcaire et l’argile ; elles ont été neige sur la froide montagne, molécule de vapeur dans la nuée, blanche écume sur la crête des flots ; le soleil, dans sa course journalière, les a fait resplendir des reflets les plus éclatants ; la pâle lumière de la lune les a vaguement irisées ; la foudre en a fait de l’hydrogène et de l’oxygène, puis d’un nouveau choc a fait ruisseler en eau des éléments primitifs.}{Élisée Reclus\\ (Histoire d'un ruisseau)}
+\epigraph{\itshape Chaque homme n'est pas lui-même seulement. Il est aussi le point unique, particulier, toujours important, en lequel la vie de l'univers se condense d'une façon spéciale, qui ne se répète jamais.}{Herman Hesse \\ (Demian)}
+\vfill\clearpage
+%end epigraphe
+
+\dominitoc
+\tableofcontents
+
+\adjustmtc
+\listoffigures
+\listoftables
+\adjustmtc
+
+\mainmatter
+
+\include{Introduction}
+\cleardoublepage
+\include{Chapitre1}
+\cleardoublepage
+\include{Chapitre2}
+\cleardoublepage
+\include{Chapitre3}
+\cleardoublepage
+\include{Chapitre4}
+\cleardoublepage
+\include{Conclusions}
+\cleardoublepage
+
+\appendix
+
+\cleardoublepage
+\mtcaddpart[Annexes]
+\part*{Annexes}
+\include{Annexe1}
+\cleardoublepage
+\include{Annexe2}
+\cleardoublepage
+\include{Annexe3}
+\cleardoublepage
+\include{Annexe4}
+\cleardoublepage
+\include{Acronymes}
+
+\bibliography{biblio2}
+
+\end{document}
