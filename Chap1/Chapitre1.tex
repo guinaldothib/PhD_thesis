@@ -1,0 +1,795 @@
+%!TEX root = Manuscrit.tex
+\chapter{{\fontfamily{lmss}\selectfont Une introduction à l'hydrologie continentale: Contexte de l'étude}}
+\label{chap:intro}
+\minitoc
+
+L'intérêt de ce chapitre introductif est d'aborder les principes généraux qui régissent les processus de production et de transfert des masses d'eau au sein du système Terre et dont les lacs en sont une composante. Ainsi la description des différents bilans qui composent le cycle de l'eau et les moyens à notre disposition pour l'observer et le modéliser vont être abordés. La description exhaustive des composantes du cycle de l'eau pourrait à elle seule faire l'objet d'un travail de recherche et c'est pour cela que l'accent est mis sur la composante centrale de cette thèse: les lacs.\\
+Un bref état des lieux sur les connaissances en limnologie physique et dynamique est proposé afin de comprendre les enjeux de la modélisation lacustre et les processus inhérents à ces plans d'eau tout en permettant de mieux circonscrire la problématique liée au bilan d'eau lacustre.\\
+D'un point de vue thématique, ce chapitre sert aussi à détailler le contexte général et les objectifs à atteindre pour représenter la dynamique des lacs à l'échelle globale.
+
+\section{{\fontfamily{lmss}\selectfont Les différents bilans appliqués à l'hydrologie continentale}}
+\label{sec:intro_bilans}
+
+Les processus physiques, quels qu'ils soient, sont dépendants d'une source d'énergie. Cela s'applique évidemment aux processus hydrométéorologiques dont la principale source d'énergie provient du rayonnement solaire. Au sommet de l'atmosphère, le rayonnement solaire, dont le spectre est représenté sur la figure \ref{ray_solaire}, a une valeur constante égale à 1 368 $W.m^{-2}$.
+
+\begin{figure}[h!]
+\centering
+ \includegraphics[width=0.8\textwidth]{spectre-solaire}
+ \caption{Distribution spectrale du rayonnement solaire au sommet de l'atmosphère et au niveau du sol. Source: \citet{malardel2005}.}
+ \label{ray_solaire}
+\end{figure} 
+
+~\\
+Le rayonnement solaire se répartit en tout point de notre planète suivant des caractéristiques spatiales (comme la longitude et la latitude) et temporelles (telles que l'heure ou le jour de l'année). Minimale aux pôles et maximale à l'équateur, la variation d'intensité du rayonnement engendre un bilan radiatif, en moyenne annuelle, déficitaire pour les régions polaires et excédentaire pour les régions équatoriales (Figure \ref{bilan_zonal}). 
+Pourtant le système surface-atmosphère reste équilibré énergétiquement à l'échelle globale grâce à une compensation de ce déséquilibre radiatif par le biais des circulations atmosphériques et océaniques qui transportent l'énergie des régions tropicales aux régions polaires (Figure \ref{energie2}). En France, le Gulf Stream est une manifestation visible de ce type de mécanisme océanique global qui permet à la façade Atlantique de bénéficier d'une température océanique douce tout au long de l'année.\\
+
+\begin{figure}[h!]
+    \begin{minipage}[c]{.46\linewidth}
+        \centering
+        \includegraphics[scale=0.6]{bilan_zonal}
+    \caption{Bilan radiatif zonal en moyenne annuelle et contribution du rayonnement solaire (courbe rouge), du rayonnement infra-rouge émis (courbe verte) et du rayonnement absorbé (courbe bleue). Source: \citet{malardel2005}.}  
+     \label{bilan_zonal}     
+    \end{minipage}
+    \hfill%
+    \begin{minipage}[c]{.46\linewidth}
+        \centering
+        \includegraphics[scale=0.6]{transport_energie}
+        \caption{Représentation du transport d'énergie vers les pôles par les océans (surface verte) et l'atmosphère (surface bleue). Source: \citet{malardel2005}.}
+        \label{energie2}
+    \end{minipage}
+\end{figure}
+
+\noindent En pénétrant dans l'atmosphère, le rayonnement solaire est soumis à de nombreux mécanismes qui déterminent la quantité résiduelle d'énergie atteignant effectivement la surface de la Terre. Si l'on se soustrait aux hypothèses de l'optique et qu'on isole un rayon solaire, il est possible de décrire un ensemble de phénomènes qui vont agir sur ce rayon, comme la réflexion, la transmission ou l'absorption, représenté sur la figure \ref{radia_budget}. En moyenne climatologique, chaque processus interagit de façon plus ou moins importante avec le rayonnement. La part de réflexion sans changement de longueur d'onde est de 30\% tandis que l'absorption du rayonnement par l'air et les nuages compte pour 19\%. Finalement, seulement 51\% de l'énergie solaire initiale est effectivement absorbée par la surface terrestre.\\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.75\textwidth]{bilan_radiatif}}
+ \caption{Bilan radiatif global au niveau de la surface terrestre et contribution des différents processus. Adapté de \citet{trenberth2009}.}
+ \label{radia_budget}
+\end{figure}
+
+\noindent Grâce à cet apport d'énergie et à ses variations spatio-temporelles, deux grands cycles d'échanges se mettent en place au niveau de la surface et redistribuent les excédents entre les différents compartiments du système Terre:\\ 
+
+\begin{itemize}
+\item[$\bullet$] le cycle de l'énergie, décrit par le premier principe de la thermodynamique;
+\item[$\bullet$] le cycle de l'eau, décrit par l'équation de continuité.
+\end{itemize}
+~\\
+~\\
+~\\
+~\\
+Ces cycles sont dépendants l'un de l'autre et interagissent en permanence; en témoigne l'augmentation de la température de surface recevant une certaine quantité d'énergie (un lac par exemple) qui se traduit par une augmentation des flux d'évaporation associés à une perte de masse.\\
+Pour compléter les cycles globaux, il faut noter qu'il existe un troisième cycle, celui du carbone, primordial dans l'étude du système Terre et notamment dans un contexte de changement climatique d'origine anthropique, mais qui ne sera pas détaillé dans ce manuscrit.
+
+\subsection{{\fontfamily{lmss}\selectfont Le bilan énergétique à la surface de la Terre}}
+\label{sec:bilan_energie}
+
+Comme une source d'énergie est indispenable à l'évolution des processus hydro-météorologiques, il est naturel de débuter la description des bilans de surface par celle du bilan énergétique. Le système considéré lors de l'étude du bilan énergétique de surface consiste en un couple défini par la surface et la couche limite atmosphérique situé au-dessus. La surface correspond à la partie, considérée immobile, où se développent les activités humaines et dont les caractéristiques propres conditionnent la limite basse de l'atmosphère. Lieu d'échanges énergétiques et d'humidité, elle est aussi la source de pollutions et de turbulence atmosphérique.\\
+La couche limite atmosphérique, quant à elle, est la partie de l'atmosphère directement impactée par la surface, par frottements, et dont les temps caractéristiques d'évolutions sont courts. L'ordre de grandeur de son épaisseur est le kilomètre et elle est fortement impactée par le cycle diurne. La turbulence y est faible la nuit à cause de la stabilisation de l'atmosphère et plus forte la journée sous l'effet de la convection. Par ailleurs, c'est bien souvent à son sommet que l'on peut observer la formation de nuages. \\
+
+Ce couple échange constamment de l'énergie sous forme de chaleur, du rayonnement et de la matière ce qui influence les caractéristiques propres à chacun et contraint leurs évolutions. Ainsi c'est la connaissance de ces échanges et notamment l'évolution des variables qui les caractérisent qui conditionne l'étude du cycle énergétique. Les variables énergétiques de surface ont des temps de réponse rapides et sont contraintes par les capacités thermiques des couches qu'elles représentent. La différence de température entre une rivière et sa berge lors d'une journée estivale est un exemple facilement observable des variations énergétiques de surface. L'apparition de gradients est conditionnée par des paramètres essentiels comme la profondeur de pénétration du rayonnement, la capacité d'absorption de la surface et l'albédo. Au niveau d'un sol nu la profondeur de pénétration est de l'ordre de quelques millimètres alors qu'elle peut atteindre plusieurs mètres pour les grands fleuves. Ces différences contribuent à la formation de zones plus ou moins propices aux échanges énergétiques (par exemple avec l'apparition de brises) mais contribuent aussi à l'hétérogénéité des réponses de ces surfaces face à des contraintes extérieures. Par conséquent, même si les échanges dépendent du type de surface et des variables thermodynamiques dans l'environnement, il est possible de dégager des grandes tendances de flux échangés intervenant à l'interface surface-atmosphère comme résumé par la figure \ref{radia_budget} en section précédente.
+\\
+
+\noindent Le bilan énergétique de surface consiste en un équilibre entre le bilan radiatif (apport ou perte d'énergie), le flux de conduction dans le milieu (par exemple le sol ou l'eau) et les flux convectifs liés à l'activité turbulente.\\
+
+\noindent Le bilan d'énergie en surface s'écrit sous la forme: 
+
+\begin{equation}
+R_{n} = LE + H + G
+\end{equation}
+avec $R_{n}$, le flux radiatif net correspondant à la différence entre le flux radiatif reçu et le flux radiatif émis par la surface, $H$ le flux de chaleur sensible, $LE$ le flux de chaleur latente et $G$ le flux de chaleur échangé par conduction dans le milieu considéré. Tous ces flux s'expriment en W.m$^{-2}$. \\
+\clearpage
+\noindent Ces différents termes sont illustrés sur la figure \ref{termes_bilan}.\\
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.85\textwidth]{termes_bilan}}
+ \caption{Termes du bilan d'énergie de surface.}
+ \label{termes_bilan}
+\end{figure}
+
+Le bilan radiatif net se décompose en deux types de rayonnements. D'un côté, le rayonnement solaire à courtes longueurs d'ondes et de l'autre le rayonnement infrarouge à ondes longues. Le rayonnement solaire issu de la photosphère est assimilé à celui d'un corps noir de température 6000 K dont le maximum d'intensité est émis dans le visible (0.48 $\mu.m$). La surface de la Terre ayant, quant à elle, une température moyenne aux alentours de 300 K, émet une intensité maximale dans l'infrarouge (10 $\mu. m$) \footnote{Ces longueurs d'ondes, de maximum d'émission $\lambda_{max}$, sont issues de la loi de déplacement de Wien selon $\lambda_{max} = \dfrac{a}{T}$. $a$ est une constante égale 2897 $\mu.m.K$ et T est la température du corps noir ($K$).}. \\
+~\\
+
+\noindent Le bilan radiatif, qui évolue selon le cycle diurne, équivaut donc à la somme algébrique des composantes ascendantes et descendantes des rayonnements solaire et infrarouge et s'écrit:
+
+\begin{equation}
+R_{n} = SW\downarrow + SW\uparrow + LW\uparrow + LW\downarrow
+\end{equation}
+avec $SW\downarrow$ le rayonnement solaire incident transmis jusqu'à la surface, $SW\uparrow$ le rayonnement solaire réfléchi par la surface, $LW\uparrow$ le rayonnement infrarouge émis par la surface, $LW\downarrow$ le rayonnement infrarouge reçu par la surface. Tous ces flux s'expriment en W.m$^{-2}$.
+\\
+
+\noindent Le bilan sur les courtes longueurs d'ondes dépend du rayonnement solaire incident et de l'albédo $\alpha$ de la surface (fraction du rayonnement réfléchi) tel que: \begin{equation}
+SW_{total} = SW\downarrow + SW\uparrow = (1-\alpha) \: SW\downarrow
+\end{equation}
+\\
+De la même façon, le bilan sur les longueurs d'ondes infrarouges dépend de la capacité d'un corps à émettre de l'énergie c'est-à-dire son émittance. Cette émittance dérive de la température d'un corps noir et est décrite par le loi de Stefan: 
+\begin{equation}
+M(T) = \sigma T^{4}
+\end{equation}
+avec $\sigma$ la constante de Stefan-Boltzmann qui vaut $5.67.10^{-8}$ W.m$^{-2}$.K$^{-4}$. \\
+
+\noindent Le bilan sur le rayonnement infrarouge se divise aussi suivant une part d'infrarouge reçue $LW\downarrow$ et une part émise par la surface $LW\uparrow$ qui peut se résumer suivant:
+\begin{equation}
+LW_{total} = LW\uparrow + LW\downarrow = -\left(\epsilon \sigma T^{4} + (1-\epsilon)LW\downarrow \right) + LW\downarrow
+\end{equation}
+avec $\epsilon$ l'émissivité (-) et $T$ la température du corps (K).
+\\
+
+\noindent Le bilan convectif est représenté par les flux turbulents, en surface, de chaleur sensible $H$ et de chaleur latente $LE$. La chaleur sensible est définie comme la quantité d'énergie nécessaire pour augmenter la température d'un corps sans changement d'état (en W.m$^{-2}$). La chaleur latente est la quantité d'énergie nécessaire pour augmenter la température d'un corps lors d'un changement d'état (en W.m$^{-2}$).\\
+Les flux turbulents en surface peuvent s'exprimer de la façon suivante:
+\begin{align}
+H  = \rho_{0}c_{p}\overline{w'\theta'}
+\\
+LE = \rho_{0}L_{v}\overline{w'q'}
+\end{align}
+avec $\rho_{0}$ la masse volumique de l'air (kg.m$^{-3}$), $c_{p}$ la capacité thermique à pression constante de l'air (J.kg$^{-1}$.K$^{-1}$), $L_{v}$ la chaleur latente de vaporisation de l'air (J.kg$^{-1}$), $\overline{w'\theta'}$ le flux cinématique vertical de chaleur (m.K.s$^{-1}$), $\overline{w'q'}$ le flux cinématique vertical d'humidité (m.s$^{-1}$).
+\\
+
+\noindent Enfin le flux de conduction représente les échanges de chaleur par conduction thermique entre la surface et le milieu considéré. Ce bilan s'écrit suivant la loi de Fourier qui détermine la quantité de chaleur transmise par agitation thermique et dépend des caractéristiques de conduction du milieu et donc de sa composition:
+\begin{equation}
+G = -\lambda \overset{\rightarrow}{grad}T 
+\end{equation}
+avec $\lambda$ la conductivité thermique (W.m$^{-1}$.K$^{-1}$), $T$ la température du milieu (K). \\
+
+\noindent Tous ces termes (rayonnement et flux de chaleur) sont, par convention, positifs s'ils sont reçus par la surface et négatifs s'ils sont émis par la surface.\\ 
+Le bilan énergétique à la surface s'équilibre donc suivant:
+\begin{equation}
+(1-\alpha) \: SW\downarrow  + \epsilon(LW\downarrow-\sigma T^{4}) = H + LE + G
+\end{equation} 
+
+\noindent Pendant la journée, le rayonnement solaire réchauffe la surface en lien avec une augmentation des flux infrarouges (la surface est assimilée à un corps noir). L'augmentation de la température de la surface engendre le déclenchement de phénomènes convectifs et un mélange par turbulence qui va réchauffer l'atmosphère. Pendant la nuit sur Terre, le rayonnement infrarouge, typiquement déficitaire, est compensé par un flux de chaleur positif provenant du sous-sol ou par un flux turbulent (si la différence de température entre la surface et la partie basse de l'atmosphère est positive). Ce système complexe est fondamental pour l'étude des phénomènes de basses couches, tel que le brouillard, et l'étude des surfaces, pour le suivi des sécheresses.
+
+\subsection{{\fontfamily{lmss}\selectfont Le bilan hydrologique}}
+\label{sec:bilan_hydrologique}
+
+Comme nous l'avons évoqué dans l'introduction générale, le cycle de l'eau présente différents enjeux comme la gestion quantitative de l'eau en tant que ressource ou levier économique. Cette question est d'ores et déjà d'une importance capitale et tend à s'accentuer dans le contexte d'évolutions globales auquel devra faire face l'humanité dans les prochaines décennies. \\
+Ainsi le bilan hydrologique permet de quantifier les rétroactions qui lient le climat à la variabilité spatiale et temporelle de la ressource en eau. Par exemple, la question des conséquences d'un déficit en pluie sur l'humidité des sols, les débits fluviaux et la recharge des eaux souterraines peut être abordée en étudiant ce bilan.\\
+Les études les plus récentes révèlent qu'une personne sur cinq  dans le monde n'a pas accès à une quantité suffisante d'eau et seulement un tiers a accès à une eau de qualité acceptable \citep{who2010}. Ce stress est particulièrement inégal à travers le monde: certaines régions concentrent une grande quantité d'eau, par exemple la région des Grands Lacs Américains contient 20\% des réserves mondiales d'eau douce de surface \citep{messager2016}, tandis que d'autres souffrent d'un stress hydrique important comme par exemple les pays de la péninsule arabique. Ces inégalités tendent, par ailleurs, à s'accentuer par une rapide dégradation de la qualité et une réduction de la disponibilité en eau \citep{WDDR2019}. Au cours des 50 dernières années, la consommation d'eau a doublé et cette tendance s'accélère encore puisque l'utilisation d'eau augmente chaque année pour satisfaire les besoins accrus par la croissance démographique et le développement économique \citep{wada2013}. Associées à ces enjeux, émergent des problématiques sur l'approvisionnement en eau qui aggravent les pénuries saisonnières et mettent en exergue les modifications dues au changement climatique. Il est, par conséquent, primordial d'accroître la compréhension, l'observation et l'anticipation des processus du cycle de l'eau pour prévoir et anticiper les futures évolutions, pour limiter l'appauvrissement de la ressource et assurer la sécurité des personnes et des biens.
+\\
+
+\noindent Lorsque l'on parle de bilan hydrologique, il est question de tous les phénomènes induisant un mouvement et un renouvellement de l'eau sur Terre. Ce bilan concerne l'eau continentale, de surface et souterraine, l'eau des mers et des océans ainsi que l'eau atmosphérique et représente l'état de ce système sur une période donnée. \\
+La répartition de l'eau sur Terre respecte une distribution variable suivant les différents compartiments que l'on tente d'observer et de modéliser. En moyenne, la quantité d'eau stockée est plus ou moins stable et les océans représentent le principal réservoir d'eau liquide avec 75\% des ressources mondiales sous forme d'eau salée, non directement potable.\\ Cependant, comme nous l'avons dit en introduction de ce manuscrit, chaque compartiment du cycle de l'eau possède des caractéristiques spatio-temporelles propres qui définissent les échanges entre les réservoirs. Une connaissance précise de la répartition entre ces différents compartiments et de leurs interactions assure une meilleure compréhension des enjeux liés à l'eau mais informe aussi sur la sensibilité de chaque compartiment face aux perturbations potentielles.\\
+
+Le cycle de l'eau est complexe et la connaissance limitée de certains processus ralentit sa modélisation. En prenant en compte tous les processus du cycle de l'eau il est possible de le diviser en trois catégories: \\
+
+\begin{itemize}
+\item[$\bullet$] les précipitations;
+\item[$\bullet$] les écoulements;
+\item[$\bullet$] l'évaporation.
+\end{itemize}
+~\\
+Ces trois classes quantifient de manière précise les différents échanges et processus qui décrivent le cycle de l'eau. \\
+~\\
+L'équation qui traduit les flux se base sur le principe de continuité. Elle caractérise le bilan de quantité d'eau entre l'entrée et la sortie de chaque système, pour une période donnée sous la forme: 
+
+\begin{equation}
+\frac{dS}{dt} = E - S 
+\end{equation}
+avec ${dS}$ la variation de stock pendant le temps considéré, $E$ et $S$ les quantités d'eau entrant et sortant de ce système. \\
+
+\noindent Ce bilan d'eau est généralement exprimé en volume même si la hauteur d'eau, aussi appelée "lame d'eau" (définie comme le rapport du volume ruisselé sur la surface drainée), est privilégiée en hydrologie pour exprimer les quantités d'eau  en $mm$. Dans le cadre de cette thèse, les stocks du bilan d'eau sont exprimés sous forme de masse (kg).\\
+
+Afin d'avoir une vision générale de ce cycle, il est nécessaire de préciser une notion importante en hydrologie: l'échelle. Quelle soit temporelle ou spatiale, l'échelle à laquelle on se place pour étudier le cycle de l'eau est importante car d'elle dépend la qualité des forçages et des données d'évaluation. De l'échelle dépend aussi la caractérisation de la variabilité spatiale des processus, principal enjeu de l'hydrologie et de la représentation de phénomènes tels que les crues \citep{bloschl1995,beven2001}. Précédemment l'échelle temporelle à été abordée afin de caractériser la sensibilité des compartiments hydrologiques à des évolutions de leurs propriétés. En hydrologie, deux échelles spatiales sont couramment utilisées avec pour chacune des conditions d'applications spécifiques à respecter. \\
+Pour commencer, la première échelle correspond à la vision la plus complète du bilan d'eau c'est-à-dire l'échelle du globe. Cette échelle est caractérisée par l'équation du bilan hydrique: 
+\begin{equation}
+\frac{d\overline{S}}{dt} = \overline{P} - (\overline{R_{tot}} + \overline{ET}) = 0
+\end{equation}
+avec $\overline{S}$ le stock moyen annuel, $\overline{P}$ les précipitations moyennes annuelles, $\overline{R_{tot}}$ la valeur moyenne du ruissellement total annuel et $\overline{ET}$ l'évapotranspiration moyenne annuelle. Toutes les variables sont exprimées en mm.s$^{-1}$.
+\\
+
+Lorsqu'on applique l'équation de continuité au cycle de l'eau global, il en résulte, qu'indépendamment des processus que l'on étudie, le stock global S est conservé. Plus précisément, malgré les évolutions et les modifications qui interviennent aux échelles plus petites, la quantité d'eau, sous toutes ses formes, n'évolue pas et cela indépendamment du temps. C'est une condition importante dans le développement de modèles décrivant le cycle de l'eau car elle garantit la fermeture du bilan d'eau dans le système et assure une meilleure compréhension des flux de masse entre les compartiments.
+\\
+
+\noindent La deuxième échelle importante en hydrologie est celle bassin versant. Le bassin versant est une unité géographique hydrologiquement close sur laquelle se base l'étude du cycle hydrologique. Le bilan hydrologique du bassin versant est réalisé à un exutoire situé en aval (Figure \ref{bv}). Plus précisément, un bassin versant est la zone couvrant toute la surface topographique drainée par un cours d'eau et ses affluents à l'amont d'une section choisie. Par conséquent, une goutte d'eau tombant à l'extérieur de la ligne de partage des eaux (souvent une ligne topographique) ne peut pas rejoindre l'exutoire et ne contribuera donc pas au débit de ce bassin. \\
+
+ \begin{figure}[h!]
+ \centerline{\includegraphics[width=0.8\textwidth]{bassin_versant}}
+ \caption{Représentation d'un bassin versant et de ses composantes principales.}
+ \label{bv}
+\end{figure}
+
+Sur une année hydrologique $i$, l'équation de continuité s'applique à cette unité hydrologique sous la forme: 
+\begin{equation}
+\Delta S_{i} = P_{i} - (R_{i}+ET_{i})
+\end{equation}
+avec respectivement $S_{i}$, $P_{i}$, $R_{i}$ et $ET_{i}$ le stock annuel, le volume précipité, le volume ruisselé et le volume évapotranspiré au cours de l'année hydrologique $i$. Toutes les variables sont exprimées en mm.\\
+
+Contrairement à l'année civile, une année hydrologique couvre le cycle annuel de l'eau à l'échelle du bassin versant: cette période est définie sur 12 mois à partir du mois de plus basses eaux. En France, l'année hydrologique débuté au 1$^{er}$ septembre et se termine le 31 août de l'année suivante.\\
+
+Le bassin versant est caractérisé par des paramètres physiques et un comportement hydrologique qui vont déterminer sa réponse à des événements hydrométéorologiques. La surface drainée, le coefficient de ruissellement, la longueur hydraulique, la pente, la forme du bassin et son temps de concentration sont les caractéristiques essentielles qui permettent de décrire le bassin versant. \\
+
+À l'opposé de l'échelle globale, ce bilan hydrique n'est pas constant et évolue suivant des facteurs climatiques, morphologiques ou géologiques en induisant une évolution à court, moyen ou long terme pour les variables étudiées. Dans ce cas, le stock associé évolue au détriment ou au profit des bassins versants voisins. À titre d'exemple, la variabilité climatique impacte fortement les bassins versants méditerranéens qui voient une intensification régionale des extrêmes de pluie \citep{tramblay2013,ribes2019} avec, paradoxalement, une diminution des cumuls et des durées de précipitations \citep{folton2019}. Malgré tout, les réponses hydrologiques à ces perturbations sont localement variables, notamment en matière de débit, et des zones climatologiquement proches peuvent engendrer des réactions hétérogènes. Ces perturbations dépendent fortement des caractéristiques intrinsèques des bassins versants et ne sont que peu liées aux changements de régimes de précipitations. Ces différences rendent les réponses inégales au sein d'une même zone géographique.
+
+\section{{\fontfamily{lmss}\selectfont L'observation comme première approche}}
+\label{sec:observations}
+
+Depuis le début de l'humanité, l'observation est la pierre angulaire de la compréhension de l'environnement qui nous entoure. Galilée, Newton, Maxwell et tant d'autres ont vu émerger leurs découvertes de l'expérience. Aujourd'hui, l'observation est toujours au cœur de la science que ce soit en physique, en chimie, en sociologie ou bien en anthropologie. L'hydrologie ne fait pas exception et cette section balaie de façon non exhaustive les différents outils à notre disposition pour observer et étudier les processus hydrométéorologiques.\\ 
+Que les observations soient adaptées à la représentation locale des processus ou bien porteuses d'une vision plus globale des mouvements d'eau, les observations sont nécessaires à la calibration et la validation d'études. Les développements techniques, par exemple dans le domaine spatial ou de la physique ondulatoire, ont permis une diversification des instruments qui, aujourd'hui, ne sont plus seulement des adaptations d'outils éprouvés dans d'autres domaines mais sont bien des moyens spécifiquement dédiés à l'observation des surfaces d'eau libre continentale.
+
+\subsection{{\fontfamily{lmss}\selectfont Les mesures \textit{in situ}}}
+
+Instruments historiques et essentiels à l'étude du cycle hydrologique, les stations \textit{in situ} ont permis un suivi de l'eau précis, à long terme et représentant spatialement les divers réservoirs hydrologiques. Même s'il reste des biais considérables suivant les techniques, aujourd'hui tous les compartiments du cycle de l'eau sont observés.\\
+
+Dans le cadre du suivi des cours d'eau, l'observation quantitative et qualitative est possible soit par l'implantation de stations permanentes, soit par le biais de campagnes de mesures. Parmi les instruments permanents utilisés en hydrologie, les stations limnimétriques, composées d'une échelle limnimétrique, de capteurs et d'un enregistreur, mesurent en continu la hauteur de la surface libre d'un cours d'eau par rapport à sa hauteur initiale. L'échelle limnimétrique, dont l'altitude est rattachée au système universel de référence d'altitude (NGF IGN69) est fixée au bord du cours d'eau de sorte à mesurer le marnage (différence entre la cote à l'étiage et la cote des hautes eaux). La hauteur d'eau est lue grâce au limnigraphe, généralement via un radar ou un ultrason puis est transmise à un enregistreur qui l'archive en vue d'une reconstitution des chroniques de débits. Connaissant la hauteur d'eau, le débit est déduit d'une courbe de tarage spécifiquement construite pour la station. En complément, des campagnes de jaugeages sont effectuées régulièrement pour affiner la connaissance des couples débit/hauteur d'eau et de leurs évolutions. Ces campagnes ont pour but de déterminer les plages de variabilité des débits ainsi que les modifications morphologiques des cours d'eau par le biais de méthodes comme le jaugeage au moulinet ou l'ADCP (Acoustic Doopler Current Profiler). \\
+\noindent Les réseaux d'observations sont entretenus par divers organismes qui traitent et mettent à disposition ces données. En France les hauteurs d'eau d'environ 3200 stations sont archivées, analysées et distribuées librement par la Banque Hydro (http://www.hydro.eaufrance.fr/). À l'échelle globale, les mesures de débits en rivières des principaux bassins mondiaux sont collectées et diffusées par le GRDC (Globale Runoff Data Center, figure \ref{grdc}). Ce centre de données international, sous l'autorité de l'Organisation Mondiale de la Météorologie (OMM), regroupe et met à disposition environ 4000 stations réparties sur 30 pays et plus de 9900 stations lorsque les archives de stations sont incluses, pour des chroniques pouvant remonter jusqu'à 200 ans. \\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=1.\textwidth]{grdc}}
+ \caption{Carte des stations de mesures \textit{in situ} du réseau GRDC: Source \url{https://www.bafg.de/GRDC/}}
+ \label{grdc}
+\end{figure}
+
+De nombreux instruments ont vu le jour pour capturer la diversité des variables et des paramètres qui caractérisent les lacs. Pour ce qui est des caractéristiques thermiques et optiques, l'observation profite d'avancées notables. Dans le cadre du suivi de la température des eaux, des appareils de mesures thermiques par profilage (profileur température-profondeur) ou par mouillage (thermomètres immergés) sont aujourd'hui disponibles. Les propriétés optiques reposent, quant à elles, sur des techniques de mesures de la transparence de l'eau comme par exemple la mesure par disque de Secchi: constitué d'un disque de 20 cm de diamètre divisé en quatre quadrants (2 peints en noir et 2 peints en blanc) et lesté sur une échelle graduée, le principe repose sur une relation entre la transparence de l'eau et la profondeur de disparition du disque. \\
+
+Le suivi hydrodynamique à l'intérieur des bassins lacustres souffre d'un manque de mesures directes \textit{in situ} et se fait plutôt par le biais de variables diagnostiques comme la cote d'eau ou par l'utilisation d'objets dérivants à la surface. Certains lacs sont, aujourd'hui, instrumentés avec une association de stations limnimétriques à flotteurs et de courantomètres afin de caractériser les mouvements d'eau. Sur ce principe et pour combler ce manque, le projet lExplore lancé en 2019 par l'Ecole Polytechnique Fédérale de Lausanne a pour objectif de collecter un maximum d'informations en continu sur la physique, la chimie et la dynamique du Léman (https://wp.unil.ch/lexplore/).
+Ces stations de mesures s'appuient sur des techniques éprouvées et fiables mais elles n'informent que sur une zone géographique relativement peu étendue et dépendante de la physionomie des environnements proches et des contraintes climatiques locales. \\
+
+\noindent Ces disparités fortes entre les territoires donnent lieu à une hétérogénéité dans les mesures et limitent l'extrapolation aux zones non jaugées. Si l'on se place le long d'un cours d'eau, la couverture spatiale du réseau de mesures est bien inférieure à l'échelle temporelle de variations des processus tel que le débit. Un autre inconvénient se pose en période d'inondations où la structure dynamique des rivières rend particulièrement difficile la connaissance des débits par mesure des hauteurs d'eau du fait des variations haute fréquence, du transport solide mais aussi du débordement de la rivière qui rend caduque les courbes de tarage. De plus, ces dernières décennies les mesures \textit{in situ} en hydrologie ont souffert de nombreuses discontinuités dans leurs chroniques et pour beaucoup ne respectent plus les exigences de qualité et d'accessibilité en temps réel \citep{shiklomanov2002, hannah2011, van2016}. Tous ces inconvénients s'ajoutent à des limites d'ordre économique et humain comme les coûts de maintenance élevés, une stagnation du déploiement d'instruments dans des bassins non jaugés et l'avènement des techniques de télédétection entraînant ainsi une diminution conséquente du nombre de stations de mesures \textit{in situ} \citep{pavelsky2014}
+
+\subsection{{\fontfamily{lmss}\selectfont La télédétection}}
+Les besoins croissants de notre société pour une gestion quantitative de la ressource en eau se sont vite confrontés aux limites de l'observation \textit{in situ}. Le développement du suivi des surfaces continentales par satellites a offert une solution alternative face à la nécessité d'observer de façon homogène des systèmes isolés, peu accessibles et donc peu instrumentés.\\
+Les données satellitaires sont, aujourd'hui, pleinement intégrées à la chaîne d'études scientifiques et possèdent un poids important dans la modélisation des processus de surface notamment par le développement des techniques d'assimilation de données. Plus particulièrement, les développements se sont axés sur deux champs complémentaires: celui de la mesure altimétrique et celui de la mesure optique. Cela a conduit à la première mission spatiale haute résolution dont l'un des objectifs principal est l'étude et le suivi de l'hydrologie continentale: la mission Surface Water and Ocean Topography (SWOT; \url{https://swot.jpl.nasa.gov/}).
+
+\subsubsection{{\fontfamily{lmss}\selectfont La mesure de la hauteur des lacs}}
+\citet{alsdorf2003} a démontré que les questions liées à la gestion quantitative de la ressource en eau dans un contexte de changement climatique et de croissance démographique ne pouvaient se reposer exclusivement sur un réseau composé de stations \textit{in situ}. Cette idée avait déjà germé à la fin des années 70 quand, profitant du succès des missions spatiales en océanographie comme GEOS-3 (1975) et SEASAT (1978), l'hydrologie a développé la première mission de mesure altimétrique nadir dédiée: GEOSAT (1985). Depuis cette époque et profitant de l'élan donné par les premières missions conjointes CNES/NASA pour l'océanographie comme TOPEX/POSEIDON en 1992 \citep{fu1994}, l'altimétrie satellite radar a apporté une amélioration notable dans le suivi des surfaces et des hauteurs d'eaux continentales et notamment pour le suivi des lacs \citep{calmant2008,abarca2012}\\
+
+\noindent Le principe de l'altimétrie repose sur la mesure du temps de trajet aller-retour d'une onde réfléchie à la surface observée. Le temps de trajet de l'onde est ensuite converti pour retrouver la distance entre le satellite et la surface située à la verticale de celui-ci. Connaissant, de manière précise, l'altitude du satellite par rapport à son ellipsoïde de référence (erreur centimétrique sur la mesure de l'orbite), il est aisé d'extraire la cote d'eau de la surface observée (Figure \ref{altimetry}) à travers l'équation: 
+\begin{equation}
+H = Alt - R + Corr
+\end{equation}
+avec $H$ la hauteur mesurée de la surface réfléchissante, $Alt$ l'altitude du satellite par rapport à l'ellipsoïde, $R$ la différence d'altitude entre le satellite et la surface réfléchie appelée "range", $Corr$ les facteurs appliqués pour notamment compenser les effets de l'ionosphère sur le faisceau.\\ 
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.60\textwidth]{nadir}
+ \caption{Principe de l'altimétrie satellite nadir. Adapté de : \url{www.cnes.fr}}
+  \label{altimetry}
+\end{figure}
+
+L'avènement de ce type d'observation a eu un impact majeur sur l'hydrologie continentale et la mise en place d'un système de surveillance des lacs \citep{birkett1995} et des rivières \citep{birkett1998,kouraev2004}. De plus, la réanalyse des différentes missions a démontré l'intérêt de reconstruire des chroniques pour la gestion des eaux continentales, technique qui donne des résultats très précis sur les hauteurs de surface libre des lacs \citep{berry2005}. \\
+Cependant, l'altimétrie nadir se concentre sur les zones directement à la verticale du satellite limitant ainsi la couverture spatiale et la quantité de points couvrant effectivement un cours d'eau ou un lac. De plus, le choix de l'orbite résulte d'un compromis entre répétitivité temporelle et spatiale, cette durée variant entre 10 jours et 35 jours introduit des biais dans le suivi des surfaces.
+
+\subsubsection{{\fontfamily{lmss}\selectfont La mesure de l'étendue des lacs}}
+
+L'altimétrie joue un rôle essentiel pour le suivi des hauteurs d'eau, cependant pour avoir une vision complète sur la dynamique des eaux continentales et l'évolution de leur stock il est nécessaire de connaître leur étendue. Dans la constellation de satellites, des instruments optiques suivent et cartographient les étendues d'eau afin de compléter le spectre d'observations. À la différence de l'altimétrie nadir, les instruments optiques observent, de façon passive, une zone dans la direction perpendiculaire à l'azimut \footnote{L'azimut correspond à la dimension parallèle à l'avancée du satellite. La dimension perpendiculaire est appelée portée.} du satellite. Pour observer cette zone, les imageurs possèdent une visée oblique qui va définir la taille et la résolution de l'image. \\
+Du fait de la  résolution limitée des images de ces instruments, de nouveaux instruments, utilisant des techniques comme le radar à synthèse d'ouverture (SAR pour Synthetic Aperture Radar en anglais) sont, aujourd'hui, embarqués à bord des satellites optiques (Figure \ref{sar}).\\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.3]{sar}}
+ \caption{Principe de la technique SAR. Source: \citet{calmant2008}.}
+ \label{sar}
+\end{figure}
+
+\noindent Cette technique se base sur des principes d'optique ondulatoire et la modification de la phase d'une onde induite par la réflexion sur une surface. Dans cette configuration, une zone est observée par plusieurs faisceaux issus du même radar. La combinaison des informations provenant de ces multiples faisceaux donne une mesure de l'amplitude et de la phase de l'onde rétrodiffusée depuis le point. L'intersection de tous ces faisceaux réduit la surface observée et simule donc l'ouverture d'un instrument "synthétique" dont l'antenne est plus grande que la fenêtre d'émission initiale des satellites. \\
+
+\noindent Ces missions spatiales ont abouti à une meilleure cartographie des surfaces en eau notamment en assurant une distinction entre lacs, rivières et plaines d'inondation. Cependant la distinction des différents types de zones humides reste notamment limitée par la résolution des instruments. Des avancées en imagerie optique ont comblé le fossé qui existait sur le suivi à long terme de ces surfaces et la distinction avec les surfaces à proximité. Ainsi, \citet{pekel2016} a traité des millions d'images Landsat à une résolution de 30m quantifiant ainsi les évolutions de surface en eaux sur les 30 dernières années. Ces cartes à très haute résolution constituent une avancée majeure car elles assurent un suivi global mais aussi régional des surfaces recouvertes de façon permanente ou semi-permanente en eau tout en appréhendant les causes de ces modifications (Figure \ref{baikal}).
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.30]{baikal}}
+ \caption{Masque des eaux permanentes du bassin du lac Baïkal issu de l'analyse d'image Landsat; Source: JRC, \citet{pekel2016}.}
+ \label{baikal}
+\end{figure}
+
+
+\subsection{{\fontfamily{lmss}\selectfont Vers des missions dédiées à l'étude du cycle de l'eau à l'échelle globale}}
+
+Un pas a été franchi dans le suivi global des eaux continentales avec l'arrivée de missions spatiales gravimétriques comme GRACE (Gravity Recover And Climate Experiment) en 2002 et GRACE-FO (Follow-On) en 2018. Ces missions ont la particularité de ne pas effectuer de mesure directe vers la surface de la Terre mais d'utiliser les fluctuations d'un signal dans le domaine des micro-ondes entre deux satellites identiques gravitant à une distance de 220 km l'un de l'autre. Ces fluctuations sont attribuées à des  variations du champ gravitationnel terrestre qui, aux échelles de temps mensuelles et interannuelles, sont imputées à des anomalies du stock global d'eau liquide et à des redistributions dans les réservoirs de surface et souterrains \citep{tapley2004}. Cette mission spatiale est utilisée dans les étapes de validation des modèles hydrologiques \citep{niu2006} mais aussi dans la recherche des conséquences du changement climatique et de l'anthropisation sur les évolutions du stock en eau \citep{rodell2018}.\\
+
+Les temps de revisite assez longs et la courte durée de vie des missions obligent à s'appuyer sur, au minimum, deux missions spatiales pour étudier précisément des étendues d'eau. Par conséquent, la détermination de chroniques de suivi de ces étendues passe obligatoirement par une phase de réanalyse et de mise en cohérence. Dans la suite du travail de \citet{alsdorf2003} il a été mentionné la nécessité d'une mission spatiale unique couvrant toutes les spécificités de l'hydrologie continentale. Ces caractéristiques doivent reposer sur une résolution spatio-temporelle fine: environ 100m pour une durée de revisite de quelques jours. Ces recommandations ont pour but de surveiller les variations de hauteurs des principaux cours d'eau et lacs sur des durées adaptées à l'étude de la dynamique des rivières et notamment des ondes de crues. Cette mission doit aussi être particulièrement adaptée à l'étude de bassins non (ou très peu) jaugés dans un cadre global et s'adapter aux contraintes temporelles des dynamiques de l'hydrologie continentale \citep{alsdorf2007}. De ces besoins est né le projet conjoint CNES/NASA Surface Water and Ocean Topography (SWOT) dont le lancement du satellite est prévu en 2021. Les instruments et les caractéristiques de cette mission sont regroupés dans le rapport de \citet{fu2012}.\\
+
+\noindent La principale innovation de la mission SWOT concerne l'utilisation d'un interféromètre InSAR (Synthetic Aperture Radar Interferometer) en bande Ka (fréquence de 35.75 GHz) comme charge utile principale \citep[figure \ref{fig_swot},][]{biancamaria2016}. De part et d'autre du satellite, deux fauchées de 50km, séparées l'une de l'autre de 20km, produisent un interférogramme traité pour produire une image des hauteurs d'eau. Le principe de l'interférométrie se base sur une triangulation du signal. Les signaux rétrodiffusés sont captés par deux antennes et les hauteurs d'eau sont déduites de la différence de phase entre ces signaux.\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{SWOT}     
+    \caption{Illustration de la mission spatiale SWOT et de son instrument KaRIn. Source: NASA.}  
+    \label{fig_swot}
+\end{figure}
+
+\noindent Cette technique assure une résolution pour les données brutes d'environ 6m dans la direction azimuth et dans un intervalle variant de 10 à 60 m pour la portée. La résolution horizontale attendue des produits issus de ces mesures (comme les hauteurs d'eau) est de l'ordre de 100 m.\\
+Grâce à ces caractéristiques SWOT effectuera des mesures de très haute précision. Pour les hauteurs d'eau les précisions attendues sont centimétriques et pour les pentes la précision sera de l'ordre de 1.7 cm/km. De plus, l'objectif de SWOT est de fournir des informations nécessaires à la production de masques d'étendues d'eau avec un seuil de détection allant de 100 m pour la largeur de rivière et de 250 m x 250 m pour les lacs et plaines d'inondation. Le cycle temporel permet une couverture globale tous les 21 jours avec une cartographie de la majorité des étendues d'eau et rivières tous les 10 jours. Les applications de cette mission sont nombreuses, par exemple, la mesure des débits, associée à la mesure des variations de hauteur, est utile pour le suivi des variations de stocks d'environ deux tiers des lacs et réservoirs du monde. Cela permettra une étude globale du cycle de l'eau répondant aux contraintes de la modélisation \citep{biancamaria2016,cretaux2016}.\\
+
+\noindent Des études ont déjà démontré l'intérêt des observations synthétiques SWOT pour le suivi des lacs \citep{lee2010, cretaux2016, gao2016}. SWOT est adapté à la compréhension du rôle des lacs dans le système hydrologique global et plus particulièrement dans la modélisation de leur dynamique. Le consensus sur la distribution globale des lacs n'est pas strict. Cela est notamment dû à la dépendance de l'estimation de leur distribution aux techniques d'observations et d'analyse. SWOT joue un rôle important dans la fourniture de données de distribution, mais assure aussi une information sur la dynamique spatio-temporelle de ces systèmes. Ainsi 65\% des variations du stock des eaux lacustres doivent être suivis par la mission SWOT \citep{biancamaria2009} avec une estimation précise de la densité de lacs dont l'extension spatiale est supérieure à 0.06 $km^{2}$ (équivalent au lac du Capitello en Corse). Ces données sont essentielles à une bonne compréhension du rôle des lacs dans le cycle hydrologique.
+
+
+\section{{\fontfamily{lmss}\selectfont La modélisation du cycle de l'eau}}
+
+La complexité des processus liés au cycle de l'eau et la diversité des échelles spatiales et temporelles associées rendent les études grandeur nature impossibles à mener. Afin de se soustraire à cette difficulté, il est nécessaire d'utiliser des modèles numériques qui schématisent les principes physiques étudiés. Ces modèles rendent compte d'une certaine réalité tout en s'appuyant sur des connaissances précises des processus et des observations. Ils sont adaptés aux conditions morphologiques et climatiques des zones étudiées mais aussi à l'échelle d'étude.  
+
+\subsection{{\fontfamily{lmss}\selectfont Les modèles}}
+
+Il est de plus en plus courant, même en dehors des sciences, d'entendre parler de "modèle". Quotidiennement lorsque l'on regarde les prévisions météorologiques elles sont, en partie, issues de modèles atmosphériques. Aussi les différents exercices de projections climatiques du Groupe d'experts Intergouvernemental sur l'\'Evolution du Climat (GIEC) ont mis en avant les "modèles de climat". Plus récemment encore, la crise sanitaire a mis en lumière les différents modèles épidémiologiques. \\
+Quelle que soit la thématique étudiée, un modèle est défini par un ensemble de paramètres, de variables, d'équations et de conditions aux limites qui constituent la structure générale et l'état d'un système.\\
+
+\noindent Dans une vision souvent trop manichéenne, l'observation et la modélisation sont opposées alors qu'elles sont justement complémentaires. L'observation est à l'origine du développement de nos connaissances actuelles, cependant ses limites apparaissent rapidement lorsque les systèmes étudiés sont aussi complexes que le cycle de l'eau. Pour appréhender cet environnement, l'hydrologue et plus généralement le scientifique s'est, donc, doté d'outils pour représenter les processus étudiés. \\
+
+\noindent Les modèles hydrologiques sont nés de cet intérêt pour l'étude de tout ou une partie du cycle de l'eau. Il serait, bien sûr, naïf de croire que les enjeux de compréhension sont résolus simplement par le développement de modèle. En effet, les modèles reposent sur les connaissances à l'état de l'art des systèmes et proposent une vision simplifiée des phénomènes réels.\\
+En ce sens, l'hydrologue modélisateur doit poser des hypothèses sur la représentation des systèmes et donner un cadre au modèle afin de garantir la description la plus correcte possible. Ce cadre repose donc sur un travail amont non négligeable qui est présenté dans la suite de la section. Il est, par conséquent, important de définir les processus que l'on veut représenter aux échelles spatio-temporelles de l'étude. Puis il faut fixer le cadre scientifique et notamment réfléchir à l'utilisation qui en sera faite pour déterminer quelle famille de modèle choisir.
+\subsection{{\fontfamily{lmss}\selectfont Les composantes essentielles}}
+
+La modélisation hydrologique est un sujet partagé par plusieurs disciplines scientifiques s'inscrivant dans un contexte d'amélioration de la connaissance des systèmes de surface. De plus, les observations sont entachées d'erreurs et, seules, ne sont pas suffisantes pour caractériser les processus physiques notamment pour le suivi, la prévision et la prévention. Le développement rigoureux d'un modèle hydrologique nécessite toutefois de connaître et de choisir judicieusement les composantes essentielles à la représentation réaliste de l'environnement d'étude. Celles-ci sont à la confluence de différents processus en entrées et sorties liés par les bilans de masse et d'énergie. De plus, elles participent à la production de flux entre l'amont et l'exutoire des bassins. Les composantes essentielles à la modélisation hydrologique grande échelle sont détaillées dans les sections suivantes.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Les précipitations}}
+
+Les précipitations désignent l’ensemble des hydrométéores qui, après condensation, arrivent au sol. Qu’importe leur phase ou type (pluie, neige, grêle), les précipitations sont classées en deux catégories décrites par leur cumul (en mm) ou leur intensité (en mm.s$^{-1}$):\\
+~\\
+~\\
+\begin{itemize}
+			\item[$\bullet$] Les pluies convectives associées à l’élévation rapide d’une masse d’air chargée d’humidité et résultant d’une instabilité verticale de l’air;
+			\item[$\bullet$] Les pluies stratiformes associées aux zones de basses pressions et résultant d’une condensation verticale lente et uniforme d’une masse d’air humide.
+\end{itemize}
+
+\noindent L’estimation du cumul et de l’intensité des précipitations est un enjeu majeur des études hydrologiques et de leurs applications \citep{winter1995}. En effet, les précipitations sont le forçage le plus important pour l’estimation du bilan en eau \citep{yilmaz2005,stisen2012}. Toutefois, la précision sur la mesure des précipitations dépend de nombreux facteurs comme le relief et l'évolution spatio-temporelle de la perturbation qui conditionnent la réaction du bassin versant et donc le type d'écoulement. L'estimation des cumuls de précipitations est la source majeure d'incertitudes en hydrologie \citep{fekete2004}. Cette estimation repose sur un réseau d'observations dense et éprouvé mais dont la variabilité spatiale est la plus complexe à appréhender. \\
+
+Le réseau d'observations pour les précipitations se compose de trois principaux types d'appareils. \\
+
+\begin{itemize}
+\item[$\bullet$] le pluviomètre qui mesure le cumul d'eau tombée dans un intervalle de temps donné en utilisant un auget, un cylindre gradué ou un capteur optique; 
+\item[$\bullet$] le pluviographe qui enregistre la hauteur instantanée d'eau;
+\item[$\bullet$] le radar, instrument le plus récent, qui estime l'intensité de précipitations, par le biais de la mesure de réflectivité, sur de grandes superficies et une hauteur intégrée.
+\end{itemize}
+~\\
+À ce jour, Météo-France opère un peu moins de 3000 stations pluviométriques (Figure \ref{pluvio}) complétées par 32 radars météorologiques (Figure \ref{systeme_mesures}) qui donnent une bonne couverture spatiale du territoire métropolitain. \\
+
+\begin{figure}[h!]
+    \begin{minipage}[c]{.46\textwidth}
+        \centering
+        \includegraphics[scale=0.5]{carte_reseau}
+        \caption{Réseau d'observations au sol des précipitations opéré par Météo-France. \'Edition du 24/02/2020. Source: \url{http://pluiesextremes.meteo.fr/}}
+        \label{pluvio}
+     \end{minipage}
+     \hfill%
+    \begin{minipage}[c]{.46\textwidth}
+     \includegraphics[scale=0.5]{reseau_aramis}
+     \caption{Réseau Aramis des radars météorologiques opérés par Météo-France au 31/08/2019. Source: \url{http://meteofrance.fr}}  
+     \label{systeme_mesures}   
+    \end{minipage}
+\end{figure}
+
+\noindent La précision et la fiabilité de chaque instrument dépend des conditions météorologiques. Par exemple, les mesures par pluviomètre sont biaisées dans les zones exposées aux vents ou dans le cas de précipitations neigeuses. Dans tous les cas et malgré les progrès techniques des mesures, la couverture spatiale hétérogène d'un territoire reste le facteur limitant dans la mesure de précipitations avec l'apparition de zones blanches \citep{maddox2002} qui impactent la précision de la réponse modélisée et introduit des erreurs \citep{segond2007}. La qualité de l’estimation dépend donc de la disponibilité des données \citep{ly2013} ce qui peut amener des biais importants dans les modèles hydrologiques notamment dans le cas de modèles distribués, sensibles aux positions des stations de mesures \citep{bell2000, nicotina2008}. Des études ont démontré la grande variabilité des prévisions hydrologiques par rapport à la précision des mesures de précipitations \citep{kavetski2006}. Une estimation précise de la distribution spatiale et temporelle des chroniques de pluies est, par conséquent, essentielle dans ces modèles \citep{jatho2010,mercogliano2013}. 
+
+\subsubsection{{\fontfamily{lmss}\selectfont L'évaporation}}
+
+L'évaporation correspond au changement de phase d'une particule d'eau liquide sous forme gazeuse. En modélisation, ce processus est généralement couplé à la transpiration pour évaluer les flux de masses échangés entre la surface et l'atmosphère. Dans le cas particulier d'un changement de phase entre une particule de glace ou de neige sous forme gazeuse, on parle de sublimation.\\
+
+L’évaporation est le terme qui assure le couplage entre le bilan d'énergie et le bilan de masse de surface. La part de rayonnement solaire absorbée par la surface contribue à son réchauffement et au changement d'état de son contenu en eau. Ce processus physique s'observe sur des surfaces humides (humidité dans le sol ou surface saturée) et dépend de l'humidité relative \footnote{Rapport entre la pression de vapeur saturante et la pression de vapeur dans l'air.} à pression et température constantes. \\
+La transpiration correspond à la réponse de la végétation à ce même rayonnement solaire. Les végétaux captent de l'eau via les racines ou l'interceptent via les feuilles. Cette eau circule au sein de l'ensemble de la plante pour ensuite rejoindre les stomates, orifices qui régulent les échanges gazeux entre la plante et l'atmosphère, où elle s'évapore si elle n'est pas utilisée pour la photosynthèse.\\
+L'évapotranspiration est un processus qui varie dans le temps (cycle diurne, saisonnier) et dans l'espace (latitude, longitude) suivant la quantité de rayonnement solaire reçu. Ainsi le volume d'eau évapotranspiré est plus important, à même latitude, en été qu'en hiver. \\
+
+Comme pour l'évaporation, la sublimation est liée à un déséquilibre entre la pression de vapeur saturante et la pression de l'air à l'interface glace-atmosphère. Son impact est particulièrement important dans les régions arctiques ou montagneuses où elle retarde les ruissellements printaniers associés à la fonte nivale \citep{box2001,vionnet2014,stigter2018}. Dans les régions arctiques, la fraction des précipitations qui rejoint l'atmosphère par sublimation est comprise entre 10 à 50\% des précipitations avec des disparités expliquées par les approches utilisées, la localisation et la période d'observation \citep{pomeroy1999,groot2013}. Dans certaines régions, le taux de sublimation peut même atteindre 100\% \citep{liston2004}.\\
+
+Pour ce qui est de l'estimation de l'évaporation, il existe aujourd'hui deux approches complémentaires, la première se basant sur des formules empiriques issues de l'expérience et une seconde profitant des développements en télédétection spatiale.\\
+La méthode empirique d'estimation recommandée par la Food and Agriculture Organisation (FAO) \citep{allen1998} est celle de Penman-Monteith \citep{monteith1965}. Cette équation se base sur la caractérisation d'une surface de référence recouverte par une végétation de type gazon non soumis à un stress hydrique, de hauteur uniforme égale 0,12 m, d'albédo 0,23 et d'une résistance de surface de 70 $s.m^{-1}$. D'autres méthodes empiriques se basent sur l'estimation de l'évaporation en utilisant des instruments tels que le lysimètre ou le bac à évaporation. À cela s'ajoute l'existence d'un réseau mondial d'observations FLUXNET qui permet d'avoir accès à des données d'évaporation, issues de mesures des flux turbulents, pour plus de 500 sites \citep{baldocchi2001}. La sublimation est plus difficilement observable, des techniques similaires existent (suivi des flux turbulents ou gravimétriques) mais c'est bien souvent sur la modélisation que repose son estimation \citep{macdonald2010,groot2013}.\\
+Les méthodes de télédétection se basent sur une combinaison de variables de surface tels que la température de surface, le Normalized Difference Vegetation Index (NDVI) ou encore l'humidité du sol pour estimer les flux turbulents de chaleur latente. Ainsi des produits d'évapotranspiration sont disponibles à l'échelle globale à partir de données optiques issues de missions spatiales comme MODIS \citep[Moderate-Resolution Imaging Spectroradiometer,][]{salomonson2002}.
+\clearpage
+\subsubsection{{\fontfamily{lmss}\selectfont Ruissellement/Infiltration}}
+\label{sec:ruissellement}
+
+Comme nous l'avons vu en introduction de ce manuscrit, plusieurs itinéraires s'offrent à une goutte d'eau de surface: elle peut s'écouler sous forme de ruissellement ou bien s'infiltrer et contribuer aux écoulements de sub-surface. Le ruissellement correspond à toute l'eau liquide s'écoulant à la surface du sol. L'infiltration, quant à elle, correspond à la part d'eau liquide qui s'infiltre dans le sol par différents processus. À l'interface entre sol et sous-sol se trouve une zone importante qui assure les transferts d'eau pour l'alimentation racinaire des végétaux.\\
+
+Le fait qu'une goutte d'eau ruisselle ou s'infiltre dépend des propriétés hydriques du sol qui varient spatialement et temporellement. Ainsi le couvert végétal mais aussi le type de roches constituant le sous-sol vont agir sur la porosité du sol et sur la conductivité hydraulique. Par exemple, les sols bétonnés anthropisés sont plus favorables au ruissellement que les sols nus naturels ce qui explique l'accentuation des vitesses d'écoulement des eaux et donc l'intensité des crues dans les zones urbanisées \citep{nirupama2007,fox2012}. Le ruissellement n'est pas uniquement lié aux précipitations et dans des régions comme les zones arctiques, c'est la fonte nivo-glaciaire qui les alimente. Pour autant les processus de ruissellement et leurs caractéristiques restent similaires.\\
+Les ruissellements de surface se produisent de deux façons: dans le cas où l'intensité de la pluie est supérieure à la capacité d'infiltration du sol on parle de ruissellement Hortonien et dans le cas où le sol est préalablement saturé, on parle de ruissellement de Dunne.\\
+Le couple ruissellement/infiltration repose donc sur des contraintes physiques particulières qui sont dépendantes de facteurs internes et externes. 
+Dans le cas où le sol est non saturé, l'eau peut s'infiltrer dans des pores et, sous l'effet de la gravité, percoler verticalement pour alimenter un réseau souterrain constitué de rivières et d'aquifères. Ces réservoirs souterrains représentent, par définition, l'ensemble des zones comprenant la partie saturée permanente, appelée nappe phréatique, ainsi que sa zone d'infiltration. Dans le cycle de l'eau, les rivières sont généralement connectées à un réseau de sub-surface alimenté par un aquifère dont les échanges dépendent du gradient de charge hydraulique entre la rivière et l'aquifère.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Les débits}}
+
+Les composantes du cycle hydrologique présentées dans les paragraphes précédents participent à la production des masses d'eau qui transitent au niveau du sol et du sous-sol et assurent la continuité du cycle de l'eau. Les échanges entre ces réservoirs s'effectuent par le biais de transferts latéraux définis sous forme de débits. Ces flux correspondent, par définition, à la quantité d'eau qui traverse une section choisie sur une période fixée. Seuls les débits de surface participant aux échanges entre les rivières et les lacs seront abordés ici.\\
+
+L’étude des écoulements d'eau à surface libre est la composante du bilan hydrologique directement accessible pour l'observation et l'exploitation et donc une des données les plus étudiées en hydrologie. Développée au 19\ieme{} siècle, cette branche de l’hydraulique étudie les écoulements dont l’interface entre l’eau et l’air est libre. Suite aux développements théoriques comme l’introduction de la formule de Manning-Strickler ou de techniques comme l’ADCP, la connaissance des débits de la plupart des rivières est aujourd'hui assez précise (en général moins de 5\% d'incertitude) et seulement limitée par les coûts économiques et humains des campagnes de mesures.\\
+
+La connaissance du débit des rivières est essentielle pour la caractérisation du continuum écologique et du bon état écologique des masses d’eau associées. Les affluents transportent des éléments nutritifs et renouvellent les eaux nécessaires au développement de la vie dans les masses d’eau. Les émissaires, quant à eux, permettent un équilibre volumique en évacuant le trop-plein d’eau en période de hautes eaux. 
+
+\subsection{{\fontfamily{lmss}\selectfont Les modèles hydrologiques}}
+Le concept général de modélisation hydrologique consiste à déterminer numériquement l'impact d'une modification, par exemple une pluie, sur le système et ses processus, par exemple une crue. Ce concept est présenté sur la figure \ref{fonction-hydro}. \\
+
+
+\noindent Pour cela, le modèle s'attache à produire l'hydrogramme en un point d'un bassin, pris typiquement à l'exutoire, en réponse à la pluie nette tombée sur la totalité du bassin. Plus particulièrement, les modèles hydrologiques déterminent, grâce à une fonction de production, la quantité d'eau qui participe aux écoulements. Cette fonction caractérise la fraction de pluie nette \footnote{Quantité de pluie qui ruisselle strictement à la surface du terrain en réponse à une averse.} qui s'écoule effectivement en un point donné. Ces modèles évaluent ensuite la répartition temporelle des écoulements à l'exutoire connaissant la fonction de transfert du bassin. Cette fonction détermine l'hydrogramme de crue à partir du hyétogramme produit grâce la fonction de production.
+
+Cette discrétisation peut se retrouver dans la philosophie des modèles hydrologiques suivant qu'ils traitent de la fonction de production ou de la fonction de transfert. \\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.95\textwidth]{fonctions_hydrologiques}}
+ \caption{Représentation schématique du principe de la modélisation hydrologique prenant en entrée un hyétogramme de pluie et produisant en sortie l'hydrogramme correspondant.}
+  \label{fonction-hydro}
+\end{figure}
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=1.\textwidth]{modeles}}
+ \caption{Classification des modèles hydrologiques suivant le type de processus et la dimension spatiale.}
+  \label{modele}
+\end{figure}
+\clearpage
+
+\noindent Dans un soucis de clarté, les différents modèles hydrologiques sont couramment classés en groupes basés sur des critères communs. Ces critères s'appuient sur une discrétisation qui peut être spatiale, temporelle ou par la méthode de résolution des processus. Dans la suite de cette section, nous nous focaliserons sur la discrétisation spatiale et par processus.
+La figure \ref{modele} donne une proposition de classification pour les modèles hydrologiques.
+
+
+\subsubsection{{\fontfamily{lmss}\selectfont Classification suivant la méthode de résolution}}
+
+Une première classification des modèles hydrologiques consiste à les séparer suivant la méthode dont les processus hydrologiques sont définis.\\
+
+Les modèles à base physique ou "mécanistes" obéissent à une structure contrainte par le principe de conservation, utilisent des lois empiriques (notamment concernant les frottements) et résolvent les équations de Saint-Venant (ces équations sont la forme des équations de Navier-Stokes intégrées selon la hauteur). Elles participent au transfert de masse vers l'aval du bassin. Dans le cas d'un écoulement unidirectionnel sans transport solide décrit par la figure \ref{troncon}, ces équations sont composées de l'équation de continuité: \\
+\begin{equation}
+\frac{\partial h}{\partial t} + \frac{\partial h \overline{u}}{\partial x}=0
+\end{equation}
+
+et de l'équation de conservation de la quantité de mouvement:
+\begin{equation}
+\rho \frac{\partial \overline{u}}{\partial t} + \rho\overline{u} \frac{\partial \overline{u}}{\partial x} = \rho g \sin\theta - \rho g \cos\theta\frac{\partial h}{\partial x} - \frac{\tau}{h}
+\end{equation}
+avec $\tau$ la contrainte de frottement, $\rho$ la masse volumique de l'eau, $\overline{u}$ la vitesse moyenne, $h$ la hauteur caractéristique, $\theta$ l'angle entre l'horizontale et un vecteur normal à la pente du lit de la rivière. \\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.75\textwidth]{troncon_riviere}}
+ \caption{Schéma présentant les différents paramètres sur un tronçon de rivière en écoulement unidirectionnel non permanent.}
+  \label{troncon}
+\end{figure}
+
+Les modèles mécanistes prennent en compte explicitement un ensemble de processus physiques, souvent les processus prédominants, et ont donc des domaines de validité très grands. De plus, les équations résolues permettent un éventail d'applications large et une compréhension précise des processus physiques car elles permettent de résoudre des problèmes uni- ou multi-dimensionnels. Ce type d'approche est utilisé dans de nombreux domaines comme la modélisation hydrodynamique pour l'étude de crues. Cependant, ces modèles sont contraints par la connaissance précise du bassin, les coûts de calcul conséquents et souvent limitant (dans le cas de résolution fine ou de zone d'étude grande) et reposent sur un réseau d'observations dense. \\
+
+Les modèles empiriques, ou modèles pluie-débit, pour leur part s'appuient sur les observations pour reproduire une dynamique des variables de sortie (les débits) en fonction de variables d'entrée (les cumuls de précipitations). Ces modèles ne cherchent pas à identifier des mécanismes spécifiques ou à décrire des processus élémentaires. Ils s'appuient sur une analyse fréquentielle ajustée sur des observations pluie-débit pour reconstituer des séries chronologiques liant une intensité de pluie et à un débit (\textit{e.g.} lois de type Gumbel ou Generalized Extreme Value pour la construction de courbe Intensité-Durée-Fréquence). Une étape de calage est obligatoire afin de déterminer les fonctions et les paramètres qui s'ajustent au mieux aux observations. \\
+Ce type de modèle s'adapte particulièrement bien à un réseau de mesures parcellaires mais constitué de longues séries temporelles. De plus, ces modèles peuvent s'appuyer sur des techniques modernes telle que l'intelligence artificielle afin d'affiner les relations statistiques et de gérer des quantités de données importantes. Par contre, il reste un inconvénient majeur à ces modèles: l'hypothèse principale considère que le schéma physique reste stable dans le temps ce qui implique que pour tout changement de physique il faut reprendre le modèle à la base et redéfinir ses caractéristiques. Ce type d'approche empêche, par ailleurs, toute interprétation physique des résultats. Un exemple de modèle est celui de "Fabret" décrit par l'équation:
+\begin{equation}
+Q(t + \Delta t) = \frac{a-1}{a}Q(t) + \frac{S.b(t)}{3,6 .a.\Delta t'}\prod(t)
+\end{equation}
+avec $a$ le coefficient de décrue, $b(t)$ un coefficient de production de pluie, $S$ la surface du bassin versant, $\Delta t'$ le délai de prise en compte de la pluie et $\prod(t)$ le cumul de pluie entre t et t+$\Delta$t. \\
+
+Les modèles conceptuels peuvent être vus comme des modèles de complexité intermédiaire. En effet, la paramétrisation ne se base pas explicitement sur des lois physiques comme dans les modèles mécanistes, pour autant elle apporte une grande adaptabilité avec des coûts de calculs souvent raisonnables. L'idée est de représenter les processus par des approches simplifiées, des analogies ou des lois empiriques. Une analogie traditionnellement utilisée est l'approche 'réservoir' qui compartimente les différents processus comme pour le modèle LISFLOOD du CEPMMT \citep[Centre Européen pour les Prévisions Météorologiques à Moyen Terme,][]{burek2013}. Ces compartiments échangent des flux résultant d'une résolution du bilan de masse sur chaque réservoir de sorte que: 
+\begin{equation}
+\frac{dS}{dt} + \tau S = cste
+\end{equation}
+avec $S$ le stock et $\tau$ le temps caractéristique. \\
+
+\noindent Le réservoir a une capacité de rétention proportionnelle au ruissellement reçu. La représentation des flux de masses au sein d'un bassin versant est ainsi vue comme un ensemble de réservoirs connectés dont les caractéristiques sont définies \textit{a priori}. Ces modèles sont adaptés à des applications diverses comme la prévision du risque inondation ou les études climatiques. L'inconvénient majeur porte sur l'obligation de caler certains paramètres ce qui peut rendre ces modèles complexes et difficilement exportables notamment dans le cas où une représentation détaillée de chaque réservoir est indispensable. En particulier, la nécessité de caler un grand nombre de paramètres peut conduire à des problèmes d'équifinalité liés au fait que plusieurs combinaisons de paramètres peuvent amener à des performances égales, les processus représentés par ces paramètres se compensant les uns avec les autres.
+
+\subsubsection{Classification suivant l'échelle spatiale}
+
+Une autre manière de définir des classes de modèles repose sur une discrétisation spatiale. En effet, l'hétérogénéité spatiale est un enjeu majeur dans le développement des modèles hydrologiques car elle conditionne leur performance et leur adaptabilité \citep{bloschl1995}. Les modèles peuvent être divisés en trois familles suivant l'unité élémentaire considérée. L'unité choisie traduit alors le niveau de détail attendu pour la représentation des processus par le modèle.\\
+
+La première famille est celle des modèles globaux dont l'unité élémentaire est le bassin versant. Ces modèles ont des applications à l'échelle globale et prennent les bassins versants comme des entités uniques. Dans ce cas il n'y a aucune prise en compte des variabilités spatiales des paramètres. En outre, ces modèles sont très utiles pour la prévision des crues (notamment les modèles de type GR) car simples, robustes et bien adaptés à chaque bassin versant via le calage des paramètres.\\
+Ici, ces modèles ne sont pas utilisés car le but est de caractériser des processus, à la fois pour mieux comprendre les mécanismes du cycle de l'eau et pour pouvoir anticiper les impacts des changements climatiques et anthropiques sur ces mécanismes.\\
+
+Il existe également des modèles dit "distribués" ou "spatialisés" qui prennent en compte explicitement la variabilité spatiale des caractéristiques du bassin et la variabilité spatiale des forçages. Dans ce cas, un maillage régulier est utilisé dont l'unité élémentaire est une cellule de cette maille. C'est le maillage le mieux adapté pour expliciter la variabilité spatiale. Dans un cadre d'étude plus large, ce genre de modèle apporte des informations sur l'évolution future des systèmes, par exemple dans le contexte de changement climatique. En contrepartie, ce type d'approche demande de grande quantité de données à fournir afin de décrire, de façon assez détaillée, la zone étudiée et par conséquent de grandes ressources de calcul. Un autre inconvénient est le problème de surparamétrage qui se pose lors de la spatialisation. En effet, afin de caractériser chaque zone unitaire il faut un nombre équivalent d'observations indépendantes ce qui devient compliqué sur des territoires très hétérogènes.\\
+
+La dernière famille de modèles hydrologiques est dite "semi-distribuée" et se situe dans un entre-deux. Les surfaces sont classées par types dont les comportements hydrologiques sont comparables pour chaque classe. L'unité élémentaire est le sous-bassin versant. Par conséquent, les bassins versants sont divisés en sous-bassins caractérisés par des processus et des paramètres similaires (\textit{e.g}. discrétisation par altitude ou par sous-bassins versants géologiques). Ce type d'approche présente aussi un bon compromis entre la prise en compte de la variabilité spatiale et le contexte opérationnel. Le modèle TOPMODEL \citep[TOPography based hydrological MODEL,][]{beven1979} est un exemple de modèle semi-distribué notamment utilisé en couplage avec un modèle de surface pour la prévision des crues rapides au CNRM. Ce modèle calcule des échanges d'eaux latéraux en prenant en compte seulement le ruissellement de Dunne suivant un indice topographique préalablement affecté à chaque sous-bassin. Ces indices se basent sur la capacité de rétention en eau du sol en un point par rapport à la pente et l'aire drainée sur ce même point. \\
+
+De plus en plus, les modèles rassemblent les caractéristiques de plusieurs familles pour combiner plusieurs avantages. En effet, la structure des modèles font qu'ils négligent généralement la dynamique de la végétation et sont sensibles à la variabilité spatiale de processus comme la précipitation. Pour la prévision du risque de crues en temps réel, telle qu'effectuée au Service Central d'Hydrométéorologie et d'Appui à la Prévision des Inondations (SCHAPI), des modèles semi-empiriques semi-conceptuels, comme le modèle Génie Rural pour la Prévision \citep[GRP,][]{tangara2005,berthet2010}, sont utilisés. Le modèle, calé grâce à des chroniques de pluie et de débit observées, utilise la pluie nette (fraction des précipitations qui contribue totalement à l'écoulement) sur le bassin versant en entrée pour déterminer le débit à l'exutoire. Une partie conceptuelle, sous la forme d'un réservoir de production, assure la transformation de cette pluie en ruissellement transféré ensuite à un deuxième réservoir, le réservoir de transfert, qui calcule la propagation dans le réseau hydrologique.
+
+\subsection{{\fontfamily{lmss}\selectfont Les modèles de routage en rivières}}
+
+Les modèles de surface effectuent les bilans d'énergie et d'eau sur chaque maille en se focalisant sur les transferts verticaux entre l'atmosphère, la surface et le souterrain. Les modèles de routage représentent la fonction qui assure le transfert latéral de masse d'une maille amont à une maille aval du réseau, ces transferts comprennent le ruissellement jusqu'à la rivière puis la propagation dans le réseau. Les modèles de routage en rivières (RRM) sont des modèles hydrologiques qui s'attachent à convertir le ruissellement total \footnote{Volume d'eau disponible pour l'écoulement.} généré par la fonction de production en débit, dont l'écoulement gravitaire est imposé par la topographie. Ces modèles sont indispensables à la fermeture du cycle de l'eau du continuum continent-océan-atmosphère. Ces modèles sont aussi utiles pour comprendre des phénomènes tels que les apports d'eau douce en mer Méditerranée modifiant notamment la salinité et les circulations océaniques, facteurs importants des épisodes méditerranéens \citep{sauvage2018} ou les effets du Rhône sur la circulation du Léman \citep{halder2013}. \\ 
+
+Les modèles de routage se répartissent en deux classes: les modèles hydrodynamiques et hydrologiques. Dans le cas d'un modèle hydrodynamique, le routage se base sur la résolution des équations de Saint-Venant (equation 1.17) auxquelles sont appliquées des hypothèses simplificatrices utiles à la réduction des coûts de calcul. Ces hypothèses portent sur la caractérisation de l'onde de propagation suivant un terme prédominant dans les équations de quantité de mouvement. \\
+
+Lorsque l'amplitude et le temps de variation de la hauteur sont faibles, l'écoulement se rapproche alors d'un état de régime permanent; la vitesse d'écoulement de chaque section s'adapte quasi-instantanément à une modification de la profondeur de la rivière. Dans ce cas de figure, les termes de pression et d'inertie sont négligeables et on parle d'onde \textbf{cinématique}. Le système se réduit à un équilibre entre le terme de frottement et le terme de gravité associé à l'équation de continuité:
+\begin{equation}
+\frac{\partial h}{\partial t} + c(h) \frac{\partial h}{\partial x}=0
+\end{equation}
+avec $c$ la vitesse de propagation de l'onde sur la section.\\
+
+Dans certains cas de figure, l'amplitude est trop importante pour négliger le gradient de pression; on parle alors d'onde \textbf{diffusive}. Les hypothèses d'ondes cinématique et diffusive sont facilement vérifiées dans un contexte de crue lente où la propagation de l'onde est peu impactée par les termes inertiels. À l'inverse, lorsque que la pente est faible, l'équilibre se fait entre le terme d'inertie et le gradient de pression: on parle d'onde \textbf{dynamique}.\\
+Ces modèles hydrauliques sont couramment utilisés dans des études locales et régionales mais nécessitent des informations précises sur la topographie et les caractéristiques physiques des tronçons de rivière considérés.\\
+
+Dans le cas d'un modèle de routage hydrologique l'approche privilégiée est conceptuelle. Les équations représentent la continuité massique ou volumique sur une section de rivière en estimant un volume stocké sur la base des débits entrants et sortants. Ce schéma est résolu de proche en proche et le diagnostic effectué à partir du volume calculé permet de déterminer les nouvelles conditions d'écoulement.\\
+
+\noindent Le choix des équations conditionne le calcul des vitesses d'écoulement et permet de classer les différents modèles de routage de rivières. Dans le cas du modèle TRIP (Total Runoff Integrating Pathways), utilisé au CNRM, la vitesse d'écoulement est constante et uniforme ce qui rend les effets de la résolution, et indirectement d'une meilleure représentation de la topographie, minimes sur les débits simulés. Par ailleurs, les modèles historiques à réservoirs linéaires considéraient une vitesse constante dans le temps mais spatialement dépendante de paramètres tels que la topographie ou les caractéristiques physiques des tronçons de rivières. Avec une résolution grossière, ces modèles lissaient les débits par une limitation des effets de la topographie sur les vitesses notamment sur les événements de crue \citep{vorosmarty1989}. Dans les modèles actuels, le consensus se porte sur le choix d'une vitesse variable dans le temps et dans l'espace dépendante de l'équation de Manning: \begin{equation}
+\overline{u} = K_{s}R_{h}^{\frac{2}{3}}i^{\frac{1}{2}}
+\end{equation}
+avec $\overline{u}$ la vitesse moyenne de l'écoulement dans la section (m.s$^{-1}$), $K_{s}$ le coefficient de rugosité de Strickler (m$^{\frac{1}{3}}$.s$^{-1}$), $i$ la pente hydraulique (m.m$^{-1}$) et $R_{h}$ le rayon hydraulique (m).\\
+
+Par ailleurs, les schémas de routage se différencient aussi par leurs paramétrisations physiques. Les plus complets vont associer les aquifères, les plaines d'inondations, les lacs et les barrages \citep{hanasaki2006, lam2011,yamazaki2011, burek2013, decharme2019} tandis que les autres, souvent les modèles historiques, se limitent à la partie fluviale \citep{vorosmarty1989,coe1998}.\\
+
+\noindent Nous verrons en détail dans le chapitre 2 la version de TRIP développée au CNRM et les hypothèses qui permettent une application à l'échelle globale couplée avec le schéma de surface ISBA du modèle de climat ARPEGE.
+
+\section{{\fontfamily{lmss}\selectfont Introduction à la limnologie}}
+\label{sec:limnologie}
+
+Les lacs dont la superficie est supérieure à 0.002 km$^{2}$ (soit une maille de 140m x 140m) sont au nombre de 117 millions et représentent 3.7\% des terres émergées \citep{verpoorter2014}. Cependant, leur distribution géographique est inégale avec une densité lacustre particulièrement élevée dans l’hémisphère Nord et plus particulièrement dans les hautes latitudes comme en Scandinavie et au Canada \citep[Figure \ref{hydrolakes}]{downing2006}. \\
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.85 \textwidth]{HydroLAKES}
+ \caption{Carte mondiale représentant les lacs et réservoirs dont la superficie dépasse 10 ha et issue de la base Hydrolakes. Source: \citet{messager2016}.}
+ \label{hydrolakes}
+\end{figure}
+
+Les lacs jouent un rôle triple à l’échelle de la planète. En modulant les amplitudes diurnes et saisonnières de la température de la couche limite de surface, ils sont des acteurs majeurs dans les échanges de flux énergétiques entre la surface et l'atmosphère  \citep{long2007}. Ils représentent aussi une source secondaire d’humidité et peuvent déclencher ou amplifier des conditions de précipitations \citep{miner1997}. Les lacs jouent aussi un rôle de zone tampon hydrologique entre l’amont et l’aval d'un cours d'eau \citep{spence2006}. Totalement intégrés dans le système hydrologique, ils interagissent avec tous les composants du cycle de l'eau \citep{muller2014}. Leur hydrologie dépend fortement des apports en eau par les affluents (\textit{e.g.} en période de crues ou de fonte nivale), de l’évaporation estivale et des conditions météorologiques \citep{marsh1996, winter2004}. Ces inter-dépendances particulièrement élevées amènent à des situations historiques de baisse du niveau d'eau \citep{gronewold2016, wurtsbaugh2017}. Les lacs sont, par ailleurs, des indicateurs de développement socio-économique en offrant un nombre important de services écosystémiques \citep{sarch2000,schindler2009}. Parmi ces services, les lacs sont une source d'eau douce non négligeable et de nourriture pérenne ainsi qu'un lieu attractif pour le tourisme \citep{sterner2020}. Ces services directement ou indirectement fournis par les zones lacustres sont des leviers économiques et de développement locaux et régionaux dont le bénéfice est estimé entre 169 et 403 USD par habitant et par an \citep{reynaud2017}. \\
+
+Ces zones d'intérêt unique et leur sensibilité face à des modifications des conditions externes en font des indicateurs fiables des signatures du changement climatique ou de pollutions d'origine anthropique \citep{vincent2009,IPCC2013}. Ainsi, les lacs voient leurs paramètres physiques influencés par les modifications climatiques \citep{adrian2009}. Parmi les plus notables il est possible de noter  la hausse de la température de surface \citep{oreilly2015,woolway2017a}, la réduction de la durée de couverture en glace \citep{sharma2019}, la modification de leur dynamique donnant lieu à des changements de régime \citep{woolway2019} et le dérèglement de nombreux équilibres chimiques, biologiques et physiques \citep{yvon2012,kraemer2017}. La variation du stock en eau de ces dépressions est, entre autres, responsable de ces changements par une dynamique directement corrélée aux modifications des régimes pluviométriques et/ou à une pression croissante de l'anthropisation \citep{kolding2012,gownaris2018}.\\
+Constituant une composante essentielle des recherches sur le cycle hydrologique, l’étude des lacs à l’échelle globale a un intérêt particulier dans les domaines de l’environnement, de l’agriculture, de la météorologie et de la gestion de la ressource \citep{schindler2009,seekell2014}. L’eau stockée tout au long du cycle hydrologique réagit au moindre changement d’équilibre, qu’il soit atmosphérique ou hydrogéologique \citep{dinka2014, bouchez2015, wang2018}. Cette eau peut aussi influencer de nombreux domaines comme l’écologie \citep{dudgeon2006} ou l’économie \citep{rast2000}. Par ailleurs, les petits lacs sont des proxys de changements rapides alors que les grands lacs sont révélateurs de changements de plus grande amplitude. \\
+%\clearpage
+Il est courant de séparer l'étude des propriétés physiques des lacs en deux branches qui, loin d'être équitablement développées, sont complémentaires. D'un côté se trouve l'étude des caractéristiques physiques, telles que la température, la densité ou encore les propriétés optiques et acoustiques, regroupée dans le domaine de la \textit{limnologie physique}. De l'autre se trouve l'étude des mouvements verticaux et horizontaux de ces plans d'eau regroupée dans le domaine de la \textit{limnologie dynamique}. Il est évident que ces deux branches ne résument pas à elles seules la complexité des processus lacustres qui font des lacs des zones à la fois uniques du point de vue de la biodiversité et des caractéristiques chimiques. Pour avoir une vision complète d'autres domaines, tout autant nécessaires à la représentation des processus intrinsèques aux lacs, devraient être étudiés, comme par exemple l'étude du cycle du carbone \citep{tranvik2009}.
+
+\subsection{{\fontfamily{lmss}\selectfont Limnologie physique: conséquence du forçage thermique}}
+\label{sec:limno_physique}
+
+Le riche héritage scientifique de la limnologie physique provient de l'importance de la température dans les processus lacustres \citep{adrian2009}. Comme composants du système Terre, les lacs sont soumis au bilan d'énergie de surface et à des contraintes thermiques qui modifient leurs caractéristiques. En retour, les variations du bilan interne forcent les propriétés de l'environnement proche. Que ce soit à des échelles temporelles courtes ou longues, la présence de lacs en tant que machines thermiques ne peut pas être négligée \citep{balsamo2017}.
+\subsubsection{{\fontfamily{lmss}\selectfont Le bilan énergétique des lacs}}
+
+À l'intérieur du système Terre, les différents composants, soumis à des forçages extérieurs, possèdent leurs propres bilans thermiques. Les lacs ne font pas défaut à cette règle et leur bilan énergétique se compose des mêmes termes que le bilan global avec un équilibre entre le forçage radiatif, la convection et le stockage de chaleur comme illustré sur la figure \ref{ener_lac}. 
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.55 \textwidth]{bilan_ener_lac}
+ \caption{Bilan d'énergie à la surface du lac et quelques-uns des contributeurs à sa modification.}
+ \label{ener_lac}
+\end{figure}
+
+
+L'apport énergétique du rayonnement solaire, qui dépend des paramètres atmosphériques, de la position géographique et varie dans le temps, suit les règles vues dans la Section \ref{sec:bilan_energie}. Le bilan radiatif moyen au niveau des lacs est positif avec des pertes par émission d'infrarouge compensées par une forte absorption du rayonnement solaire. \\
+
+Ce bilan est tout de même inégal avec les lacs tropicaux (Lac Tanganyika, Lac Turkana) recevant en moyenne 292 W.m$^{-2}$ quand les lacs boréaux (Lac Onega, Lac Saimaa) n'en reçoivent en moyenne que 106 W.m$^{-2}$. Des disparités existent aussi dans la transparence des lacs et leur capacité à réfléchir le rayonnement solaire. Ainsi l'albédo d'un lac non gelé se situe en moyenne aux alentours de 0.06 induisant une faible réflexion du rayonnement incident à la surface et donc une pénétration plus importante du rayonnement dans le lac en comparaison d'un sol nu. Le coefficient d'absorption du lac est sélectif et dépend de la longueur d'onde mais aussi de la concentration en matières dissoutes et en suspension. Pour l'eau pure, ce coefficient se situe autour de 0.48 $\mu m$\footnote{Cette valeur correspond à une longueur d'onde dans le bleu}. Ce coefficient sert dans l'estimation de la capacité d'absorption décrite par la loi de Beer-Lambert:
+
+\begin{equation}
+\label{eq:beer_lambert}
+I(z) = I_{0}e^{-\eta \: z}
+\end{equation}
+avec $I(z)$ l'intensité lumineuse à la profondeur $z$ , $I_{0}$ l'intensité lumineuse avant pénétration dans le milieu et $\eta$ le coefficient d'absorption du milieu ($m^{-1}$).
+\noindent Ce coefficient d'absorption permet aussi de déterminer les zones d'intérêt particuliers comme la zone photique, siège des principaux processus biologiques.\\
+
+La partie infrarouge du bilan radiatif modifie les propriétés thermiques du lac en tant que source d'énergie quand le lac se réchauffe et en tant que puits quand il se refroidit. En moyenne annuelle, ce bilan énergétique est déficitaire par rapport à l'atmosphère et les lacs émettent un rayonnement infrarouge thermique aux alentours de 10 $\mu m$ \citep{touchart2002}.\\
+Concernant le bilan calorifique, les lacs échangent de la chaleur sensible par convection avec l'atmosphère. Bien que fortement dépendants du gradient thermique à l'interface lac/atmosphère, ces échanges peuvent résulter d'efforts mécaniques, tel que le vent, qui vont modifier les conditions de stabilité de la surface. Si les contraintes mécaniques persistent et qu'elles déplacent suffisamment de masses, des remontées d'eau froide au niveau des berges des lacs peuvent apparaître. Ces phénomènes, communément appelés "upwellings", participent aux mélanges des eaux, à leur oxygénation et à l'apport de nutriments.\\
+
+Le dernier terme du bilan d'énergie correspond au bilan de chaleur latente qui se résume pour les lacs au terme puits d'évaporation imposé par les conditions thermodynamiques, mécaniques ou morphologiques. L'évaporation lacustre dépend, en premier lieu, des conditions de pression à sa surface suivant la loi de Dalton. Cette loi exprime la quantité évaporée comme proportionnelle à la différence entre pression de vapeur à la surface du plan d'eau et la pression partielle de vapeur dans l'atmosphère. Cela se résume en disant que l'évaporation potentielle augmente lorsque la pression atmosphérique diminue (typiquement pour les lacs d'altitude tels que les lacs du plateau Tibétain) ou que l'humidité relative de l'air situé au-dessus est faible (et directement lié à la température de l'air). Dans un second temps, les efforts mécaniques, de façon similaire au bilan de chaleur sensible, influencent la quantité d'eau évaporée. L'évaporation est proportionnelle, jusqu'à une certaine limite, à la vitesse du vent qui évacue les couches atmosphériques superficielles humides et les remplace par des couches où l'humidité relative est plus faible. Enfin l'évaporation dépend des caractéristiques physiques du lac et notamment de sa superficie. Ainsi plus un lac a une emprise spatiale importante plus l'air en mouvement au-dessus aura de chance d'atteindre une humidité relative maximale. Le taux d'évaporation lacustre est très variable suivant les lacs mais reste le terme dominant du bilan thermique des lacs tropicaux soumis aux alizés tel que le lac Tchad et pouvant perdre plus de 2 m d'eau par an par simple évaporation \citep{bouchez2015,pham2020}.
+
+\subsubsection{{\fontfamily{lmss}\selectfont La température au sein des lacs}}
+Le bilan énergétique modifie directement la température des lacs et, en premier lieu, la température de surface. La température d'un lac varie ainsi au cours de l'année suivant les conditions atmosphériques et le cycle saisonnier mais le lac subit aussi des modifications thermiques journalière liées au cycle diurne. Bien sûr ces variations ne sont pas comparables à celle d'un sol nu mais sont source de turbulence et assurent un bon fonctionnement écologique du plan d'eau \citep{bouffard2019}.\\
+Les échanges énergétiques entre le lac et son environnement se traduisent directement par les évolutions internes de sa température. La répartition thermique horizontale et verticale conditionne de nombreux processus physiques et biologiques. Parmi ceux-ci la stratification joue un rôle majeur dans l'évaluation de l'état écologique d'un plan d'eau notamment en modifiant les échanges verticaux d'oxygène et donc les conditions propices à la production primaire \citep{elcci2008,piccolroaz2015}.\\
+\clearpage
+Par définition, la température et la pression influencent la masse volumique de l'eau douce. À une pression de surface constante de 1013,25 hPa, le profil de température suit une parabole dont le foyer se situe à 3.98 °C, appelée température de densité maximale (Figure \ref{water_density}).
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.65 \textwidth]{water_density}}
+ \caption{Évolution de la densité de l'eau douce en fonction de la température.}
+ \label{water_density}
+\end{figure}
+
+\noindent Cela signifie qu'une particule d'eau subissant un refroidissement à pression constante voit sa densité diminuer et aura tendance à plonger au fond du lac si les conditions le permettent. Tant que la température de la particule reste au dessus de la limite de 3.98°C elle continue de plonger sous des couches d'eau plus chaudes et donc moins denses. Par contre, si la température continue de décroître le volume de la particule commence à se dilater et voit alors sa densité augmenter de nouveau. Étant donnée la forme de l'équation d'évolution de la densité de l'eau, un écart thermique constant se traduira par un écart de densité d'autant plus grand qu'on s'éloigne du foyer de la parabole. Cet effet est vrai pour les eaux de surface mais se complexifie en profondeur par l'action de la pression hydrostatique qui comprime les particules d'eau. En plongeant, la particule subit alors une variation adiabatique de sa température causée par un transfert du travail des forces de pression vers la particule sous forme de chaleur. Ces effets de pression biaisent les mesures de températures de profondeur. Pour se soustraire à ces effets il est donc préférable d'utiliser des paramètres non biaisés comme la température et la densité potentielle. Les effets thermiques ne sont pas l'objet de cette étude mais sont essentiels pour comprendre la façon dont sont construits les modèles thermiques de lac, le lecteur se tournera donc vers des articles spécialisés pour obtenir plus de détails.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Stratification}}
+
+L'étude et la connaissance du profil de température vertical au sein des lacs a mis à jour un phénomène déjà connu en océanographie issu de la relation non-linéaire entre la température et la densité de l'eau: \textbf{la stratification verticale saisonnière}. Cette caractéristique distingue les lacs des cours d'eau qui l'alimentent et conditionne toute la chaîne trophique.
+Dans un lac d'eau douce, la stratification apparaît lorsqu'est observé un étagement des masses d'eau suivant un profil de température qui est soit direct soit inversé (Figure \ref{stratification}). \\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.95 \textwidth]{stratification}}
+ \caption{Exemple de cas de stratification pour un lac en zone tempérée. En été, l'étagement des eaux se fait en stratification directe. En hiver, la situation s'inverse et une stratification inversée se met en place.}
+ \label{stratification}
+\end{figure}
+
+Dans le sens direct, la température diminue avec la profondeur amenant à un étagement des masses d'eau avec les eaux chaudes et moins denses en surface et les eaux froides et denses en profondeur. Pour les lacs assez profonds, la température diminue jusqu'à la valeur de densité maximale soit environ 4 °C. Dans le sens inverse, la température croît avec la profondeur. Cette situation se rencontre lorsque les eaux plus froides que la température maximale de densité se retrouvent au dessus de masses d'eau à la température de densité maximale.\\ 
+Les états de stratification trouvent généralement leurs origines dans un forçage thermique comme la température de l'air ou dans un forçage mécanique comme le vent \citep{snortheim2017}. La stratification est d'autant plus forte que le forçage est intense et dure dans le temps, ainsi les longues périodes de gel rencontrées en Sibérie accentuent le gradient de température entre l'interface glace-eau liquide et le fond du lac. Parmi tous les états possibles, il existe aussi une situation non stratifiée appelée \textbf{homothermie} qui correspond à un profil de température homogène sur toute la profondeur du lac. Suivant la localisation et les forçages externes, les états de stratification peuvent se succéder ou alors un seul état peut dominer tout au long de l'année comme c'est le cas pour les lacs tropicaux.\\
+En se basant sur cette micticité, trois grandes familles de lacs se distinguent:\\
+
+\begin{itemize}
+\item[$\bullet$] les lacs \textbf{méromictiques} dont les eaux se mélangent moins d'une fois par an;
+
+\item[$\bullet$] les lacs \textbf{monomictiques} dont les eaux se mélangent une seule fois par an. On parle de lac monomictique chaud lorsque le mélange s'effectue à l'automne sans que la température de l'eau ne descende au dessous de 4 °C. À l'inverse, la température de l'eau d'un lac monomictique froid ne dépasse jamais 4 °C et le brassage des eaux se produit en été;
+
+\item[$\bullet$] les lacs \textbf{polymictiques} dont les eaux se mélangent plus d'une fois par an. C'est notamment le cas des lacs \textbf{dimictiques} dont les eaux se mélangent deux fois par an comme présenté sur la figure \ref{stratification}. La polymicticité n'a pas de limite et certains lacs peuvent avoir des eaux qui se mélangent quotidiennement.
+\end{itemize}
+~\\
+Bien sûr cette classification est générale et ne prend pas en compte les détails distinguant les lacs dont les eaux ne se mélangent que partiellement ou même de façon irrégulière.\\
+
+\noindent Dans un cadre idéal, cet étagement saisonnier des masses d'eau serait associé à un profil de température décroissant de manière exponentielle. Or les profils observés présentent une partie concave au niveau de la couche de surface puis une inversion du profil dans une couche intermédiaire pour tendre vers un profil convexe exponentiel dans la couche la plus profonde. Cette "anomalie" a amené une distinction entre ces couches saisonnières. Se distingue dans un premier temps, la couche superficielle nommée \textit{épilimnion} qui est directement influencée par le cycle diurne ou le vent. C'est une couche soumise à la turbulence et couramment appelée couche de mélange pour traduire les processus convectifs qui s'y produisent. Dans un second temps, se trouve la \textit{thermocline} qui est définie soit comme le point d'inflexion du profil de température, soit comme la couche ayant un gradient de température de plus d'un degré par mètre. Quelle que soit sa définition, cette couche représente une "barrière thermique" entre la surface et le fond du lac qui inhibe tous les échanges gazeux ou nutritifs \citep{shimoda2011}. Enfin au-delà de cette couche intermédiaire existe \textit{l'hypolimnion} qui correspond aux eaux profondes dont la température est constante proche de 4 °C. Cette couche n'existe pas dans tous les lacs et dépend notamment de la profondeur du lac. Du fait de la présence de la thermocline au-dessus, cette couche est considérée comme relativement stable d'un point de vue mécanique et souvent isolée de l'influence de la surface \citep{wetzel1983}.\\
+La stratification est notamment dépendante de la température moyenne de la colonne d'eau \citep{lewis1996,kraemer2015} et de la morphologie du lac \citep{macintyre2010,butcher2015} avec un impact fort sur les conditions de mélange.
+
+
+\subsubsection{{\fontfamily{lmss}\selectfont Les lacs comme conditions à la limite des modèles atmosphériques}}
+
+Ces conditions thermiques et énergétiques particulières font que les lacs ont une influence sur les échanges de flux d'énergie avec l'atmosphère par rapport aux autres surfaces continentales \citep{lemoigne2013,potes2017}. Les flux de chaleur latente, pouvant être importants, font des lacs des sources d’humidité qui fixent des conditions limites locales et régionales à l'atmosphère en modifiant les caractéristiques de la couche limite atmosphérique \citep{verburg2010,li2015,woolway2017b}. Plus globalement, les conditions atmosphériques modifient les caractéristiques de la surface des lacs et notamment celles d'albédo, de rugosité et de capacité thermique. La section précédente a montré que cette dernière est, elle-même, dépendante du vent et des conditions de stratification et de mélange \citep{bouffard2019}. Ces modifications entrainent aussi une modification du bilan d'énergie de surface et des flux d'énergie avec l'atmosphère \citep{dutra2010}. La prise en compte du bilan d'énergie associé aux lacs en tant que source d'humidité statique corrige donc les termes de flux de chaleur. Cette correction est due à une augmentation de l'évaporation potentielle. Par conséquent, la présence de lacs peut avoir une incidence sur le climat régional tel qu'en Afrique de l’Est ou en Scandinavie où ils modifient les régimes de pluies que ce soit en intensité mais aussi en couverture spatiale \citep{samuelsson2010,thiery2015}.\\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[width=0.9\textwidth]{lake_breeze}}
+ \caption{(a) Occurence des sommets protubérants diurnes et nocturnes détectés par satellite au dessus de la zone des Grands Lacs Africains. (b) Nombre de sommets protubérants nocturnes détectés par satellite sur la période 2005-2013. Source: \citet{thiery2017}.}
+  \label{lake-breeze}
+\end{figure}
+\clearpage
+
+Les lacs jouent un rôle à l'échelle locale dans le développement et l'intensification de cellules convectives comme au niveau du Lac Majeur \citep{pujol2011}, du Lac Victoria \citep{thiery2016} ou du Lac Malawi \citep{koseki2019}. Ces signatures influencent notamment le régime de précipitations journalières. Au niveau du lac Victoria, le cycle diurne de précipitations convectives au dessus du lac est modifié par rapport aux surfaces environnantes avec une activité convective maximale pendant la nuit \citep{thiery2017}. Ce phénomène est lié au processus de brise qui apparaît à la frontière entre le lac et la rive et qui provoque une divergence diurne du flux atmosphérique et une convergence nocturne. Associées à l'humidification continue de l'atmosphère par le plan d'eau, il est possible de détecter des anomalies positives de précipitations sur le lac au cours de la nuit \citep[figure \ref{lake-breeze},][]{thiery2016, koseki2019}.
+
+À l'échelle régionale, les lacs influencent les conditions atmosphériques en réponse à des conditions synoptiques particulières. Les effets de lacs sur les précipitations sont particulièrement documentés du fait de leurs fréquences et de leurs intensités sur le pourtour des Grand Lacs Américains \citep{niziol1995}. Dans le cas de conditions synoptiques où des masses d'air froides polaires sont advectées sur les Grand Lacs Américains, la présence de cette source humidité enrichit rapidement les masses d'air en vapeur d'eau et engendrent des cumuls de neige sur les côtes sud-est opposées au flux principal. Ces cumuls peuvent atteindre plusieurs dizaines de centimètres en quelques heures (Figure \ref{lake-effect-2}).
+~\\
+
+\begin{figure}[h!]
+    \begin{minipage}[c]{.45\linewidth}
+        \centering
+        \includegraphics[scale=0.3]{lake_effect}       
+    \end{minipage}
+    \hfill%
+    \begin{minipage}[c]{.45\linewidth}
+        \centering
+        \includegraphics[scale=0.05]{lake_effect_2}
+    \end{minipage}
+  \caption{Processus de formation des phénomènes d'enneigement extrême par effet lac et composition colorée du phénomène aux États-Unis. Source photo et schéma adapté de: \url{https://www.weather.gov}}
+   \label{lake-effect-2}
+\end{figure}
+
+L'intégration des lacs dans les modèles de prévisions du temps améliore la prévision de précipitations à l'échelle régionale. Ainsi, la présence de lacs provoquerait une augmentation des cumuls convectifs de l'ordre de 20\% et des anomalies négatives jusqu'à 70\% en juin en Finlande \citep{samuelsson2010}. Ces effets ont des conséquences majeures dans les applications météorologiques et climatiques puisque ces améliorations ont abouti à une réduction des biais systématiques des modèles climatiques \citep{lemoigne2016}. \\
+Dans la même optique, \citet{balsamo2012} confirme une réduction des erreurs de prévisions météorologiques sur les températures de l'air au printemps et en été, dans ces mêmes régions, par la résolution du bilan d'énergie lacustre dans le couplage surface-atmosphère.
+
+\subsubsection{{\fontfamily{lmss}\selectfont L'importance des lacs en climat}}
+
+Le bilan énergétique des lacs est aussi important pour les études climatiques. Les lacs ont une influence sur les climats locaux et régionaux aux échelles saisonnières, interannuelles et séculaires \citep{bonan1995,samuelsson2010, bowling2010, martynov2012,lemoigne2016}. Les lacs font varier la dynamique des stocks d'énergie de surface mais conditionnent aussi les échanges entre les différents acteurs de ce bilan d'énergie. Ainsi \citet{dutra2010} démontre l'influence de l'ajout des lacs dans le partage des flux d'énergie de surface à l'échelle globale. L'ajout d'une paramétrisation du bilan d'énergie propre aux lacs améliore les estimations de stockage énergétique et influe sur les estimations d'évapotranspiration. Plusieurs études ont démontré qu'à l'échelle régionale, la température de l'air à 2 m (T2m) est modifiée par la présence de lacs et cela proportionnellement à leur densité \citep{samuelsson2010,lemoigne2016}. Dans ses travaux, \citet{krinner2003} a montré que l'influence climatique des lacs était particulièrement visible en été dans les régions boréales lorsque ceux-ci sont libre de glace. L'inertie thermique intrinsèque aux lacs provoque un décalage ainsi qu'une atténuation des réponses de températures de surface par rapport aux échelles temporelles classiques de variations des températures atmosphériques. En d'autres termes, des anomalies négatives de T2m au cours du  printemps/été et positives au cours de l'automne/hiver apparaissent. Loin d'être négligeables, ces anomalies de température sont, en moyenne, de l'ordre du degré et des anomalies dépassant 1.5 °C ont été mesurées autour des lacs Ladoga et Onega (Russie) \citep[Figure \ref{samuelsson},][]{samuelsson2010}. \\
+\clearpage
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.35]{samuelsson}}
+ \caption{Différence de température de l'air à 2m entre une simulation avec et sans lac (en °C). Source: \citet{samuelsson2010}.}
+ \label{samuelsson}
+\end{figure}
+
+Les lacs font partie de boucles de rétroactions climatiques les rendant fortement dépendants des forçages atmosphériques \citep{de2006,lei2014,mao2018}. Une hausse généralisée de la température moyenne de l’air provoque une augmentation de l’évapotranspiration potentielle mais entraine aussi une accélération de la fonte glaciaire ainsi qu'une modification du régime de ruissellement. Cela est encore plus visible dans les régions boréales où le réseau lacustre est particulièrement dense et est dépendant du comportement hydrologique régional. L’évolution des conditions atmosphériques conduit à une modification de ce réseau par l’apparition ou la disparition de lacs et donc la modification des conditions atmosphériques et hydrologiques \citep{chen2013}. \\
+
+\subsection{{\fontfamily{lmss}\selectfont Limnologie dynamique: les lacs en mouvement perpétuel}}
+\label{sec:limno_dyn}
+
+Contrairement à certaines idées reçues les eaux d'un lac ne stagnent pas. Les variations de son volume sont caractérisées par une vaste gamme de fréquences allant de variations basses fréquences, comme la baisse progressive des niveaux du lac Tchad, vers des fréquences plus élevées associées à des modifications soudaines de l'apport en eau ou du déversement lié à l'activité anthropique. Plusieurs processus engendrent ces mouvements et assurent une redistribution verticale et horizontale des eaux. Les mouvements d'eau des lacs suivent les lois de l'hydrodynamique et leurs dimensions relativement faibles contribuent à l'apparition de mouvements spécifiques. Dans tous les cas, le volume d'eau contenu dans les lacs est fortement dépendant des contraintes amont du bassin versant qui domine son alimentation à travers le bilan hydrologique.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Foyer de mouvements horizontaux}}
+
+De façon similaire aux océans, les lacs, et notamment les plus grands, sont soumis à des mouvements horizontaux tels que les vagues et les courants. Les vagues sont des ondes progressives présentent à la surface du lac dépendant des conditions de vitesse et de direction du vent. De nombreuses études \citep{mccombs2014,ji2017,grieco2019} ont permis de mieux comprendre ces phénomènes et leurs conséquences parfois historiques comme le naufrage du SS Edmund Fitzgerald en 1975 sur le lac Supérieur attribué à des vagues d'environ 7.5 m de haut \citep{hultquist2006}. Les courants lacustres sont la traduction des efforts mécaniques qui agissent au sein du lac. Contrairement aux courants océaniques, les courants lacustres ont la particularité de se produire dans des bassins de dimensions relativement petites \citep{beletsky1999,laval2003,amadori2018}. Ils ont un aspect primordial en limnologie car ils informent sur la redistribution de matières en suspension comme les sédiments ou encore sur les producteurs primaires comme le phytoplancton. Une estimation précise de ces courants assure aussi une meilleure anticipation des évolutions de températures et les transferts de polluants au sein du bassin lacustre \citep{baracchini2020}.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Mouvements verticaux}}
+
+La convection joue un rôle capital dans la modification de la structure verticale du lac. Qu'elle soit forcée, notamment sous l'effet du vent lors d'épisode d'upwelling, ou liée à des courants de densité, lors des phases de déstratification, la convection permet un brassage des eaux nécessaire à l'équilibre écologique des plans d'eau \citep{bouffard2019}. Elle assure une oxygénation des eaux profondes tout en garantissant un apport de nutriments nécessaires au cycle trophique \citep{schladow2002,pernica2017}.\\
+Cependant ce sont les mouvements verticaux liés au marnage qui constituent le sujet de cette thèse. Le marnage est l'oscillation saisonnière du niveau de surface d'un plan d'eau entre ses hautes et ses basses eaux. Ces variations dépendent de facteurs climatiques, morphologiques et mécaniques qui modifient la réponse en surface. 
+L'amplitude de variation provient de trois processus principaux: deux processus ondulatoires et un processus hydrologique.\\
+Aux échelles de temps courtes, le niveau d'eau est perturbé par des phénomènes oscillatoires tels que les seiches ou les ondes de crue. Même si les seiches ne sont pas prises en compte dans cette étude, il est intéressant de les définir. Contrairement aux marées qui proviennent d'un interaction gravitationnelle, les seiches caractérisent l'oscillation de la surface du lac ayant pour origine l'entrée en résonance d'ondes stationnaires au sein du bassin \citep{rueda2002}. Elles sont l'expression des conditions aux limites induites par la morphologie du lac sur les ondes qui le parcourent. Dans ce cas, les seiches sont dites "externes" et proviennent soit d'une différence brusque de pression atmosphérique entre deux rives soit d'une accumulation de masse sur une rive par le vent. Un autre type de seiche dites "internes" correspond au phénomène similaire appliqué à l'oscillation d'une surface interne au lac comme la thermocline.\\
+
+Dans le cadre de cette étude, plusieurs échelles de temps de travail sont utilisées mais restent toutes supérieures a l'échelle journalière. Dans ce contexte les variations provoquées par des ondes de crues ou des seiches sont négligeables. Ce qui est important ici, ce sont les évolutions de niveau associées à des variations de volume basées sur une modification des conditions hydrologiques locales et régionales sur des échelles temporelles saisonnières ou intersaisonnières. Les marnages, à ces échelles de temps, sont donc liés aux processus de transfert de masse intrinsèques aux lacs et aujourd'hui modifiés de façon notable par la présence de l'Homme. 
+
+\subsection{{\fontfamily{lmss}\selectfont Hydrologie lacustre}}
+
+Les évolutions du niveau des lacs et plus globalement la tendance de ces variations, à différentes échelles de temps, sont intimement liées au contexte global et régional qui contraint la réponse hydrologique. Ces questions restent primordiales dans la gestion de la ressource en eau et du développement des sociétés. Il est donc essentiel d'évaluer le stock disponible afin de garantir une consommation d'eau sobre qui ne dépasse pas la quantité qui ruisselle des surfaces vers les océans \citep{oki2006}. Ces estimations doivent passer par des analyses pertinentes des variations à plusieurs échelles spatiales afin d’appréhender les évolutions à long terme.\\
+
+Le bilan hydrologique appliqué aux lacs est nécessaire pour caractériser l'état de la ressource et ses interactions avec les autres composantes à plusieurs échelles temporelles. Les échelles longues informent sur la pérennité du stock en eau face aux risques d'assèchement, les échelles saisonnières déterminent les régimes hydrologiques naturels dont le marnage est la conséquence observable, enfin les courtes échelles temporelles sont révélatrices de variations hautes fréquences en lien notamment avec les prélèvements anthropiques pour l'industrie ou l'agriculture. Dans tous les cas de figures, le lac interagit avec le bassin versant qui l'alimente. Cette intégration dans un continnum est nécessaire pour éviter une vision manichéenne qui caractérise le couple rivière-lac comme discontinu. \\
+Dans de nombreuses régions, les réseaux de rivières et de lacs sont connectés \citep{kratz2000} et participent à la construction du réseau hydrologique régional. Les rivières ne sont pas uniquement de longs réseaux continus mais plutôt une succession de branches connectées par des lacs plus ou moins petits. La densité de ces lacs, leur taille, leur position et l'aire drainée influencent ce transfert de masse. Malgré cette importance, le prise en compte de cette continuité est souvent ignorée dans les études \citep{jones2010}. Pourtant la prévision des variations du bilan d'eau est importante dans les régions où la modification de la distribution spatiale et temporelle d'eau douce coïncide avec une croissance démographique rapide et une évolution climatique \citep{schewe2014}. \\
+
+De la même façon que pour le bassin versant, un bilan hydrologique pour le lac est défini par une équation de bilan de masse: \\
+
+\begin{equation}
+\frac{dV}{dt} = (P-E) + \frac{Q_{in}-Q_{out}}{A}
+\end{equation}
+~\\
+Au-delà de la simplicité relative de l'équation de bilan, c'est la considération multi-factorielle qui rend l'analyse complexe. Chaque composant du bilan dépend de facteurs externes propres qui font émerger des questions récurrentes sur l'influence notamment du bassin de drainage, de la prédominance d'un des processus sur les autres mais aussi de la saisonnalité. Ainsi connaître l'hydrologie des lacs c'est pouvoir caractériser les dépendances qui existent avec des facteurs externes au bassin pour une préservation quantitative et qualitative de leurs eaux. Les lacs sont un des maillons du continuum hydrologique dont chaque composant influence les autres à des échelles annuelles ou pluriannuelles. À titre d'exemple, la réduction des stocks glaciaires sur le plateau Tibétain impacte radicalement les réserves d'eau douce et ajoute une tension supplémentaire à ces zones essentielles pour l'approvisionnement en eau d'une grande partie de la population mondiale \footnote{Le plateau Tibétain est couramment désigné comme étant le "château d'eau de l'Asie".}. Le bilan hydrologique influence aussi le bilan énergétique notamment en été où les eaux s'écoulant du lac alimentent le bassin aval en eau épilimnique chaude. Cet effet tend à persister à l'automne et s'inverse au printemps avec une alimentation en eaux froides. \\
+
+De l'analyse de ce bilan, il est possible de classer les lacs suivant le type de connexion avec le réseau hydrographique: leur rhéisme. D'un côté se trouvent les lacs exoréiques, connectés au bassin aval par un écoulement à l'exutoire; le bilan hydrologique est généralement bénéficiaire. De l'autre côté, les lacs endoréiques sont caractérisés par l'absence d'exutoire et un bilan hydrologique généralement dominé par la corrélation atmosphérique du couple précipitations-évaporation. \\
+Les interconnexions sont accentuées dans les bassins endoréiques, comme dans le cas du lac Tchad ou la mer d'Aral où des facteurs naturels ou anthropiques altèrent l'équilibre hydrologique. L'anthropisation joue un rôle non négligeable dans la modification des conditions hydrologiques de ces bassins. En conjonction avec des modifications des régimes atmosphériques, la baisse du niveau d'eau, d'origine anthropique, a provoqué une quasi-disparition de ces lacs avec des conséquences sanitaires et écologiques dramatiques \citep{philip2007,gao2011}.\\
+
+Un exemple pédagogique de l'effet conjoint de l'anthropisation et de la variabilité climatique est le cas de la mer d'Aral (Figure \ref{aral}).
+Située dans une zone aride d'Asie à la frontière entre le Kazakhstan et l'Ouzbékistan, la mer d'Aral est soumise à des conditions météorologiques où la perte par évaporation est quasiment 10 fois plus importante que l'apport par précipitations. Les niveaux d'eau de la mer étaient, à l'origine, quasi-équilibrés par un apport complémentaire en eau assuré par deux fleuves. La construction de nombreux barrages et le développement de l'irrigation ont provoqué la diminution du débit entrant dans le lac de 16.7 km$^{3}$.an$^{-1}$ dans les années 1970 à 4.2 km$^{3}$.an$^{-1}$ à la fin des années 1980. En conséquence, la mer d'Aral a vu son niveau d'eau baisser d'environ 70 cm.an$^{-1}$ amenant la surface de la mer de 67 000 km$^{2}$ à 16 000 km$^{2}$ et le volume de 1 083 km$^{3}$ à 100 km$^3$ \citep{cretaux2005}.\\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.5]{aral}}
+ \caption{Suivi des berges de la mer d'Aral par imagerie satellite sur la période 2000-2008. Source: NASA Earth Observatory.}
+ \label{aral}
+\end{figure}
+\clearpage
+\noindent Les lacs, par leur place spéciale dans le cycle hydrologique, offrent une source d’informations importante sur l’effet du changement climatique et les conséquences à différentes échelles \citep{williamson2009}. Comme nous venons de le voir, une des conséquences principales, si ce n'est une des plus visibles, est l’inexorable diminution du niveau des lacs et de leurs stockes \citep{tao2015,wurtsbaugh2017,wang2018storage,busker2019}. Cette raréfaction de la ressource amène à des tensions régionales voire une impossibilité pour les populations à satisfaire leurs besoins vitaux. Ces tensions ne sont pas forcément l'apanage de pays manquant d'infrastructures ou de moyens et touchent aussi des régions considérées comme hydrologiquement développées sinon conscientes des enjeux\footnote{Par exemple, les conflits en Californie entre les villes de Los Angeles et Owens ont pour origine un approvisionnement en eau jugé inégal.}. \\
+\noindent Les lacs sont aussi des acteurs importants dans la régulation du cycle du carbone en agissant comme de véritables puits de dioxyde de carbone et capables de stocker des taux de carbone organique supérieurs aux océans \citep{cole2007}. \\
+
+Cependant la caractéristique qui nous intéresse dans le cadre de cette étude correspond plus particulièrement à la capacité des lacs à amortir les débits régionaux. Cette effet est couramment désigné sous le terme d'\textbf{effet tampon}. L'effet tampon est caractérisé par le temps moyen de rétention, paramètre défini comme le temps nécessaire à une goutte d'eau qui entre dans un système pour en sortir soit par l'exutoire soit par évaporation. Ce temps moyen est de l'ordre de 5 ans pour un lac dont la superficie est d'au moins 10 hectares \citep{messager2016}. Ce paramètre est dépendant de paramètres locaux comme les caractéristiques physiques du lac, le climat ou les régimes hydrologiques locaux. \citet{bowling2010} a montré que 80\% de l'eau issue de la fonte nivale en Arctique est stockée dans des lacs atténuant ainsi le pic de débit printanier. \\
+La représentation des échanges de masses d'eau dans un modèle assure une meilleure compréhension des phénomènes liant les différents compartiments (notamment les interactions entre les villes, les surfaces végétales, les aquifères et les surfaces aquatiques). L’étude du régime hydrologique des lacs permet donc d'obtenir une vision complète du cycle de l’eau pour la compréhension de phénomènes hydrologiques ou l’étude d’impact des barrages sur le corridor écologique d’un cours d’eau. S'intéresser aux variations spatio-temporelles intrinsèques aux lacs est aussi nécessaire d'un point de vue opérationnel en tant qu'indicateur de sécheresses que dans une optique de prévention du risque inondations \citep{oki2006}. Ainsi \citet{zajac2017} propose une étude globale portant à la fois sur les lacs et les réservoirs avec l'intégration complète de ces retenues dans le réseau de rivières. Cette étude souligne l'atténuation et le décalage temporel du transfert d'eau au sein d'un bassin. \\
+
+Cependant, la modélisation hydrologique des lacs par la quantification des flux entrants et sortants se heurte à des contraintes de précision et de mesures des paramètres hydrologiques et météorologiques. Certaines régions comme l'Afrique de l'Est sont fortement dépendantes des conditions d'évaporation et l'intégration des lacs peut modifier grandement l'amplitude des débits simulés \citep{zajac2017}. 
+Malgré une connaissance qui évolue rapidement \citep{gibson2006,swenson2009,gronewold2016}, les variations spatiales et temporelles liées au stockage d’eau des lacs ne font pas, à ce jour, l’objet d’études complètes assurant un suivi global \citep{alsdorf2003}. D’une part cette variabilité est principalement due à un réseau de mesures \textit{in situ} éparse et hétérogène \citep{alsdorf2007} mais aussi à des sources d'incertitudes pesant sur les variables d'entrée comme les cumuls de précipitations \citep{fekete2004}. D’autre part, le développement de modèles de surface continentale ou de rivière a vu le jour à la fin des années 1980 sans considération de l’activité des lacs et des zones humides dans les calculs de vitesses d’écoulements \citep{downing2010}. À ce jour, un nombre croissant d’études s’intéresse à la quantification des lacs et de leurs propriétés \citep{doll2003,downing2006,mcdonald2012,verpoorter2014}. Cependant, ces études ne représentent qu’une vision à un instant donné et ne considèrent pas les phénomènes amenant des évolutions à court terme (\textit{e.g.} apparition et disparition de lacs thermokarstiques issus de la fonte du permafrost). En outre, des études ont montré l'impact des retenues sur les débits de surface en se focalisant principalement sur l'impact des réservoirs et des rivières anthropisées sans intégration globale d'une dynamique lacustre dans un réseau de rivières \citep{haddeland2006,hanasaki2006,doll2009,zhou2016}.
+
+\section{{\fontfamily{lmss}\selectfont \'Etat de l'art de la modélisation des lacs}}
+
+C'est à la fin des années 90 que le besoin d’une meilleure description du cycle de l’eau à l’échelle globale émergea \citep{alsdorf2003}. Motivée par une stagnation voire une diminution du nombre de stations de jaugeage, cette évolution fait écho à l’intérêt croissant pour les phénomènes climatiques et leurs manifestations locales et régionales. Des modèles hydrologiques représentant différents processus comme les régimes de crues \citep[LISFLOOD,][]{de2000} ou la relation pluie-débit \citep{perrin2003} ont ainsi vu le jour. \\
+Des études ont démontré le rôle central des lacs dans des disciplines scientifiques aussi diverses que l’écologie, la biochimie ou la météorologie (section \ref{sec:limnologie}). Malgré cela les groupes de modélisation se sont longtemps attachés à développer des outils se focalisant sur les ruissellements de surface, les échanges souterrains et le routage et négligeant les paramétrisations des transferts latéraux \citep{davison2016}. Ainsi, la dynamique des lacs est un des processus majeurs encore sous-représenté dans les développements hydrologiques globaux  \citep{gronewold2020}. \\
+Après avoir été considérés d’intérêt mineur dans les études de processus à échelle globale et ignorés dans les modéles \citep{downing2010}, les lacs font, aujourd’hui, l’objet d’un intérêt particulier comme composants du cycle hydrologique et climatique à toutes les échelles spatiales. Les modèles lacustres sont utilisés pour une meilleure compréhension des bilans d’eau et d'énergie et pour affiner la connaissance des rétroactions climatiques, notamment dans les régions arctiques ou en Afrique de l'Est, régions où la densité lacustre est particulièrement élevée. 
+
+\subsection{{\fontfamily{lmss}\selectfont Des modèles thermiques de lacs...}}
+
+La section \ref{sec:limno_physique} a montré que la modification des contraintes de surface dues à la présence de lacs ne peut être négligée dans les régions où leur densité est importante car ces plans d'eau influencent les conditions climatiques locales. Au regard de l’impact qu’ont les lacs sur de nombreuses régions du monde, il est nécessaire d’inclure ces éléments dans le couplage avec des modèles atmosphériques et climatiques en vue d’affiner les prévisions hydrologiques et climatiques.\\
+
+Les disparités qui apparaissent dans les flux de chaleur entre un sol nu et un lac ainsi que le besoin d'un meilleure représentation de l'interface surface-atmosphère ont poussé la communauté scientifique à d'abord s'intéresser à la thermodynamique des lacs et ses interactions avec l'atmosphère \citep{hostetler1993,goyette2000}. Sur cette base, de nombreux modèles thermodynamiques ont été développés dont le tableau \ref{tab_thermo} donne un aperçu. Le principe de ces modèles consiste en la résolution d'équations thermodynamiques en couplage avec l'atmosphère pour estimer les échanges de chaleur et de moment mais aussi pour déterminer l'évolution des caractéristiques intrinsèques aux lacs. Parmi cette diversité de modèles deux familles se dégagent suivant que la représentation des échanges est uni- ou tri-dimensionnelle. 
+
+\begin{table}[h!]
+ \caption{Principaux modèles résolvant le bilan d'énergie pour les lacs}
+ \label{tab_thermo}
+ \begin{tabularx}{\textwidth}{XcXX}
+ \hline
+ Nom & Référence & Paramétrisation &  Dimension\\
+ \hline
+  Hostetler&\citet{hostetler1993}&semi-empirique 1D&Multi-couches\\
+  MyLake&\citet{saloranta2007}&semi-empirique 1D&Multi-couches\\
+  CLM4-LISSS&\citet{subin2012}&semi-empirique 1D&Multi-couches\\
+  ALBM&\citet{tan2015}&semi-empirique 1D&Multi-couches\\
+  LAKEoneD&\citet{joehnk2001}&k-$\epsilon$ turbulence 1D&Multi-couches\\
+  Simstrat&\citet{goudsmit2002}&k-$\epsilon$ turbulence 1D&Multi-couches\\
+  Simstrat&\citet{goudsmit2002}&k-$\epsilon$ turbulence 1D&Multi-couches\\
+  LAKE&\citet{stepanenko2016}&k-$\epsilon$ turbulence 1D&Multi-couches\\
+  FLake& \citet{mironov2008} &bulk 1D&Double-couches\\
+  GLM&\citet{hipsey2019}&bulk 1D&Multi-couches\\
+  POM adaptation&\citet{song2004}&3D&Multi-couches\\ 
+  \hline
+ \end{tabularx}
+\end{table}
+
+\noindent Le niveau de détail d’un modèle n’est pas nécessairement lié à la qualité de la modélisation. Les modèles très détaillés apportent plus d’incertitudes du fait de l’ajout de paramètres qui nécessitent aussi une plus grande connaissance de la zone étudiée et l'ajout de nouvelles variables qu'il faut pouvoir initialiser. En outre, l’échelle d’application est un point essentiel du développement. Elle conditionne l’utilisation du modèle à l’échelle d'étude et contraint le niveau de détail attendu pour les processus sur la base du nombre d'observations nécessaires à l'évaluation. Dans cette optique, \citet{swayne2003} a montré que l’utilisation d’un modèle pouvait être justifiée par les dimensions des lacs modélisés sans pour autant être une condition nécessaire. Ainsi plus un lac est grand, plus un modèle détaillé sera performant. Cette règle explique notamment l’utilisation de modèles d’océan tri-dimensionnels comme les modèles Nucleus for European Modelling of the Ocean (NEMO) ou Princeton Ocean Model (POM) pour les Grands Lacs d’Amérique ou le Lac Baïkal. La modélisation de ces lacs nécessite un maillage spatial à résolution fine afin de rendre compte du caractère non-uniforme des températures de surface \citep{leon2007}. De plus, les dimensions de ces lacs engendrent un hydrodynamisme plus proche des conditions d'une mer intérieure ou d'une partie d'océan. Cependant le couplage des modules de lacs avec des modèles atmosphériques ajoute une complexité non négligeable et requiert une capacité de calcul qui est parfois coûteuse pour des études à grande échelle. \\
+Par conséquent, les modèles 1D ont été adoptés dans le cadre d’études climatiques en se basant uniquement sur la description verticale du profil de température des lacs. Parmi ces modèles 1D, les plus notables sont ceux qui appartiennent à la famille des modèles types Hostetler \citep{hostetler1993} comme CLM4-LISS \citep{subin2012}, utilisés pour représenter les lacs dans une approche climatique globale ou régionale \citep{martynov2012}, ou ceux qui appartiennent aux modèles de type k-$\epsilon$. Ces derniers basent la paramétrisation de la turbulence sur les équations uni-dimensionnelles d'énergie cinétique turbulente \citep{stepanenko2013}. 
+Nombre de ces modèles sont aujourd'hui intégrés à des modèles numériques de surface couplés à des modèles d’atmosphère et de climat \citep{mackay2009, thiery2016, salgado2010, lemoigne2016}.\\
+
+Le modèle utilisé pour la modélisation des échanges de flux de chaleur avec l’atmosphère par le Centre National de Recherches Météorologiques (CNRM), FLake (Mironov, 2008), fait partie des modèles "bulk" uni-dimensionnels. Nous verrons ses spécifités dans le chapitre suivant.
+
+\subsection{{\fontfamily{lmss}\selectfont ... vers des modèles hydrologiques}}
+
+Les modèles thermiques sont essentiels à une meilleure connaissance des échanges énergétiques en couplage avec les modèles atmosphériques et climatiques mais ne représentent pas la dynamique du bilan de masse d’eau. Les épaisseurs d'eau de lacs sont pour ainsi dire statiques et la capacité d'évaporation des lacs devient alors quasi-infinie. La représentation des composantes interagissant avec le lac conditionne la capacité d’un modèle à résoudre le bilan hydrologique. D’un autre point de vue, la difficulté qui réside dans la modélisation des lacs est la description de l’interaction entre le lac et les autres composantes du bilan hydrologique qui ne sont pas toutes directement mesurables (\textit{e.g.}: les échanges d’eau avec les aquifères). \\
+Depuis quelques années, les lacs sont considérés dans les modèles principalement sous l'impulsion d'une meilleure résolution des modèles de climat (General Circulation Model, GCM). Les lacs qui ne représentaient qu'une fraction négligeable d'une cellule de maille se retrouvent aujourd'hui à couvrir une voire plusieurs cellules, obligeant la communauté scientifique à considérer leurs processus. Des modèles ont été développés afin de suivre l’évolution de systèmes lacustres individuels ou régionaux et le tableau \ref{tab_masse} récapitule les différents modèles hydrologiques. \\
+
+\begin{table}[h!]
+\centering
+ \caption{Principaux modèles résolvant un bilan de masse pour les lacs}
+ \label{tab_masse}
+ \begin{tabularx}{\textwidth}{cc}
+ \hline
+ Model name & Reference \\
+ \hline
+  VIC&\citet{cherkauer2003}\\
+  WaterGap&\citet{hunger2008} \\
+  Jena Adaptable Modelling System&\citet{krause2010}\\
+  HYPER&\citet{lindstrom2010}\\
+  LISFLOOD&\citet{burek2013}\\
+  CLM 4.5&\citet{thiery2017b}\\
+  General Lake Model&\citet{hipsey2019}\\
+  Community Water Model&\citet{burek2019}\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+Parmi ces modèles, seuls deux modèles globaux, à ma connaissance, intègrent un modèle de bilan de masse des lacs couplé à un réseau de rivières et à un modèle atmosphérique: Variable Infiltration Capacity (VIC) et LISFLOOD. \\
+
+Le modèle VIC, développé par \citet{liang1996}, est d'un intérêt particulier par son application couplée à un modèle atmosphérique. VIC est un modèle hydrologique semi-distribué qui a fait l’objet de validations à l’échelle régionale \citep[avec une résolution de 1/8°:][]{maurer2002} et à l’échelle globale \citep[avec une résolution de 2°:][]{nijssen2001}.  Dans cette approche, chaque maille est divisée sous forme de tuiles (sol nu, végétation, rivières, lacs) ayant une paramétrisation propre. À cela s'ajoute un modèle de routage, présenté en figure \ref{vic_lake}, introduit pour transférer les volumes d’eau modélisés de la surface vers les rivières. Des estimations de débits en sortie de chaque cellule du modèle sont ensuite générées par la résolution des équations de Saint-Venant. À l'origine décrit par \citet{cherkauer2003}, le modèle de lac a été plus largement présenté et validé sur la région arctique dans la version de \citet{bowling2010}. La figure \ref{vic_lake} schématise le fonctionnement du modèle de lac dans VIC.\\
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.7]{VIC_lake}}
+ \caption{Représentation schématique du modèle de lac intégré à VIC. Source: \citet{cherkauer2003}.}
+ \label{vic_lake}
+\end{figure}
+\clearpage
+Le modèle résout, à la fois, les équations de bilan énergétique et hydrologique sur chaque cellule du modèle afin de déterminer un profil vertical saisonnier de température. Au sein d'une tuile de type "lac", tous les ruissellements et drainages s'écoulent directement dans celle-ci en modifiant en retour son stock. Lorsque tous les termes entrants et sortants sont connus, une équation de déversoir basée sur une hypothèse de seuil épais rectangulaire calcule le débit en sortie du lac. 
+\begin{equation}
+Q= c_{d}b\sqrt{g} [\frac{2}{3} (z-z_{min})^\frac{3}{2}]
+\end{equation}
+avec $Q$ le débit de déversement (m$^{3}$.s$^{-1}$), $c_{d}$ un coefficient de débit rendant compte des phénomènes turbulents aux abords du seuil, $b$ la largeur de l'écoulement au niveau du seuil (m), $g$ la constante de gravité (m.s$^{-2}$), $z$ la cote de surface libre mesurée (m), $z_{min}$ la cote de surface libre minimale du lac (m).\\
+
+Dans cette version de VIC, le modèle de lac est enrichi par un algorithme décrivant explicitement les échanges de sub-surface entre la zone lacustre et la zone humide adjacente. Les échanges sont liés à la différence de charge entre ces deux zones. Dans le cas où la charge en eau est plus importante dans la zone humide, l'écoulement s'effectue vers le lac et inversement lorsque la charge est plus importante dans le lac. Enfin le module a été amélioré pour rendre compte des cycles de gel et de dégel par une meilleure représentation de l'évaporation et de l'albédo de surface. Cette amélioration passe par la définition de l'hypsométrie de lac.
+\begin{equation}
+A(h) = A_{min} \sqrt{\frac{h}{h_{min}}}
+\end{equation}
+avec $h$ la profondeur totale du lac, $A(h)$ l'aire du lac à la cote $h$, $h_{min}$ la profondeur du lac par rapport au seuil et $A_{min}$ l'aire du lac au niveau du seuil. Toutes les profondeurs sont en $m$ et les aires en $m^{2}$.\\
+
+\citet{bowling2010} a démontré l’efficacité du modèle à l'échelle globale dans l’analyse de la variation du stockage d'eau dans les régions arctiques par sa capacité à expliquer ces variations lors des périodes de dégel. L'ajout des lacs atténue aussi les débits des rivières obtenus dans les simulations régionales. \\
+
+Le second modèle prenant explicitement en compte la dynamique des lacs est LISFLOOD \citep{burek2013}. Ce modèle hydrologique semi-distribué simule les processus de transfert d'eau à l'échelle de grands bassins versants \citep{de2000}. Dans sa version simplifiée, le modèle explicite les processus souterrains, le routage en rivière, les lacs et l'anthropisation par le biais des barrages-réservoirs. Le schéma de routage utilise une approche d'onde cinématique en réponse à un ruissellement de surface et de sub-surface généré par le modèle de surface H-TESSEL du CEPMMT \citep[figure \ref{lisflood},][]{balsamo2009}. 
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.3]{lisflood}}
+ \caption{Schéma des processus modélisés dans le modèle LISFLOOD. Source: \citet{burek2013}.}
+ \label{lisflood}
+\end{figure}
+
+
+La physique du modèle, similaire à celle du modèle VIC, résout une équation de bilan de masse sur un point du réseau de routage. Le débit à l'éxutoire est modélisé par modification de l'équation de seuil de Poleni avec un déversoir rectangulaire: 
+\begin{equation}
+Q = \mu L\sqrt{2g}.H^{\frac{3}{2}}
+\end{equation}
+avec $Q$ le débit à l'exutoire (m$^{3}$.s$^{-1}$), $g$ l'accélération gravitationnelle à la surface de la Terre (m.s$^{-2}$), $\mu$ le coefficient de débit dépendant de la géométrie du déversoir (généralement entre 0.5 et 0.8), $L$ la largeur du déversoir et $H$ la cote d'eau au dessus du déversoir (m).\\
+
+Dans ce modèle, une courbe hypsométrique est prescrite \textit{a priori} et considère que le volume évolue linéairement par rapport à la cote d'eau.
+Ce modèle a notamment été utilisé afin d'estimer l'impact de la présence des lacs et réservoirs pour l'amélioration de la simulation des débits dans le système de prévention des crues globale GloFas \citep{alfieri2013}.
+\clearpage
+
+\section{{\fontfamily{lmss}\selectfont Conclusion}}
+
+Le cycle de l'eau est une représentation du mouvement et du renouvellement perpétuel de l'eau dans le système global. Que les processus étudiés se concentrent sur les quantités d'eau produites, stockées ou transférées il est aujourd'hui démontré que ce cycle évolue dans le temps et l'espace sous l'effet de contraintes directes ou indirectes. \\
+L'hydrologie s'applique à étudier l'hydrosphère, ses liens avec les compartiments du système Terre comme l'atmosphère mais aussi les rétroactions qui existent avec la biosphère dont l'homme fait partie.
+Du point de vue d'une unité hydrologiquement close telle que le bassin versant, le bilan d'eau, qui décrit les échanges de ce cycle, est caractérisé par ses composantes essentielles. Ces composantes sont influencées par des paramètres physiques et physiographiques responsables d'un partitionnement, en moyenne stable, de l'eau dans les différents réservoirs. \\
+Afin d'accroître la connaissance de ces processus et de les étudier il est primordial d'utiliser des méthodes adaptées à l'échelle spatiale et temporelle souhaitée. Dans le cadre d'études locales, l'hydrologie s'appuie sur des techniques d'observation éprouvées dont la fiabilité et la précision ne sont plus à démontrer. Malgré cela, ces techniques ne donnent que des informations parcellaires sur des aspects locaux. Ainsi le développement de l'altimétrie et de l'imagerie satellitaire à donné à l'hydrologie les moyens nécessaires pour un suivi et une gestion de la ressource en eau à l'échelle globale. S'appuyant d'abord sur les missions spatiales dédiées à l'océanographie, l'hydrologie spatiale a su se faire une place jusqu'à aboutir à une mission spatiale présentant un volet spécifique pour l'hydrologie continentale: la mission spatiale Surface Water and Ocean Topography.\\
+Ces observations serviront notamment de données de calibration et de validation des modèles de surface et des modèles de routage associés qui contribueront à une meilleure connaissance des rétroactions avec le climat, au suivi saisonnier des sécheresses et à la prévention du risque inondation en temps réel. Ces modèles représentent les différents processus de la manière la plus détaillée tout en s'adaptant aux considérations spatiales voulues. Il apparaît aujourd'hui que ces modèles sont nécessaires à la connaissance des conséquences du changement climatique sur cette ressource.\\
+
+Les lacs font partie intégrante du cycle global de l'eau et en sont mêmes les composants principaux dans les régions boréales. Ces étendues modifient les propriétés de la couche limite atmosphérique en contribuant à la modification des bilans d'énergie et d'eau. À l'échelle régionale, leur capacité thermique spécifique provoque des anomalies de températures. Les lacs sont, à l'échelle de temps de l'humanité, des sources d'humidité quasi-infinie induisant une augmentation de l'évaporation potentielle pouvant provoquer une modification locale des régimes de pluies convectives. Enfin, complètement intégrés dans le réseau hydrographique global les lacs sont des zones tampons atténuant la propagation d'ondes de crues voire se comportant comme des réservoirs collectant l'eau d'un bassin. Les lacs sont des sentinelles des évolutions climatiques mais aussi de l'anthropisation; la mer d'Aral en est un exemple notable. Même s'ils ne représentent qu'une faible part de l'eau douce globale, ces réservoirs sont directement accessibles et sont vulnérables face aux altérations et aux pollutions continentales. 
+La compréhension de la dynamique et des échanges avec les compartiments hydrologiques est, par conséquent, nécessaire pour comprendre et anticiper les évolutions futures des stocks et de leur transfert aval.\\
+
+\noindent Maintenant que le cadre théorique a été mis en place, il convient d'apporter un regard sur les techniques et méthodes représentant les processus de surface et développées au CNRM. À travers le chapitre suivant c'est donc une description des outils mis à notre disposition ainsi que des outils développés dans cette thèse qui sont détaillés.
+
