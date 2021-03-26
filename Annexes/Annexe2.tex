@@ -1,0 +1,171 @@
+\chapter{{\fontfamily{lmss}\selectfont Résultats détaillés du chapitre: \'Evaluation et validation globale}}
+\label{chap:resultats-etude-globale}
+
+Cette annexe détaille les résultats obtenus lors de l'évaluation globale dans un premier temps en présentant les tableaux de résultats des débits pour l'évaluation sur les trois sites d'études choisis. Dans second temps, les résultats sur les variations de niveaux de hauteurs sont présentés. Enfin, des figures supplémentaires sont introduites afin de compléter l'analyse de la simulation globale au 1/12°.
+
+\section{{\fontfamily{lmss}\selectfont Résultats détaillés sur les simulations de débits}}
+\label{chap:annexe_q_globe}
+
+La présente section donne les détails des scores et résultats sur les débits simulés par CTRIP-MLake pour les trois sites d'études de l'évaluation globale.
+
+\begin{table}[b!]
+\caption{Résultats issus des simulations de débits pour les trois sites d'études sur la période 1974-2018.}
+\footnotesize
+\begin{tabular*}{\linewidth}{ @{\extracolsep{\fill}} ll *{9}c @{}}
+\toprule
+Zone d'étude & Scores & \multicolumn{9}{c}{Facteur Multiplicatif}\\
+\midrule \midrule \addlinespace \\
+ & & 0.1 & 0.5 & 0.7 & 1 & 1.5 & 2 & 4 & 5 & no lake\\
+\cmidrule{3-11}
+\addlinespace \\
+\multirow{9}{*}{\textbf{Victoria}} & RMSD ($m^{3}.s^{-1}$)& 426 & 436 & 508 & 596 & 710 & 681 & 1056 & 1147 & 1688 \\
+                         & $\overline{Q}$ ($m^{3}.s^{-1}$)& 700 & 910 & 920 & 925 & 924 & 922 & 916 & 915 & 1534   \\
+                         & $\sigma_{s}$ ($m^{3}.s^{-1}$)& 232 & 463 & 543 & 635 & 750 & 841 & 1091 & 1180 & 1667 \\
+                         & $Q_{90}$ ($m^{3}.s^{-1}$) & 1997 & 1517 & 1628 & 1722 & 1832 & 1917 & 2229 & 2324 & 3693 \\
+                         & $Q_{10}$ ($m^{3}.s^{-1}$) & 377 & 292 & 238 & 175 & 94 & 41 & 0 & 0 & 298  \\
+                         & NSE & -4.4 & -4.67 & -6.74 & -9.6 & -14.1 & 18.2 & -32.4 & -38.4 & -84.4\\
+                         & NSE$_{log}$ & -11 & -16.45 & -33.1 & -42 & -46 & -56 & -83 & -78 & -30.9 \\
+                         & KGE  & -0.09 & -1.1 & -1.6 & -2.1 & -2.9 & -3.5 & -5.15 & -5.74 & -4.55\\
+                         & NIC &0.94&0.93&0.91&0.88&0.82&0.78&0.61&0.54&-\\
+                         \midrule \addlinespace \\
+\multirow{9}{*}{\textbf{Baïkal}} & RMSD ($m^{3}.s^{-1}$) & 451 & 434 & 462 & 513 & 599 & 681 & 927 & 1014 & 1766 \\
+                         & $\overline{Q}$ ($m^{3}.s^{-1}$) & 1794 & 1853 & 1853 & 1853 & 1852 & 1851 & 1850 & 1850 & 1754  \\
+                         & $\sigma_{s}$ ($m^{3}.s^{-1}$) & 178 & 356 & 418 & 498 & 607 & 695 & 939 & 1021 & 1696 \\
+                         & $Q_{90}$ ($m^{3}.s^{-1}$) & 2023 & 2342 & 2438 & 2536 & 2673 & 2783 & 3085 & 3185 & 4046 \\
+                         & $Q_{10}$ ($m^{3}.s^{-1}$) & 1590 & 1406 & 1333 & 1234 & 1106 & 1003 & 737 & 651 & 148  \\
+                         & NSE & 0.14 & 0.20 & 0.094 & -0.11 & -0.52 & -0.96 & -2.64 & -3.4 & -12.2 \\
+                         & NSE$_{log}$ & 0.14 & 0.12 & -0.04 & -0.33 & -0.93 & -1.59 & -4.5 & -5.99 & -36.1 \\
+                         & KGE & 0.18 & 0.46 & 0.49 & 0.47 & 0.36 & 0.22 & -0.23 & -0.4 & -2.02  \\
+                         & NIC&0.93&0.94&0.93&0.92&0.88&0.85&0.72&0.67\\
+                         \midrule \addlinespace \\
+\multirow{9}{*}{\textbf{Ladoga}} & RMSD ($m^{3}.s^{-1}$) & 584 & 557 & 598 & 671 & 797 & 878 & 1109 & 1179 & - \\
+                         & $\overline{Q}$ ($m^{3}.s^{-1}$) & 2508 & 2539 & 2538 & 2507 & 2537 & 2537 & 2537 & 2537 & 2541  \\
+                         & $\sigma_{s}$ ($m^{3}.s^{-1}$) & 178 & 356 & 418 & 498 & 607 & 695 & 939 & 1021 & 1696\\
+                         & $Q_{90}$ ($m^{3}.s^{-1}$) & 2734 & 3048 & 3147 & 3248 & 3391 & 3532 & 3772 & 3860 & 3973 \\
+                         & $Q_{10}$ ($m^{3}.s^{-1}$) & 2264 & 2001 & 1885 & 1800 & 1608 & 1561 & 1382 & 1332 & 1045  \\
+                         & NSE & 0.18 & 0.26 & 0.14 & -0.08 & -0.44 & -0.85 & -1.95 & -2.33 & -2.94 \\
+                         & NSE$_{log}$ & 0.14 & 0.23 & 0.15 & -0.03 & -0.35 & -0.71 & -1.78 & -2.16 & -3.2\\
+                         & KGE & 0.10 & 0.37 & 0.38 & 0.35 & 0.25 & 0.17 & -0.06 & -0.14 & -0.22  \\
+                         & NIC&0.79&0.81&0.78&0.73&0.63&0.53&0.25&0.15\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\cleardoublepage
+
+
+\section{{\fontfamily{lmss}\selectfont Résultats détaillés sur les simulations de de niveau d'eau}}
+\label{chap:annexe_h_globe}
+
+La présente section donne les détails des scores et résultats sur le diagnostic des variations du niveau d'eau par CTRIP-MLake pour les trois sites d'études de l'évaluation globale.\\
+
+\begin{table}[h!]
+\caption{Résultats issus des simulations de variations du niveau d'eau pour les trois sites d'études à l'échelle globale sur la période 1974-2018.}
+\begin{tabular*}{\linewidth}{ @{\extracolsep{\fill}} ll *{8}c @{}}
+\toprule
+Zone d'étude & Scores & \multicolumn{8}{c}{Facteur Multiplicatif}\\
+\midrule \midrule \addlinespace \\
+ & & 0.1 & 0.5 & 0.7 & 1 & 1.5 & 2 & 4 & 5\\
+\cmidrule{3-10}
+\addlinespace \\
+\multirow{5}{*}{\textbf{Victoria}} & r & 0.19 & 0.86 & 0.90 & 0.92 & 0.90 & 0.88 & 0.76 & 0.72 \\
+                         & RMSD ($m$) & 0.76 & 0.33 & 0.31 & 0.76 & 0.33 & 0.35 & 0.41 & 0.43  \\
+                         & $\sigma_{s}$ ($m$) & 1.04 & 0.55 & 0.50 & 0.46 & 0.42 & 0.39 & 0.33 & 0.31  \\
+                         & $h_{min}$ ($m$) & -2.20 & -1.51 & -1.41 & -1.31 & -1.20 & -1.13 & -1.01 & -0.98   \\
+                         & $h_{max}$ ($m$) & 1.94 & 1.54 & 1.56 & 1.55 & 1.49 & 1.42 & 1.18 & 1.09 \\
+                         \midrule \addlinespace \\
+\multirow{5}{*}{\textbf{Baïkal}} & r & 0.73 & 0.86 & 0.85 & 0.82 & 0.78 & 0.75 & 0.63 & 0.59\\
+                         & RMSD ($m$) & 0.33 & 0.26 & 0.24 & 0.23 & 0.23 & 0.23 & 0.26 & 0.27  \\
+                         & $\sigma_{s}$ ($m$) & 0.47 & 0.31 & 0.29 & 0.27 & 0.25 & 0.24 & 0.21 & 0.19  \\
+                         & $h_{min}$ ($m$) & -2.07 & -0.67 & -0.61 & -0.55 & -0.49 & -0.44 & -0.34 & -0.31  \\
+                         & $h_{max}$ ($m$) & 1.20 & 1.02 & 0.99 & 0.96 & 0.90 & 0.85 & 0.69 & 0.63  \\
+                         \midrule \addlinespace \\
+\multirow{5}{*}{\textbf{Ladoga}} & r  & 0.78 & 0.58 & 0.5 & 0.42 & 0.23 & 0.27 & 0.12 & 0.07\\
+                         & RMSD ($m$) & 0.18 & 0.24 & 0.26 & 0.28 & 0.36 & 0.31 & 0.32 & 0.32  \\
+                         & $\sigma_{s}$ ($m$) & 0.34 & 0.27 & 0.26 & 0.24 & 0.22 & 0.20 & 0.16 & 0.14  \\
+                         & $h_{min}$ ($m$) & -0.95 & -0.75 & -0.71 & -0.66 & -0.57 & -0.51 & -0.40 & -0.36   \\
+                         & $h_{max}$ ($m$) & 0.66 & 0.58 & 0.53 & 0.46 & 0.46 & 0.45 & 0.41 & 0.38  \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+~\\
+\cleardoublepage
+
+\section{{\fontfamily{lmss}\selectfont Résultats supplémentaires CTRIP-12D}}
+\label{chap:supplement_ctrip12d} 
+
+Cette section présente les résultats supplémentaires issus de la simulation globale CTRIP-MLake 12D.
+
+\begin{table}[h!]
+ \caption{Répartition des 5533 stations par classe de scores hydrologiques pour la simulation CTRIP-MLake 12D}
+ \label{tab_repartition_12d}
+ \begin{tabularx}{\textwidth}{cXXXX}
+ \hline
+ & NSE & NSE$_{log}$ & KGE & Corrélation\\
+ \hline
+  < -0.5 &1374&1019&162&0\\
+ $\left[-0.5,-0.2\right[$ &479&854&4.2&2\\
+ $\left[-0.2,0\right[$&490&622&451&136\\
+ $\left[0.,0.2\right[$&721&760&935&562\\ 
+ $\left[0.2,0.5\right[$&1751&1323&2132&1306\\
+  > 0.5 &718&955&1618&3527\\
+ \hline
+ \end{tabularx}
+\end{table}
+
+~\\
+
+\begin{table}[h!]
+ \caption{Répartition des différences de scores NSE, NSE$_{log}$, KGE et scores de NIC suivant leurs classes de valeurs pour les 5533 stations de la simulation CTRIP globale sur la période 1978-2014.}
+ \label{ctrip_classe_globe}
+ \begin{tabularx}{\textwidth}{XXXXX}
+ \hline
+ Classe &NSE&NSE$_{log}$&KGE&NIC\\
+ \hline
+    $< -1$ &6&0&0&4\\
+    $\left]-1;-0.5\right]$ &14&2&2&9\\
+    $\left]-0.5;0\right[$ &1072&980&1319&1079\\
+    $0$ &2459&2011&1821&1927\\
+    $\left]0;0.5\right]$ &1753&2267&2363&2459\\
+    $\left]0.5;1\right]$ &129&119&25&55\\
+    $1$ &100&157&3&0\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+~\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{barrage_12d}
+\caption{Hydrographe des débits simulés par CTRIP-MLake et observés pour des stations à l'aval de barrage sur la période 1978-2014. A) Rivière Chelan, B) Barrage Hoover (USA), C) Volga (Russie).}
+\label{barrage_12d}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{rivers_12d}
+\caption{Hydrographe des débits simulés par CTRIP-MLake et observés pour des stations où les scores sont dégradés sur la période 1978-2014. A) Mackenzie (Canada), B) Ob (Russie).}
+\label{rivers}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\includegraphics[width=1.\textwidth]{bienville}
+\caption{Hydrographe des débits simulés par CTRIP-MLake et observés pour des stations à l'aval de barrage sur la période 1978-2014. A) Rivière Chelan (USA), B) Barrage de Hoover (USA), C) Ob (Russie), D) Volga.}
+\label{bienville}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\includegraphics[width=1.\textwidth]{tartaka}
+\caption{Hydrographe des débits simulés par CTRIP-MLake et observés pour des stations à l'aval de barrage sur la période 1978-2014. A) Rivière Chelan (USA), B) Barrage de Hoover (USA), C) Ob (Russie), D) Volga.}
+\label{tartake}
+\end{figure}
+
+~\\

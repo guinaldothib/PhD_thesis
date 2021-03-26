@@ -1,0 +1,350 @@
+\chapter{{\fontfamily{lmss}\selectfont Paramétrisation d'une bathymétrie adaptée à l'échelle globale}}
+\label{chap:morpho_lac}
+\minitoc
+
+L'eau stockée dans les réservoirs lacustres est non seulement importante pour l'activité humaine et les populations qui vivent aux abords \citep{marsily2018} mais elle conditionne aussi de nombreux processus biologiques, chimiques et écologiques comme la production primaire \citep{fee1996,blais1995}. Parmi les processus qui agissent au niveau des lacs, les variations de niveaux d'eau engendrées par une modification du bilan de masse sont un des objets de cette thèse. Ces variations dépendent évidemment de la morphologie mais  peuvent être aussi altérées par des conditions externes (voir au chapitre \ref{chap:etude-globale}).\\
+Le marnage est associé à des processus lacustres primordiaux et interdépendants, ce qui complexifie la simulation des réponses aux forçages climatiques et anthropiques. Ainsi, une baisse anormale du niveau d'un lac, en lien par exemple avec une augmentation du taux d'évaporation, peut engendrer une augmentation de la température de la colonne d'eau et provoquer une réduction de la couverture en glace hivernale \citep{sharma2019}. Cette chaîne de conséquences physiques peut aussi provoquer des modifications plus générales sur les régimes de mélange \citep{shatwell2019,woolway2019}, les périodes de stratification, la distribution verticale d'oxygène et de nutriments, c'est-à-dire une modification profonde et souvent irréversible du cycle biogéochimique \citep{saros2019}.
+
+\section{{\fontfamily{lmss}\selectfont Importance de la morphologie du bassin lacustre}}
+
+La connaissance des caractéristiques morphologiques d'un lac, et plus spécifiquement de son volume, est essentielle en hydrologie pour quantifier la ressource disponible et en estimer les variations. Plus généralement, la morphologie est l'une des caractéristiques principales pour différencier et classer les lacs. Pourtant les études à l'échelle globale sont rares \citep{meybeck1995,ryanzhin2005,messager2016,cael2017} et se focalisent généralement sur une estimation globale de la ressource tout en donnant peu de crédit aux considérations locales et à l'identification des zones à enjeux. Cette connaissance est limitée par la difficulté d'acquisition de données à la fois fiables et précises mais s'explique aussi par le coût humain et financier associé à des techniques comme la levée bathymétrique \citep{hollister2010}. À celà s'ajoute l'absence de techniques de télédétection pour la cartographie des fonds.\\
+
+Deux paramètres sont généralement utiles pour caractériser la morphologie d'un lac: l'aire et la profondeur. Toutefois, ces données sont statiques et donnent une vision de l'état du système à un certain instant. Il est donc difficile de déterminer la distribution verticale des processus lacustres, comme le marnage, à partir de ces données sans ne connaître la dynamique. En outre, le cadre de notre étude ne nécessite pas, au premier ordre, de connaître explicitement le volume absolu mais plutôt de considérer un volume relatif utile pour simuler les flux de masse au sein du continuum rivière-lac-atmosphère. \\
+Nous avons vu précédemment que les marnages pour des grands lacs exoréiques restent relativement faibles par rapport à la profondeur totale de leur bassin. C'est évidemment différent pour les lacs endoréiques qui dépendent plus fortement des forçages atmosphériques et sont plus sensibles à des modifications du régime hydrologique \citep{wurtsbaugh2017, pham2020}. La simulation précise de la dynamique peut alors se restreindre aux variations du volumes relatifs même si la validité de cette hypothèse peut être mise en défaut pour des petits lacs.\\
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{hypso_baikal}
+\caption{Exemple de courbe hypsométrique pour le bassin sud du lac Baïkal. Source: \citet{piccolroaz2013}}
+\label{hypso_baikal}
+\end{figure}
+
+Une approche pour répondre à la question de la morphologie des lacs peut être abordée en introduisant des courbes hypsométriques dans le modèle (figure \ref{hypso_baikal}). Ce type de courbe décrit l'évolution de l'aire du lac par rapport à sa profondeur et caractérise la forme du bassin. Ces courbes donnent accès à une multitude d'applications comme par exemple le calcul de volumes pour le suivi du stock ou des niveaux d'eau \citep{arsen2014} où le suivi des régimes de mélanges \citep{piccolroaz2013}. Par contre, en prenant le problème dans le sens opposé, la connaissance de la variation de profondeur et de la courbe hypsométrique du lac informe sur la variation d'aire et de volume associée et permet donc de paramétrer plus précisément les flux de masse. Cette approche paraît intéressante dans le cas de lacs dont la dynamique est dominée par les conditions atmosphériques comme le lac Victoria pour lequel l'évaporation dépen quasi-exclusivement de la surface de lac en contact avec l'atmosphère. En outre, dans un domaine comme l'hydrologie continentale où la part d'observations satellitaires est très importante, notamment en altimétrie, l'hypsométrie donne accès à un suivi global et continu de la ressource en eau. Ce chapitre présente des travaux préliminaires qui pourront être utilisés dans le cadre de future missions altimétriques à haute résolution comme par exemple la future mission spatiale SWOT. Cette mission donnera accès à des données de variations d'altitude et de surface pour le suivi du stocks des principaux lacs \citep{biancamaria2016}.\\
+
+Dans l'état actuel du modèle MLake, l'hypsométrie des lacs est linéaire, ce qui revient à représenter le lac sous forme prismatique. Des inconvénients apparaissent alors pour le calcul de l'évaporation et l'estimation précise des flux de masse entre les différents compartiments hydrologiques. Ajouter une hypsométrie implique donc de pouvoir corriger les données de profondeur, paramètre essentiel pour le calcul du bilan d'énergie actuellement prescrite dans le modèle FLake.\\
+
+Ce chapitre présente une méthode de calcul de l'hypsométrie pour les lacs basée sur une hypothèse géométrique et applicable à l'échelle globale. Bien que ces travaux restent en cours de validation, il semble important de les détailler et de mettre en avant les perspectives qu'ils offrent car ils sont complémentaires des développements du modèle de lac MLake dans sa version couplée.
+
+\section{{\fontfamily{lmss}\selectfont Hypsométrie d'un lac pour l'échelle globale: l'approche gaussienne}}
+
+Les méthodes d'estimation du volume d'un lac sont variées et sont issues de bases de données, de méthodes géostatistiques ou de développement théoriques. Parmi ces méthodes, les approches géométriques sont privilégiées dans le cadre d'études extensives où les seules données connues sont la profondeur moyenne et l'aire \citep{li2019,hayashi2000}. Elles présentent, par contre, l'inconvénient de manquer de précision pour décrire localement la distribution et la morphologie des bassins. À l'inverse, les méthodes plus complexes basées sur l'étude de la topographie aux abords du lac \citep{heathcote2015} ou la triangulation des points de mesure \citep{hollister2010} demandent une quantité de données et des coûts de calcul trop importants pour une application à l'échelle globale \citep{oliver2016}. De plus, ces méthodes rendent compte d'une morphologie locale et sont difficilement extrapolables à des échelles plus grandes. \\
+
+L'approche développée ici propose un compromis entre la précision et la complexité d'un modèle qui doit s'adapter aux contraintes de l'échelle globale. Ce modèle hypsométrique se base sur l'hypothèse que la forme du bassin lacustre peut être assimilée à une surface paramétrée selon une équation gaussienne.\\
+
+\noindent Dans cette approche, la forme du lac est déterminée par sa bathymétrie $z(r, \theta)$ représentée sur la figure \ref{lac_gaussien}. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{lac_gaussien}
+\caption{Représentation de la bathymétrie d'un lac et de ses paramètres sous l'hypothèse de la fonction de Gauss $z(r,\theta)$}
+\label{lac_gaussien}
+\end{figure}
+\clearpage
+\noindent L'enjeu est donc de trouver l'hypsométrie correspondante, c'est-à-dire la fonction telle que:
+\begin{equation}
+A = f(z)
+\end{equation}
+avec $A$ l'aire du lac à la profondeur $z$ et $f$ une fonction hypsométrique.
+\subsubsection*{Hypothèses de départ}
+
+\noindent Pour permettre la résolution du problème, des hypothèses nécessitent d'être posées.\\
+La première hypothèse considère que toutes les sections horizontales d'un lac sous forme gaussienne sont équivalentes à des cercles dont l'aire est égale à:
+
+\begin{equation}
+\label{hypothese1}
+A(z) = \pi r^2(z)
+\end{equation}
+avec $r(z)$ la fonction inverse de la bathymétrie. \\
+
+\noindent Cette relation doit vérifier les conditions aux limites:
+
+\begin{itemize}
+  \item[$\bullet$]  $A(z=0) \: =  \: \pi R^2 \: = \: A_{lake}$\\
+  \item[$\bullet$]  $A(z=z_{max}) = 0$
+\end{itemize}
+avec $R$ le rayon du cercle à la surface du lac et $z_{max}$ la profondeur maximale de la gaussienne. \\
+
+\noindent La deuxième hypothèse définit la propriété de conservation du volume lors de la construction du modèle gaussien. La modification de la forme théorique du lac ne doit pas modifier le stock, notre variable pronostique. Ce changement de variable doit donc être conservatif:
+
+\begin{equation}
+\label{hypothese2}
+V_{lake} = V_{g}
+\end{equation}
+avec $V_{lake}$ le volume moyen du lac prescrit initialement et $V_{g}$ le volume d'eau contenu dans le lac gaussien pour $z$ = 0.\\
+\clearpage
+\noindent Le volume de lac prescrit fait suite à l'utilisation conjointe de la base de donnée ECOCLIMAP et GLDB comme vue dans la section XX. Ce volume est calculé suivant l'équation:
+
+\begin{equation}
+V_{lake} = A_{ECO}.z_{moy,GLDB}
+\end{equation}
+avec $A_{ECO}$ l'aire moyenne du lac issue de la base ECOCLIMAP (m$^{2}$) et $z_{moy,GLDB}$ la profondeur moyenne issue de la base GLDB (m).
+
+
+\subsubsection*{\'Equation hypsométrique}
+
+\noindent En se basant sur la première hypothèse (Eq.~\ref{hypothese1}), il vient que le problème de l'hypsométrie peut se résoudre en inversant l'équation de la bathymétrie $r(z)$. Cette bathymétrie est définie comme une fonction de Gauss bidimensionnelle régulière en coordonnées cylindriques:
+
+\begin{equation}
+\label{eq:bathy_gaussian}
+z(r) = z_0 + z_{max} e^{-\frac{r^2}{2\sigma^2}}
+\end{equation}
+avec $z_0$ définie comme la hauteur entre la surface du lac et les asymptotes horizontales de la fonction gaussienne et $\sigma$ un paramètre de dispersion dépendant de l'aire du lac.\\
+
+\noindent L'équation ainsi définie doit vérifier les conditions aux limites:
+
+\begin{itemize}
+	\item[$\bullet$]  $z(0)= z_0 + z_{max} = z_{eq}$
+	\item[$\bullet$]  $\lim_{r\to+\infty} z(r) = z_0$
+\end{itemize}
+
+~\\
+Connaissant l'expression de la bathymétrie, il convient d'inverser cette dernière pour déterminer la relation cherchée:
+
+\begin{equation}
+\label{eq:invbathy_gaussian}
+r(z) = \sigma\sqrt{-2\ln\left(\frac{z-z_0}{z_{max}}\right)}
+\end{equation}
+
+\noindent qui vérifie les conditions aux limites suivantes:
+
+\begin{itemize}
+	\item[$\bullet$]  $r(z_{eq})= \sigma\sqrt{-2\ln(1)}=0$
+	\item[$\bullet$]  $\lim_{r\to z_0} r(z) = +\infty$
+	\item[$\bullet$]  $r(0)= \sigma\sqrt{-2\ln\left(-\dfrac{z_0}{z_{max}}\right)}$
+\end{itemize}
+
+~\\
+\noindent En remplaçant l'expression de $r(z)$ dans l'équation \ref{hypothese1}, l'aire des sections horizontales d'un lac gaussien régulier est défini comme:
+
+\begin{equation}
+\label{eq:hypso_gaussian}
+A(z) = -2\pi\sigma^2\ln\left(\frac{z-z_0}{z_{max}}\right)
+\end{equation}
+avec $z_{max}$ pouvant être remplacée par $z_{eq}-z_0$ pour réduire le nombre de paramètres de l'équation.\\
+
+\noindent Parmi les paramètres de cette équation, trois sont inconnus: 
+
+\begin{itemize}
+\item[$\bullet$] $z_{0}$, un paramètre lié à la topographie des berges et difficilement mesurable (un $z_0$ très petit équivaut à une pente des berges très faibles);
+\item[$\bullet$] $z_{eq}$, un paramètre lié au mode de la fonction de Gauss;
+\item[$\bullet$] $\sigma$, le paramètre de dispersion de la fonction de Gauss.
+\end{itemize}
+~\\
+Le problème est donc surparamétré et aucune solution directe n'est envisageable. Il convient donc de trouver des équations supplémentaires qui permettent d'estimer les paramètres inconnus.\\
+
+\subsubsection*{\underline{{\fontfamily{lmss}\selectfont Première méthode }}}
+
+\noindent La surface de la fonction gaussienne bi-dimensionnelle est définie à $z=0$ (Figure \ref{lac_gaussien}) par:
+
+\begin{equation}
+A(z=0) = \pi.(n\sigma)^2
+\end{equation}
+avec $n$ un facteur multiplicatif à déterminer.\\
+
+\noindent Grâce à l'hypothèse sur l'égalité des aires (Eq. \ref{hypothese1}), le facteur de dispersion gaussien $\sigma$ peut s'écrire:
+
+\begin{equation}
+ \sigma = \sqrt{\dfrac{A_{lake}}{\pi.n^{2}}}
+\end{equation}
+
+\noindent Cette nouvelle équation, même si elle introduit un nouveau paramètre inconnu $n$, établit une équation pour déterminer $\sigma$. \\
+
+\noindent De plus, en reprenant l'équation de bathymétrie (Eq. \ref{eq:bathy_gaussian}) et les conditions aux limites associées, il est possible d'en déduire les expressions de $z_0$ et $z_{max}$ sous la forme:
+
+\begin{align}
+\label{eq:z0}
+z_0 = \dfrac{-e^{-\frac{n^2}{2}}}{1-e^{-\frac{n^2}{2}}} \: z_{eq} \\
+\bigskip
+z_{max} = \frac{1}{1-e^{-\frac{n^2}{2}}} \: z_{eq}
+\end{align}
+~\\
+~\\
+
+\noindent L'introduction de ces nouvelles équations relie des paramètres difficilement mesurables ($z_{0}$ et $z_{max}$) à un des paramètres morphologiques du lac: la profondeur équivalent ($z_{eq}$).\\
+Si on utilise la deuxième hypothèse (Eq. \ref{hypothese2}), il est possible d'aller plus loin dans la résolution puisque le volume $V_{g}$ du lac gaussien se calcule en intégrant l'aire de chaque section horizontale sur toutes la profondeur:
+
+\begin{equation}
+\label{eq:vol_gene}
+V_{g} = \int_{z_{eq}}^0 A(z)dz
+\end{equation}
+
+\noindent dans notre cas, en l'exprimant suivant les trois paramètres $\sigma$, $z_{eq}$ et $n$, son équation est:
+
+\begin{equation}
+\label{eq:vol_gaussian_n}
+V_{g} = 2\pi\sigma^2z_{eq}\left[1 - \dfrac{n^2}{2}\dfrac{e^{\frac{-n^2}{2}}}{1-e^{\frac{-n^2}{2}}}\right]
+\end{equation}
+~\\
+
+\noindent Cette dernière équation assure la fermeture du problème en exprimant $z_{eq}$ en fonction de paramètres mesurables. En effet, l'hypothèse sur la conservation du volume introduit la mise en équation de $z_{eq}$ tel que:
+
+\begin{equation}
+z_{eq}=\dfrac{n^2}{2}\left[1 - \dfrac{n^2}{2}\dfrac{e^{\frac{-n^2}{2}}}{1-e^{\frac{-n^2}{2}}}\right]^{-1}.z_{moy}
+\end{equation}
+avec $z_{moy}$ la profondeur moyenne du lac calculée comme le rapport du volume du lac $V_{lake}$ par l'aire de surface $A_{lake}$.\\
+
+\noindent De ce fait, l'expression de $n$ peut être approchée par le rapport de la profondeur moyenne par la profondeur maximale qui donne une valeur comparative à la forme du bassin \citep{wetzel2001}. Le rapport pour un lac gaussien est donné par:
+
+\begin{equation}
+\dfrac{z_{moy}}{z_{max}} = \frac{2}{n^2}(1-e^{\frac{-n^2}{2}})\left(1 - \dfrac{n^2}{2}\dfrac{e^{\frac{-n^2}{2}}}{1-e^{\frac{-n^2}{2}}}\right)
+\end{equation}
+~\
+
+\begin{figure}
+\includegraphics[width=1.\textwidth]{Vd}
+\caption{Figure d'illustation du développement du volume d'un lac dans les trois cas possibles. (a) $V_{d} < 0.33$, lac convexe. (b) $V_{d} = 0.33$, lac conique. (c) $V_{d} > 0.33$, lac concave.}
+\label{Vd}
+\end{figure}
+
+\noindent Ce rapport peut être relié au paramètre développement du volume $V_{d}$. Ce dernier paramètre exprime le rapport du volume du lac au volume d'un cône dont la surface basale est égale à la surface du lac et dont la hauteur est égale à la profondeur maximale du lac. Il donne une indication sur la forme concave ou convexe du bassin (Figure \ref{Vd}).  Son expression a été définie par \citet{hutchinson1957} tel que: 
+
+\begin{eqnarray}
+V_{d}&=& 3.\dfrac{z_{moy}}{z_{eq}} \\
+     &=& \frac{6}{n^2} \left(1 - \dfrac{n^2}{2}\dfrac{e^{\frac{-n^2}{2}}}{1-e^{\frac{-n^2}{2}}}\right)
+\end{eqnarray}
+
+\noindent Une valeur inférieure à 0.33 correspond à un lac convexe tandis qu'une valeur supérieure à 0.33 correspond à un lac concave. Dans l'étude historique portant sur 100 lacs, la valeur du développement du volume est supérieure, à certaines exceptions près, à 0.33, pour une valeur moyenne autour de 0.467 \citep{neumann1959}. Pour donner un ordre d'idée, le lac Baïkal (Russie) possède un développement du volume de l'ordre de 0.43 alors que le lac Tahoe (USA) est à 0.62. Une étude plus récente portant sur les lacs Suédois confirme ces valeurs avec valeur moyenne de 0.40 \citep{johansson2007}.\\
+\citet{johansson2007}, dans son étude, propose aussi une amélioration du paramètre $V_{d}$ en développant un indicateur de développement hypsographique $H_{d}$. Il permet de comparer le volume du plan d'eau à celui d'une forme géométrique dont le volume, la surface et la profondeur maximale sont identiques. Le seul inconvénient est que l'expression de cet indicateur repose sur la connaissance de $V_{d}$ et donc à la fois de la profondeur moyenne et maximale. Dans tous les cas, ces approches permettent de déduire les aires relatives en réponse à une variation de hauteur et inversement.
+\clearpage
+\subsubsection*{\underline{{\fontfamily{lmss}\selectfont Deuxième méthode}}}
+
+Une autre méthode de résolution du problème consiste à travailler directement sur le paramètre $z_{0}$. Cette approche se base sur la recherche d'un lien entre la topographie des berges caractérisées par $z_{0}$ et la profondeur équivalente du lac $z_{eq}$, considérée comme égale à la profondeur maximale.\\
+
+\noindent Dans cette approche, le volume est exprimé selon:
+\begin{equation}
+\label{eq:vol_gaussian_z}
+V_{g} = -2\pi\sigma^2\left[z_{eq} + z_0 \ln\left(1-\frac{z_{eq}}{z_0}\right)\right]
+\end{equation}
+
+\noindent De la même façon que précédemment, la profondeur moyenne issue du rapport entre le volume et l'aire de surface est dépendante de deux paramètres, $z_{eq}$ et $z_0$:
+
+\begin{equation}
+z_{moy} = \frac{z_0}{2}\left[1+\dfrac{\dfrac{z_{eq}}{z_0}}{ln(1-\dfrac{z_{eq}}{z_0})}\right]
+\end{equation}
+
+\noindent Pour résoudre cette équation, il convient de connaitre soit directement la topographie des berges autour du lac ($z_0$), soit l'aire de deux sections horizontales du lac .\\
+Le rapport des aires donne alors:
+
+\begin{equation}
+\dfrac{A_{lake}}{A_{z_1}} = \dfrac{ln\left(\dfrac{-z_0}{z_{eq}-z_0}\right)}{ln\left(\dfrac{z_1-z_0}{z_{eq}-z_0}\right)}
+\end{equation} 
+avec $A_{z_1}$ l'aire de la section horizontale à la profondeur $z_1$.\\
+
+\noindent Dans cette configuration, il s'agit de résoudre l'équation $f(x)=0$ telle que:
+
+\begin{equation}
+f(x) = \dfrac{ln \left(\dfrac{-x}{z_{eq}-x}\right)}{ln\left(\dfrac{z_1-x}{z_{eq}-x}\right)} - \dfrac{A_{lake}}{A_{z_1}}
+\end{equation}
+~\\
+
+\noindent Cette fonction est la composée de fonctions monotones définies sur $\mathrm{I\! R}^{+*}$ qui admet, s'il existe, un unique zéro.\\
+
+\noindent Dans les deux méthodes précédentes, la résolution de l'équation donnant $n$ ou $z_0$, la détermination des autres paramètres $\sigma$ et $z_{eq}$ est directe.\\
+
+\noindent L'intérêt d'une telle méthode par rapport aux méthodes utilisant une forme conique ou sinusoïdale est qu'ici il existe un degré de liberté supplémentaire. Ce degré complexifie les développements mais en contrepartie fournit un paramètre $n$ qui peut être utilisé pour calibrer la courbe hypsométrique théorique afin de minimiser la distance par rapport à la courbe hypsométrique réelle. Après calibration, il est possible d'extrapoler ce paramètre suivant des classes de lacs sur la base de données géomorphologiques, climatiques ou topographique comme cela se fait déjà \citep{koshinsky1970,johansson2007}. 
+\section{{\fontfamily{lmss}\selectfont Validation préliminaires}}
+
+À la date de rédaction de ce manuscrit, la validation du modèle gaussien n'a pas été finalisée et il reste encore des pistes à exploiter pour présenter la totalité de l'étude.
+
+\subsection{{\fontfamily{lmss}\selectfont Exemples d'applications}}
+
+Pour montrer l'utilisation possible de cette hypsométrie, deux lacs ont été utilisés en exemple: le lac Tan et le lac Namco. Le choix n'est pas arbitraire et se base sur la disponibilité de données fiables. \\
+Pour le lac Tana, les données sont issues de l'étude de \citet{kebedew2020}. Ainsi l'équation hypsométrique ainsi que des données sur la variation de cote de surface sont disponibles. Pour les deux autres lacs, les données sur les niveaux de lac sont issus de la base de données Hydroweb. En complément, l'étude de \citet{li2019} diffuse des hypsométries validées pour les lacs du plateau tibétain.\\
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Lac Tana}}
+\noindent La relation empirique qui lie l'aire du lac Tana à la profondeur a été proposée et validée par \citet{kebedew2020} avec un coefficient de détermination de 0.9972. Cette expression s'écrit sous la forme d'un polynôme du troisième degré, tel que:
+
+\begin{equation}
+A_{H} = 0.88.(H-1772)^{3}-35.02.(H-1722)^{2}+537.46.(4-1722)-62.4
+\end{equation}
+avec $H$ l'altitude au-dessus du niveau de la mer (m) et $A_{H}$ l'aire du lac à cette profondeur (km$^{.2}$)
+
+~\\
+
+\noindent Cette étude donne aussi accès aux variations de niveau du lac ainsi qu'aux paramètres de profondeur moyenne, de profondeur maximale et d'aire de surface. Ces paramètres sont regroupés dans le tableau \ref{carac_lacs_hypso}.\\
+
+\begin{table}[h!]
+ \caption{Principales caractéristiques du lac Tana et du lac Namco.}
+ \label{carac_lacs_hypso}
+ \begin{tabularx}{\textwidth}{XXX}
+ \hline
+  & Tana & Namco \\
+ \hline
+  Profondeur moyenne (m)&9.7&33\\
+  Profondeur maximale (m)&14.8&125\\
+  Superficie (km$^{2}$)&3046&1920\\
+  Altitude maximale (m)&1787&4725\\
+  Altitude minimale (m)&1784&4719.8\\
+  Altitude moyenne (m)&1786.53&4723.7\\
+  \hline
+ \end{tabularx}
+\end{table}
+
+\noindent Grâce à ces valeurs, il est possible d'initialiser le calcul des hypsométries sous forme gaussienne, conique et empirique.\\
+
+\noindent La figure \ref{tana} montre que la distribution d'erreur est croissante pour un facteur de dispersion $n$ croissant. \\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{tana_rmse}
+\caption{Distribution du RMSD entre les hypsométries théoriques (cône, gaussienne) et l'hypsométrie empirique pour le lac Tana.}
+\label{tana}
+\end{figure}
+
+\noindent Ainsi les erreurs sont globalement plus faibles dans un intervalle de valeurs situés autour de un. En comparant avec les simulations sous forme de cône, il est aussi possible de remarquer que pour des facteurs de dispersion inférieur à 3, les erreurs sont nettement réduites.\\
+Les résultats montrent aussi l'intérêt d'utiliser cette méthode puisque dans ce cas, il est possible de choisir la configuration qui correspond le mieux à la morphologie du lac. Dans le cas du lac Tana, sa morphologie particulière (grande superficie mais profondeur moyenne faible) est bien représentée par l'approche gaussienne (un faible facteur de dispersion équivaut à une profondeur maximale faible et donc à une aire de surface étendue).
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Lac Namco}}
+
+\noindent Cette méthode a aussi été appliquée au lac Namco qui possède une morphologie similaire au lac Tana mais dans une région climatique totalement différente. Les données hypsométriques se basent ici sur l'étude de \citet{li2019}. Dans cette étude, les courbes hypsométriques sont issues de l'analyse d'images Landsat. Dans le cas du lac Namco, le coefficient de détermination est de 0.87 et suivant une équation polynomiale du second degré:
+
+\begin{equation}
+A_{H} = 2.43.(H-4724.5)^{2}+5.55.(H-4724.5)+1970.1
+\end{equation}
+
+Cependant cette étude ne propose pas de données de variations d'altitude du niveau d'eau. Pour ces données, la base Hydroweb a été utilisée. Il a été possible de récupérer les chroniques de variations de niveau représentées sur la figure \ref{namco} sur la période 2005-2020. Les caractéristiques du lac sont regroupées dans le tableau \ref{carac_lacs_hypso}. \\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{namco}
+\caption{Série temporelle des variations d'altitude de la cote de surface du lac Namco issue de la plateforme Hydroweb sur la période 2005-2020.}
+\label{namco}
+\end{figure}
+
+\noindent Les résultats sont similaires à ceux observés pour le Tana (Figure \ref{rmse_namco}. Comme la morphologie est similaire (faible profondeur et surface étendue), la gamme de valeur qui possède les erreurs les plus faibles se trouvent pour des facteurs de dispersion inférieur à 3.\\
+
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{rmse_namco}
+\caption{Distribution du RMSD entre les hypsométries théoriques (cône, gaussienne) et l'hypsométrie empirique pour le lac Namco.}
+\label{rmse_namco}
+\end{figure}
+
+
+\section{{\fontfamily{lmss}\selectfont Discussions/Perspectives}}
+
+Ce chapitre propose le développement d'un modèle de description de la bathymétrie des lacs pour une application à l'échelle globale. Par la suite, la description de cette bathymétrie est utilisée pour déterminer des courbes hypsométriques donnant l'évolution de l'aire des sections horizontales du lac selon la profondeur.\\ 
+Cette méthode basée sur une hypothèse gaussienne nécessite la connaissance de certains paramètres morphologiques, comme l'aire du lac ou la profondeur moyenne, ainsi que des paramètres liés à la topographie ou à la forme du bassin.\\
+L'intérêt d'utiliser une telle approche repose sur la possibilité d'optimiser la courbe hypsométrique théorique avec des courbes réelles afin d'améliorer la représentation de la dynamique verticale des lacs. Le développement de ce genre d'approche s'adresse principalement aux zones de grande densité lacustre généralement très peu instrumentées à défaut des grands lacs dont les bathymétries sont connues. L'autre intérêt est d'apporter un degré de liberté facilitant la calibration sur les observations et permettre ainsi une estimation des variations de profondeur ou d'aire affinée.\\
+
+Les résultats préliminaires démontrent une certaine capacité du modèle à s'adapter à la géométrie des lacs et notamment pour la représentation de la zone superficielle. De plus, le modèle semble s'adapter aux lacs, quelle que soit leur localisation ou leur origine. L'analyse sur deux lacs ne permet pas de tirer des conclusions générales confirme l'intérêt d'analyser cette méthode à une plus grande échelle. L'adaptablilité du modèle est particulièrement importante dans la perspective d'un couplage de MLake avec un modèle d'atmosphère. Les flux d'évaporation sont sensibles à la surface mais aussi à la profondeur du lac. Ainsi, plus le modèle est précis dans sa prescription des paramètres morphologiques et plus les flux en sortie seront réalistes. Pour les mêmes raisons, elle offre un avantage en hydrologie pour un suivi plus précis de la dynamique du marnage et, par conséquent, du calcul des débits d'effluents. La charge en eau au dessus du seuil est un des prédicteurs contrôlant le débit de déversement. Dans ce cas, une représentation réaliste de l'hypsométrie devrait affiner la simulation de cette charge en eau et par conséquent le réalisme des débits en sortie devrait être amélioré.\\
+
+Il reste cependant des étapes essentielles afin de valider entièrement cette approche. Ces étapes portent sur la mise en place d'une méthode de détermination des prédicteurs de calibration, que ce soit le facteur morphologique $n$ ou le facteur topographique $z_0$. Dans tous les cas, cette validation est restreinte par le manque de données de validation à l'échelle globale. Les données hypsométriques sont rares, locales et plus souvent déduites indirectement de paramètres externes qu'issues de levés bathymétriques.\\
+Dans cette perspective, la future mission spatiale SWOT comblera en partie ce manque avec l'acquisition et le traitement de données de surface et de hauteurs plusieurs fois par cycle de 21 jours \citep{biancamaria2016}. Au premier ordre, ces données assureront une validation du modèle par la détermination des facteurs de calibration pour ensuite suivre les stocks d'eau des différents lacs. Dans le cas où plusieurs mesures d'aire sont nécessaires pour entraîner le modèle, les données de la mission pourront servir de jeux de données d'entrées pour déterminer la configuration la moins biaisée pour chaque lac. Du fait de la couverture spatiale étendue de la mission, les jeux de données assureront aussi l'alimentation d'un modèle d'apprentissage machine en données quantitatives pour la détermination des variations régionales du paramètre de forme.\\
+
+Néanmoins cette méthode comporte des biais systématiques qui sont difficilement évitables à l'échelle de travail. Ainsi de nombreuses études démontrent l'intérêt d'utiliser la topographie, en association de l'aire, autour du lac comme prédicteurs de la forme du bassin lacustre et notamment de sa profondeur maximale \citep{sobek2011, hollister2010}. Ces études confirment donc l'idée selon laquelle ces paramètres sont utiles pour déduire une forme pertinente de bassin. Ces méthodes restent régionalement efficaces mais localement imprécises \citep{oliver2016}. En effet, seul 36\% à 50\% de la variabilité de la profondeur maximale est expliquée par la topographie alentour, le reste étant dû à des processus non représentés tel que l'érosion ou la sédimentation \citep{hollister2011}. Les modèles incluant les topographies ne corrigent pas ces valeurs et une déviation systématique apparaît amenant à une surestimation des profondeurs. À ces limites s'ajoute l'hypothèse restrictive qui considère que les lacs situés dans une même zone ont une morphologie similaire. \citet{choulga2014} dans son étude sur la zone boréale a montré que cette hypothèse était vérifiée pour prescrire la profondeur moyenne et il reste donc à valider l'hypothèse sur les formes de bassin.\\
+
+Pour la correction des flux évaporatifs, il est aussi possible d'appliquer directement un facteur de pondération, corrélé à la contraction ou l'augmentation de la surface d'eau et aux forçages. Cette solution est proposée pour le modèle WaterGap \citep{muller2020}. À chaque pas de temps, l'aire est recalculée suivant un facteur de réduction $r$ tel que :
+
+\begin{equation}
+A = r . A_{max}
+\end{equation}
+avec $A_{max}$ l'aire maximale du lac issue de la base GLWD \citep{lehner2004} pour les lacs ou la base GRanD pour les réservoirs \citep{lehner2011}.\\
+
+\noindent L'expression de ce facteur étant directement reliée à la variation de stock au cours du pas de temps:
+
+\begin{equation}
+r = \left(\dfrac{|V_{t}-V_{max}|}{2V_{max}}\right)^p
+\end{equation}
+avec $V_t$ le stock du lac au pas de temps $t$, $V_{max}$ la capacité maximale du lac et $p$ l'exposant de réduction égal à 3.32 \citep{muller2014}.\\
+
+Ces méthodes sont dans tous les cas dépendantes des développements annexes à effectuer sur la représentation de la surface. À ce jour, le calcul des bilans dans la plateforme SURFEX est contraint par une couverture du sol issue de la carte ECOCLIMAP restant statique. L'ajout d'une surface dynamique impose donc une réflexion sur la prise en compte de zones humides recouvertes d'eau de façon semi-permanente. Ce travail devrait se baser sur un renouvellement des cartes de couvertures tel que proposé par \citet{pekel2016}. L'introduction de cartes dynamiques devient donc nécessaire pour gérer l'évolution des surfaces en eau. À cela s'ajoute la nécessité de prendre en compte les transferts latéraux entre ces zones humides et les lacs. En effet, dans le cas simple de la mise en place d'un facteur de réduction pour corriger les flux de masse, il est important de s'assurer que le bilan de masse soit fermé. Pour cela, la part de masse qui ne sort pas du lac par évaporation doit être quantifiée autrement dans le réseau. Une paramétrisation des échanges zones humides/lacs pourraient être développée sur la base du ratio entre la charge hydraulique du lac et celle du sol environnant (basé par exemple sur l'humidité des sols).\\
+En conclusion, le développement d'une morphologie de lac à l'échelle globale et son introduction dans le modèle ISBA-CTRIP est dépendante de plusieurs développements à intégrer.

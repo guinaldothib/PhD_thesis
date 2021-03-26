@@ -1,0 +1,52 @@
+\chapter{{\fontfamily{lmss}\selectfont Critères d'évaluation du modèle MLake}}
+\label{chap:critere-evaluation}
+
+Le traitement statistique des résultats de simulations quantifie l'apport de nouvelles paramétrisations comme MLake dans les modèles comme CTRIP. Ces traitements sont nécessaires pour jauger les performances et le bénéfice d'un tel modèle sur les simulations de débits au sein des bassins versants choisis et sur les variations de hauteurs d'eau dans les différents lacs étudiés.\\
+Les critères d'évaluation utilisés sont des scores relatifs qui caractérisent les performances des différentes simulations au sein d'un même bassin versant sans pour autant permettre une évaluation entre les bassins. 
+
+\section{{\fontfamily{lmss}\selectfont Critères d'évaluation sur les débits}}
+
+Les débits de rivières ont été comparés suivant un jeu de scores couramment utilisés en hydrologie. Le premier de ces scores est le critère de Nash-Sutcliffe \citep[NSE,]{nash1970} défini sur l'intervalle [-$\infty$;1]. Le critère de Nash quantifie l'adéquation entre la variable simulée et la variable observée par une analyse de la somme des erreurs quadratiques tel que: \\
+
+\begin{equation}
+NSE = 1 - \frac{\sum\limits_{t=0}^n (q_{s,t}-q_{o,t})^{2}}{\sum\limits_{t=0}^n (q_{o,t}-\overline{q_{o}})^{2}}
+\end{equation}
+avec $t$ le temps , $n$ le nombre de pas de temps, $q_{s,t}$ le débit simulé dans la rivière au pas de temps $t$, $q_{o,t}$ le débit observé dans la rivière au pas de temps $t$ et $\overline{q}_{o}$ le débit moyen observé sur une période de référence.\\
+
+Le critère de Nash compare les simulations par rapport à un modèle de référence défini par le débit moyen annuel. Une valeur positive de NSE informe sur la capacité du modèle à représenter la dynamique des débits observés, avec une valeur maximale de 1 indiquant une correspondance parfaite en observations et simulations. \'A l'inverse une valeur nulle ou négative indique que la dynamique du modèle de référence est meilleure que le modèle évalué.\\
+
+Même si ce critère reste très utilisé en hydrologie, il présente, néanmoins, des limites structurelles importantes. Le principal inconvénient du critère NSE est sa sensibilité aux valeurs extrêmes. Comme les différences sont calculées en valeurs quadratiques, il suffit qu'une série de débits contienne un nombre important d'extrêmes (pics de crue ou étiages) pour que le NSE devienne rapidement négatif. De la même façon que le coefficient de détermination $r^{2}$, le NSE est très peu sensible aux biais systématiques des modèles lors des périodes d'étiages\citep{krause2005}. Le poids des étiages devient donc négligeable et n'influence que peu les scores \citep{legates1999}. Pour pallier ces inconvénients d'autre critères ont été développés pour étayer les évaluations.\\
+
+Le second critère utilisé découle du critère NSE puisqu'il s'agit du critère de Nash-Sutcliffe logarithmique ($NSE_{log}$). Connaissant le peu de poids des étiages sur le NSE, il est primordial d'équilibrer cet effet. Le $NSE_{log}$ donne ainsi un poids plus important aux faibles débits:
+
+\begin{equation}
+NSE_{log}= 1 - \frac{\sum\limits_{t=0}^n(log(q_{s,t})-log(q_{o,t}))^{2}}{\sum\limits_{t=0}^n(log(q_{o,t})-log(\overline{q_{o}}))^{2}}
+\end{equation}
+\\
+
+Malgré cela, la sensibilité du NSE (et de son logarithme) aux valeurs extrêmes pose des problèmes évidents notamment sur des bassins présentant des débits aussi variables que ceux du Rhône ou du lac Victoria. Par ailleurs, la réponse hétérogène aux valeurs extrêmes n'est pas le seul inconvénient de ce critère qui manque aussi de stabilité au regard du choix de la période de référence choisie. Enfin ce critère est sensible au rendement du bassin, c'est-à-dire la capacité à transférer la pluie cumulée sous forme de débit à l'exutoire \citep{perrin2000}.\\
+
+Pour prévenir ces effets, le Kling-Gupta Efficiency \citep[KGE,][]{gupta2009, kling2012} a été introduit. Ce score provient d'une discrétisation du NSE selon trois composantes: le coefficient de corrélation linéaire $r$, le coefficient de variation $\gamma$ et la variabilité relative $\alpha$. Le score est rééquilibré pour donner plus de poids au biais et à la variabilité au détriment de la corrélation.
+
+\begin{equation}
+KGE = 1-\sqrt{(r-1)^{2}+(\gamma-1)^{2}+(\alpha-1)^{2}}
+\end{equation}
+avec $\alpha = \frac{\frac{\sigma_{s}}{\mu_{s}}}{ \frac{\sigma_{o}}{\mu_{o}}}$. $\sigma_{s}$ et $\sigma_{o}$ respectivement les écarts-types des débits simulés et observés. $\mu_{s}$, $\mu_{o}$ respectivement les moyennes temporelles des débits simulés et observés. \\
+
+Pour autant, que ce soit le NSE ou le KGE, ces scores ne produisent pas d'information directe sur l'amélioration des performances du modèle. Ainsi, une amélioration de 100\% du NSE dans les valeurs négatives n'est pas comparable à la même amélioration en valeurs positives. C'est pour cela que généralement un seuil de 0.5-0.6 défini un critère NSE correct. Il y a un biais significatif sur les interprétations de ces scores qui peut fausser l'appréciation des résultats. La contribution de MLake aux performances de CTRIP a, par conséquent, été évalué suivant le Normalized Information Contribution \citep[NIC,][]{kumar2009}. Ce score indique spécifiquement l'apport d'un modèle par rapport à l'amélioration maximale possible. Dans cette thèse, le NIC a été appliqué au critère NSE.
+
+\begin{equation}
+NIC = \frac{NSE_{ctrip-mlake}-NSE_{ctrip-nolake}}{1-NSE_{ctrip-nolake}}
+\end{equation}
+avec $NSE_{ctrip-mlake}$ le critère de Nash-Sutcliffe pour les simulations CTRIP-MLake et $NSE_{ctrip-nolake}$ le critère de Nash-Sutcliffe de la simulation de référence CTRIP-nolake.\\
+
+Un NIC positif indique que la configuration choisie améliore les résultats par rapport à la configuration de référence tandis qu'une valeur négative indique une dégradation des résultats.
+
+\section{{\fontfamily{lmss}\selectfont Critère d'évaluation sur les hauteurs}}
+
+Pour les variations de cote d'eau des lacs, le traitement statistique s'est concentré sur des analyses simples visant à mesurer l'adéquation du modèle aux observations. Les scores utilisés sont le coefficient de corrélation $r$ et l'écart quadratique moyen (Root Mean Square Deviation en anglais, RMSD):
+
+\begin{equation}
+RMSD=\sqrt{\frac{1}{n}\sum\limits_{t=0}^n(H_{s,t}-H_{o,t})^{2}}
+\end{equation}
+aec $t$ le temps, $n$ le nombre total de pas de temps, $H_{s,t}$ la hauteur de la cote d'eau simulée au-dessus du seuil au pas de temps $t$ et $H_{o,t}$ la hauteur de la cote d'eau observée au-dessus du seuil au pas de temps $t$.
