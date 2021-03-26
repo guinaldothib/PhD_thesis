@@ -1,0 +1,288 @@
+%!TEX root = Manuscrit.tex
+
+\usepackage{amsmath,amssymb}
+%\usepackage{forum,euler}
+%\usepackage{palatino,eulervm}
+\usepackage[tracking]{microtype}
+
+\usepackage[sc,osf]{mathpazo}
+\linespread{1.025}              
+\usepackage[euler-digits,small]{eulervm}
+
+%\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[square,sort,comma]{natbib} 
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear,open={[},close={]}}
+\usepackage[french]{babel}
+\usepackage{cancel}
+\usepackage{multirow}
+\usepackage{supertabular}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage[justification=centering]{caption}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{titlesec}
+
+\titlespacing\section{15pt}{12pt plus 4pt minus 2pt}{7pt plus 2pt minus 2pt}
+\titlespacing\subsection{15pt}{12pt plus 4pt minus 2pt}{7pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{20pt}{12pt plus 4pt minus 2pt}{7pt plus 2pt minus 2pt}
+\spacing{1.25}
+%\usepackage[left=2cm,right=2cm,top=1.25cm,bottom=1.25cm,includefoot,includehead,headheight=13.6pt]{geometry}
+%\usepackage{geometry}
+\setlength{\parindent}{20pt}
+\usepackage{geometry}
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+%\renewcommand{\baselinestretch}{1.05}
+
+\usepackage{silence}
+
+\WarningFilter{minitoc(hints)}{W0023}
+\WarningFilter{minitoc(hints)}{W0024}
+\WarningFilter{minitoc(hints)}{W0028}
+\WarningFilter{minitoc(hints)}{W0030}
+
+\usepackage{aecompl}
+\usepackage{url}
+
+% List of abbreviations
+% Do not try putting acronyms in section titles, that would cause infinite loop of pdftex compilation
+%\usepackage[printonlyused,withpage]{acronym}
+\usepackage[withpage]{acronym}
+
+% My pdf code
+
+%\usepackage{ifpdf}
+%%
+%\ifpdf
+%\usepackage[pdftex]{graphicx}
+%\else
+\usepackage{graphicx}
+%\fi
+
+\graphicspath{{images/}}
+
+% Links in pdf
+\usepackage{color}
+\definecolor{linkcol}{rgb}{0,0,0}
+\definecolor{citecol}{rgb}{0.5,0,0}
+
+% Table of contents for each chapter
+
+\usepackage[nottoc, notlof, notlot]{tocbibind}
+\usepackage{minitoc}
+\setcounter{minitocdepth}{2}
+\mtcindent=15pt
+\mtcselectlanguage{french}
+\setcounter{mtc}{9}
+% Use \minitoc where to put a table of contents
+
+% definitions.
+% -------------------
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% Some useful commands and shortcut for maths:  partial derivative and stuff
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\def\abs{\operatorname{abs}}
+\def\argmax{\operatornamewithlimits{arg\,max}}
+\def\argmin{\operatornamewithlimits{arg\,min}}
+\def\diag{\operatorname{Diag}}
+\newcommand{\eqRef}[1]{(\ref{#1})}
+
+\usepackage{rotating}                    % Sideways of figures & tables
+%\usepackage{bibunits}
+%\usepackage[sectionbib]{chapterbib}          % Cross-reference package (Natural BiB)                 % Put References at the end of each chapter
+                                         % Do not put 'sectionbib' option here.
+                                         % Sectionbib option in 'natbib' will do.
+\usepackage{fancyhdr}                    % Fancy Header and Footer
+
+% \usepackage{txfonts}                     % Public Times New Roman text & math font
+
+%%% Fancy Header %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fancy Header Style Options
+
+\pagestyle{fancy}                       % Sets fancy header and footer
+\fancyfoot{}                            % Delete current footer settings
+
+%\renewcommand{\chaptermark}[1]{         % Lower Case Chapter marker style
+%  \markboth{\chaptername\ \thechapter.\ #1}}{}} %
+
+%\renewcommand{\sectionmark}[1]{         % Lower case Section marker style
+%  \markright{\thesection.\ #1}}         %
+
+\fancyhead[LE,RO]{\bfseries\thepage}    % Page number (boldface) in left on even
+% pages and right on odd pages
+\fancyhead[RE]{\bfseries\nouppercase{\leftmark}}      % Chapter in the right on even pages
+\fancyhead[LO]{\bfseries\nouppercase{\rightmark}}     % Section in the left on odd pages
+
+\let\headruleORIG\headrule
+\renewcommand{\headrule}{\color{black} \headruleORIG}
+\renewcommand{\headrulewidth}{1.0pt}
+\usepackage{colortbl}
+\arrayrulecolor{black}
+
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+%\usepackage{FrAlgorithm}
+%\usepackage[noend]{FrAlgorithmic}
+%\usepackage{scrextend}
+
+%%% Clear Header %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Clear Header Style on the Last Empty Odd pages
+\makeatletter
+
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else%
+  \hbox{}%
+  \thispagestyle{empty}%              % Empty header styles
+  \newpage%
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Prints your review date and 'Draft Version' (From Josullvn, CS, CMU)
+\newcommand{\reviewtimetoday}[2]{\special{!userdict begin
+    /bop-hook{gsave 20 710 translate 45 rotate 0.8 setgray
+      /Times-Roman findfont 12 scalefont setfont 0 0   moveto (#1) show
+      0 -12 moveto (#2) show grestore}def end}}
+% You can turn on or off this option.
+% \reviewtimetoday{\today}{Draft Version}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{maxime}[1]
+{
+\vspace*{0cm}
+\hfill
+\begin{minipage}{0.5\textwidth}%
+%\rule[0.5ex]{\textwidth}{0.1mm}\\%
+\hrulefill $\:$ {\bf #1}\\
+%\vspace*{-0.25cm}
+\it
+}%
+{%
+
+\hrulefill
+\vspace*{0.5cm}%
+\end{minipage}
+}
+
+\let\minitocORIG\minitoc
+\renewcommand{\minitoc}{\minitocORIG \vspace{1.5em}}
+
+\usepackage{subfig}
+\usepackage{multirow}
+% \usepackage{slashbox}
+
+\newenvironment{bulletList}%
+{ \begin{list}%
+	{$\bullet$}%
+	{\setlength{\labelwidth}{25pt}%
+	 \setlength{\leftmargin}{30pt}%
+	 \setlength{\itemsep}{\parsep}}}%
+{ \end{list} }
+
+
+\newtheorem{definition}{Définition}
+\renewcommand{\epsilon}{\varepsilon}
+
+% centered page environment
+
+\newenvironment{vcenterpage}
+{\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
+{\vspace*{\fill}}
+
+% Hyperref code
+
+\ifpdf
+  \usepackage[pagebackref,hyperindex=true]{hyperref}
+\else
+  \usepackage[dvipdfm,pagebackref,hyperindex=true]{hyperref}
+\fi
+
+% nicer backref links
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+\ifcase #1 %
+(Non cité.)%
+\or
+(Cité en page~#2.)%
+\else
+(Cité en pages~#2.)%
+\fi}
+\renewcommand*{\backrefsep}{, }
+\renewcommand*{\backreftwosep}{ et~}
+\renewcommand*{\backreflastsep}{ et~}
+
+% Change this to change the informations included in the pdf file
+
+% See hyperref documentation for information on those parameters
+
+\hypersetup
+{
+bookmarksopen=true,
+pdftitle="Titre du manuscript",
+pdfauthor="Votre nom", %auteur du document
+pdfsubject="Description rapide du sujet du manuscrit", %sujet du document
+%pdftoolbar=false, %barre d'outils non visible
+pdfmenubar=true, %barre de menu visible
+pdfhighlight=/O, %effet d'un clic sur un lien hypertexte
+colorlinks=true, %couleurs sur les liens hypertextes
+pdfpagemode=UseNone, %aucun mode de page
+pdfpagelayout=SinglePage, %ouverture en simple page
+pdffitwindow=true, %pages ouvertes entierement dans toute la fenetre
+linkcolor=linkcol, %couleur des liens hypertextes internes
+citecolor=citecol, %couleur des liens pour les citations
+urlcolor=linkcol %couleur des liens pour les url
+}
+
+%epigraph style
+%\usepackage{ebgaramond}
+%\usepackage{epigraph}
+%\setlength{\epigraphrule}{0pt}
+%\setlength{\epigraphwidth}{0.6\textwidth}
+% \renewcommand\textflush{flushepinormal}
+% \renewenvironment{flushepinormal}{}{\vspace*{-\baselineskip}}
+
+%\usepackage{pxfonts}
+\usepackage{epigraph}
+\renewcommand\textflush{flushright}
+
+\usepackage{etoolbox}
+\makeatletter
+\newlength\epitextskip
+\pretocmd{\@epitext}{\em}{}{}
+\apptocmd{\@epitext}{\em}{}{}
+\patchcmd{\epigraph}{\@epitext{#1}\\}{\@epitext{#1}\\[\epitextskip]}{}{}
+\makeatother
+
+\setlength\epigraphrule{0pt}
+\setlength\epitextskip{2ex}
+\setlength\epigraphwidth{.8\textwidth}
+
+%Caption fontsize reduced
+\captionsetup{font=small}
+%footnote
+%\makealetter
+%\def\@makefnmark{\hbox{(\@textsuperscript{\normalfont\@thefnmark})}}
+%\makeatother
+
+%table en tableau
+\addto\captionsfrench{\def\tablename{Tableau}}
+
+%Footnote brackets
+\renewcommand*{\thefootnote}{(\arabic{footnote})}
