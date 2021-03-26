@@ -1,0 +1,1150 @@
+\chapter{{\fontfamily{lmss}\selectfont Description des données et modèles à notre disposition}}
+\label{chap:descriptions}
+\minitoc
+
+\noindent Après avoir mis en place le contexte théorique encadrant les processus hydrologiques et ceux spécifiques aux lacs, ce chapitre aborde les techniques de modélisation développées au CNRM.\\
+La modélisation des surfaces repose sur une plateforme externalisée, SURFEX, qui, associée à la carte d'occupation des sols ECOCLIMAP-II, fournit les conditions basses des bilans d'énergie et d'eau pour les modèles atmosphériques. En hydrologie, ce sont plus particulièrement le modèle de surface ISBA et le modèle de routage en rivière CTRIP qui nous intéressent. ISBA calcule le ruissellement et le drainage à l'interface sol-végétation-atmosphère tandis que CTRIP transfère ces volumes d'eau horizontalement sous forme de débits.\\
+Au sein de cette plateforme, seul le bilan d'énergie associé aux lacs est représenté par le biais du modèle FLake. C'est dans cette optique que la fin du chapitre s'arrêtera plus spécifiquement sur le modèle de bilan de masse des lacs développé dans cette thèse: MLake.
+
+\section{{\fontfamily{lmss}\selectfont Les bases de données}}
+\subsection{{\fontfamily{lmss}\selectfont ECOCLIMAP}}
+\label{sec:ECOCLIMAP}
+
+Avant de vouloir modéliser la surface et les processus associés, il faut pouvoir distinguer les différents couverts, les classer et déterminer les propriétés intrinsèques qui les caractérisent. Dans ce contexte, il est important de s'appuyer sur les outils à notre disposition pour gèrer la répartition et l'hétérogénéité de la surface. À l'échelle globale, cette information provient de l'analyse de facteurs climatiques et d'observations, agrégés sous format numérique et indiquant la proportion de chaque couvert contenue au sein d'une maille à la résolution fixée. Au CNRM, la discrétisation du sol en différents couverts se base sur des données d'occupation des sols issues d'ECOCLIMAP-II \citep[figure \ref{ecoclimap},][]{faroux2013}.\\
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[scale=0.1]{ECO25}
+  \caption{Carte d'occupation des sols issue d'ECOCLIMAP-II.}
+  \label{ecoclimap}
+\end{figure}
+
+\noindent ECOCLIMAP est une base de données globale d'occupation des sols et de paramètres de surface à la résolution kilométrique issue de la mutualisation d'une carte d'occupation des sols et d'informations satellitaires. Cette base donne la répartition et la fraction des surfaces naturelles, urbanisées et marines, leurs variabilités spatio-temporelles ainsi que les paramètres physiques associés\footnote{On compte parmi ces paramètres l'albédo, l'indice de surface foliaire ou la longueur de rugosité.} à la résolution utilisée par le modèle. La version ECOCLIMAP-II a été utilisée dans le cadre de ces travaux. En plus de proposer la fraction couverte par chaque type de surface, ECOCLIMAP-II classe les surfaces continentales naturelles suivant 19 sous-classes, dont les types fonctionnels de végétation, regroupés dans le tableau \ref{eco_patch}, offrent une discrétisation plus précise du couvert et garantissent une meilleure quantification des évolutions propres à chaque type. À ces 19 couverts végétaux s'ajoutent trois couverts pour les mers, les lacs et les rivières.\\
+ECOCLIMAP-II est, donc, un outil dynamique rendant compte du type de surface et de sa couverture spatiale utile à la modélisation météorologique et climatique.
+
+~\\
+
+%ECOCLIMAP-II Patches
+\begin{table}[h!]
+ \centering
+ \caption{Présentation des 19 types de végétation d'ECOCLIMAP-II.}
+ \label{eco_patch}
+ \begin{tabularx}{0.75\textwidth}{Xc}
+ \hline
+ \hline
+  1 & Sol nu\\
+  2 & Roche nue\\
+  3 & Neige et glace permanente\\
+  4 & Feuillu tempéré à feuilles caduques\\
+  5 & Conifère boréal persistant\\
+  6 & Feuillu tropical persistant\\
+  7 & Culture de type C3\\
+  8 & Culture de type C4\\
+  9 & Culture irriguée\\
+  10 & Prairie tempérée\\
+  11 & Prairie tropicale\\
+  12 & Tourbières, parcs irrigués\\
+  13 & Feuillu tropical à feuilles caduques\\
+  14 & Feuillu tempéré à feuilles persistantes\\
+  15 & Conifère tempéré persistant\\
+  16 & Feuillu boréal à feuilles caduques \\
+  17 & Conifère boréal à épines caduques\\
+  18 & Prairie boréale\\
+  19 & Buissons, arbustes \\
+\hline
+\hline
+ \end{tabularx}
+\end{table}
+
+\clearpage
+
+\subsection{{\fontfamily{lmss}\selectfont Global Lake DataBase}}
+
+La couverture spatiale des lacs fournie par ECOCLIMAP-II indique la position des plans d'eau sur Terre et permet de connaître leur extension spatiale (Figure \ref{eco_lake}). 
+
+\begin{figure}[h!]
+ \includegraphics[width=1.\textwidth]{eco_lake}
+ \caption{Carte des fractions de lacs dans ECOCLIMAP-II. Chaque pixel bleu indique la présence d'un pixel identifié comme lac.}
+ \label{eco_lake}
+\end{figure}
+
+Pour caractériser la morphologie de chaque lac, il est nécessaire d'en connaître la profondeur moyenne, variable essentielle à la compréhension des processus lacustres \citep{hakanson2005}. Contrairement aux données de surface, dont la connaissance est facilitée par le développement des mesures satellitaires, la mesure de la profondeur moyenne des lacs à l'échelle globale est rendue difficile par les coûts tant humain que financier, limitant alors le développement de bases de données cohérentes. 
+Parmi les quelques bases de données existantes \citep{lehner2004,verpoorter2014,messager2016} la base de données GLDB \citep{kourzeneva2012} a été spécialement développée pour le besoin de la prévision numérique du temps. Son principal avantage est d'être en cohérence avec ECOCLIMAP-II pour prescrire la profondeur moyenne de près de 15 000 lacs et une bathymétrie précise de 36 autres lacs \citep{toptunova2019,choulga2019}. Pour les lacs n'étant pas référencés avec une profondeur moyenne précise dans la base GLDB, celle-ci prend une valeur par défaut égale à 10 m.\\
+
+\noindent La version de GLDB utilisée dans cette étude présente les avantages suivants:\\
+
+\begin{itemize}
+\item[$\bullet$] l'ajout de valeur par défaut pour les réservoirs et lacs n'ayant pas de données;
+\item[$\bullet$] l'intégration de bathymétries détaillées pour la majorité des lacs finlandais;
+\item[$\bullet$] la correction des profondeurs moyennes pour la zone boréale en s'appuyant sur des cartes géologiques ainsi que sur une méthode analytique basée sur l'étude de la surface et du type de climat \citep{choulga2014};
+\item[$\bullet$] la distinction entre les lacs d'eau douce et les lacs salés.
+\end{itemize}
+~\\
+Comme les données globales de volumes sont encore plus rares et souvent issues d'extrapolations statistiques ou de calcul indirect, l'initialisation des stocks d'eau dans les lacs se basera sur l'information couplée entre ECOCLIMAP-II et GLDB. 
+
+\section{{\fontfamily{lmss}\selectfont SURFEX}}
+\label{sec:SURFEX}
+La modélisation des échanges à l'interface surface-atmosphère présente un intérêt majeur pour une meilleure compréhension des couplages entre atmosphère, surface et sous-sol, pour l'apport d'informations nécessaires à la prévision des phénomènes extrêmes ou pour une meilleure représentation des conditions à la limite turbulentes et radiatives en surface.\\
+La représentation détaillée des surfaces est nécessaire pour répondre aux besoins de la météorologie opérationnelle et de la prise en compte de l'hydrologie dans les études climatiques. Contrairement à certaines paramétrisations physiques du modèle Meso-NH \citep{lac2018}, la modélisation des surfaces a été externalisée pour donner le jour à la plateforme SURFEX \citep[Surface Externalisée]{masson2013}. Utilisée en couplage avec un modèle d'atmosphère (comme AROME ou ARPEGE), de climat \citet[CNRM-CM]{voldoire2019}) ou en mode "off-line", c'est-à-dire sans rétroaction de la surface sur l'atmosphère, cette plateforme concrétise les efforts de mutualisation afin de garantir l'utilisation des modèles de surface dans de nombreux domaines  tels que la prévention du risque avalanche ou la modélisation des flux énergétiques en ville \citep{vionnet2012,schoetter2017,lemoigne2020}. \\
+Cette plateforme simule les flux d'énergie, de masse et de quantité de mouvement à l'interface surface-atmosphère en résolvant les bilans d'eau et d'énergie utiles notamment à la simulation des évolutions du stock en eau de surface et de sub-surface. SURFEX, contraint par des forçages atmosphériques (température, humidité, vent, pression, rayonnement solaire et infrarouge, pluie et neige), simule l'évolution des variables de surface (comme la température de surface) et du sol pour les surfaces continentales et résout les bilans d'eau et d'énergie. Tout cela participe à la fermeture des bilans pour le continuum surface-atmosphère-océan dans le cas d'un couplage avec un modèle atmosphérique et hydrologique. \\
+\clearpage
+\noindent La représentation des surfaces dans SURFEX adopte une approche par tuiles (Figure \ref{surfex}), qui rend compte, d'une part, de l'hétérogénéité des surfaces à l'intérieur des mailles d'étude, et d'autre part, de leur variabilité spatio-temporelle.
+
+~\\
+
+\begin{itemize}
+\medbreak
+\item[$\bullet$] une tuile décrivant les \textbf{surfaces urbanisées} modélisées par le modèle Town Energy Balance \citep[TEB,][]{masson2000,lemonsu2004}. TEB se base sur une approche de rue en forme de canyon où des bilans distincts sont calculés pour chaque composant de ce système\footnote{Cette approche prend comme composant, un toit, une rue et deux murs placés face à face.}. Ce modèle a de nombreuses applications dont l'étude de l'ilôt de chaleur urbain et son interaction avec le climat \citep{daniel2019}; 
+\bigbreak
+\item[$\bullet$] une tuile pour les \textbf{mers et océans}. Plusieurs approches avec des degrés de complexité variés existent. Pour des temps d'expériences courts, une approche simple prescrit la température de surface (SST: Sea Surface Temperature) puis calcule la longueur de rugosité par la formule de Charnock afin d'estimer les flux de surface. Pour des temps d'expériences plus longs et afin de prendre en compte le cycle diurne de température, un modèle de couche de mélange unidimensionnel simule l'évolution de la SST, des courants, de la salinité et du transport turbulent vertical \citep{lebeaupin2009};
+\bigbreak
+\item[$\bullet$] une tuile pour les \textbf{surfaces continentales naturelles} avec comme modèle utilisé Interaction Sol Biosphère Atmosphère \citep[ISBA,][]{noilhan1989}. Ce modèle intervient directement dans cette thèse et la suite de ce chapitre détaillera de façon plus approfondie sa physique;
+\bigbreak
+\item[$\bullet$] une tuile \textbf{lac} associée au modèle thermique unidimensionnel FLake \citep{mironov2008}. Ce modèle a été développé pour les besoins de la prévision numérique du temps, des études climatiques et pour le traitement des lacs dans les modèles d'environnement. Le modèle se base sur une approche d'auto-similarité du profil vertical de température pour déterminer la structure thermique interne au lac et les conditions de mélange à différentes profondeurs pour des pas de temps allant de quelques jours à plusieurs années. Comme pour ISBA, ce modèle est utilisé dans cette thèse et sera détaillé plus loin dans ce chapitre. \\
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.65\textwidth]{surfex}
+  \caption{Représentation de l'approche par tuile dans SURFEX et le couplage avec un modèle d'atmosphère. Source: \url{https://www.umr-cnrm.fr/surfex}}
+  \label{surfex}
+\end{figure}
+
+\clearpage
+
+Une des applications de SURFEX en hydrologie consiste à étudier le cycle de l'eau de l'échelle du bassin versant à l'échelle globale. Lors du couplage hydrologique, SURFEX génère le ruissellement et le drainage qui alimentent ensuite un modèle de routage en rivière, pour simuler les débits, ou un modèle hydrogéologique, pour simuler, en complément des débits, les hauteurs de nappes. Au sein du CNRM, SURFEX est couplé à plusieurs types de modèles hydrologiques. À l'échelle du bassin versant, SURFEX peut être couplé avec TOPMODEL afin de modéliser les crues rapides notamment sur le pourtour méditerranéen \citep{vincendon2010}. Aux échelles régionales, il est utilisé dans la chaîne de modélisation hydrométéorologique SAFRAN-ISBA-MODCOU que nous aurons l'occasion de détailler plus tard. Enfin, SURFEX est couplé au modèle hydrologique global CTRIP \citep{decharme2007}. \\
+
+\noindent Dans la suite du chapitre, une attention particulière va être portée sur les modèles qui ont été plus spécifiquement utilisés dans le cadre de cette thèse:
+
+\begin{itemize}
+\medbreak
+\item[$\bullet$] le modèle ISBA dans sa version historique force-restore et la version plus récente multi-couches diffusive;
+\medbreak
+\item[$\bullet$] le modèle CTRIP qui est le modèle global de routage de l'eau en rivière;
+\medbreak
+\item[$\bullet$] le modèle FLake pour la représentation du bilan d'énergie des lacs;
+\medbreak
+\item[$\bullet$] le modèle MLake, développé pendant cette thèse, qui rend compte de la dynamique massique des lacs à l'échelle globale et des interactions avec le réseau de rivières.
+\medbreak
+\end{itemize}
+\section{{\fontfamily{lmss}\selectfont Le modèle de surface ISBA}}
+\label{sec:isba}
+
+La suite de ce chapitre s'attache à la description des deux composantes essentielles à la modélisation hydrologique développées et utilisées au CNRM: le modèle couplé ISBA-CTRIP \citep{decharme2007}. Ce qui suit dans cette section détaille les caractéristiques d'abord en matière d'estimation des flux liés à la résolution du bilan d'énergie et d'eau de surface par ISBA.\\
+
+Le modèle ISBA \citep{noilhan1989} se base sur un schéma de transfert sol-végétation-atmosphère qui simule les échanges d'eau et d'énergie entre les composantes. L'avantage de ce modèle est de considérer les paramètres essentiels à la connaissance de l'état physique de la surface tels que le contenu en eau, sa phase, les échanges d'énergie dans le sol, la quantité d'eau interceptée par la canopée, l'évapotranspiration, le drainage et le ruissellement. Ce modèle est, aujourd'hui, couplé, par le biais de SURFEX, aux modèles atmosphériques et climatiques utilisés à Météo-France \citep{voldoire2019}. Ce modèle a été complété depuis par des développements pour une meilleure prise en compte de la neige, des processus liés à la photosynthèse ou encore du partitionnement radiatif entre la forêt et le sol sous-jacent. Les différents schémas introduits dans ISBA sont détaillés dans le tableau \ref{schema_isba}.
+Dans le cadre des travaux de cette thèse, ISBA a servi à déterminer le ruissellement et le drainage générés par les surfaces hors zones lacustres en réponse aux forçages atmosphériques. \\
+\noindent Dans la suite du chapitre, le schéma ISBA 3-couches puis le schéma multi-couches diffusif seront détaillés après une brève description de la version historique "force-restore" 2 couches.
+
+%Historique ISBA
+\begin{table}[h!]
+ \caption{Présentation de l'évolution des options de physique dans ISBA:  ${\ast}$ représente des améliorations supplémentaires aux processus physiques.}
+ \label{schema_isba}
+ \begin{tabularx}{\textwidth}{XXX}
+ \hline
+ Processus & Nom du schéma & Référence\\
+ \hline
+ \multirow{3}{4cm}{Sol} & Force-Restore 2 couches & \citet{noilhan1989}\\
+ & Force-Restore 3 couches$^{\ast}$ & \citet{boone1999}\\
+ & Diffusion sur 5-couches & \citet{boone2000}\\
+ & Diffusion sur N-couches$^{\ast}$ & \citet{decharme2011}\\
+ \hline
+ \multirow{3}{4cm}{Neige}& couche unique & \citet{douville1995}\\
+ & ES 3 couches &  \citet{boone2001}\\
+ & ES 12 couches$^{\ast}$ & \citet{decharme2016}\\
+ \hline
+ \multirow{2}{4cm}{Hydrologie} & Ruissellement par saturation & \citet{habets1999}\\
+ & Ruissellement de Dunne influencé par la topographie &\citet{decharme2007}\\
+ \hline
+ \multirow{2}{4cm}{Couvert forestier}& bulk modèle Multi-Energy-Balance (MEB) & \citet{boone2017}\\
+ & bulk MEB avec litière & \citet{napoly2017}\\
+ \hline
+ \multirow{3}{4cm}{Cycle du carbone et photosynthèse} & ISBA-Ag-s avec LAI prescrit & \citet{calvet1998}\\
+ & ISBA-Ag-s avec LAI dynamique & \citet{calvet2001}\\
+ & ISBA-Ag-s CC & \citet{gibelin2008}\\
+ \hline
+ \end{tabularx}
+\end{table}
+
+\subsection{{\fontfamily{lmss}\selectfont Version historique: ISBA force-restore}}
+\label{subsec:ISBA-FR}
+
+Dans sa version historique, le modèle ISBA décrivait l'évolution du bilan d'énergie et du bilan de masse de la surface par une approche "force-restore" \citep[ou "forçage-relaxation"]{deardorff1977} sur un sol à deux couches où l'évaporation et le drainage étaient explicitement résolus \citep{mahfouf1996}. Cette approche prenait en compte huit variables pronostiques: $T_{s}$ la température de surface, $T_{p}$ la température profonde, $W_{r}$ le réservoir d'interception, $\omega_{s}$ le contenu en eau de surface, $\omega_{p}$ le contenu en eau profond, $W_{n}$ le contenu en eau de la neige, $\rho_{n}$ la densité de la neige et $\alpha_{n}$ l'albédo de la neige.\\
+
+Ce modèle est bien adapté pour les intégrations numériques à court terme, comme pour les prévisions météorologiques à courte et moyenne échéance. \noindent
+Cependant cette approche est limitée dans sa description des processus physiques plus complexes comme les mécanismes de transferts diffusifs dans le sol. Le fait de développer le modèle à 3 couches ISBA-3L a permis la prise en compte explicite d'une couche de sol supplémentaire pour séparer la couche racinaire (impactant potentiellement le bilan en eau par absorption) et la couche sous-racinaire \citep{boone1999} tout en assurant l'évolution temporelle du contenu en eau.\\
+
+Par la suite \citet{boone2000} a développé une version plus complète d'ISBA basée sur un schéma de sol multi-couches résolvant explicitement les lois de Darcy et de Fourier pour les transferts diffusifs dans le sol appelés ISBA-DF (ISBA- explicit vertical Diffusion model).
+Aujourd'hui ISBA-DF considère 12 couches de sols ainsi qu'une meilleure représentation de la zone racinaire \citep{decharme2011}.\\
+\noindent Ces évolutions ont été concomitantes à l'amélioration des processus sous-mailles portant sur la prise en compte des hétérogénéités spatiales et temporelles (précipitations, topographie ou encore type de végétation). La paramétrisation des ruissellements par \citet{decharme2006} et la modélisation du ruissellement de surface sous-maille par \citet{habets1999} constituent des améliorations significatives du modèle.\\
+
+\noindent Dans la version historique du modèle couplé ISBA-CTRIP, la représentation des sols et les ruissellement associés provenaient de la version "force-restore" d'ISBA. Ce modèle a ensuite laissé la place au modèle ISBA-DF qui est utilisé dans la suite de la thèse en mode forcé\footnote{Cela signifie que les forçages atmosphériques sont prescrits sans tenir compte des rétroactions de la surface sur l'atmosphère.}. De cette façon, les incertitudes liées aux processus simulés par un modèle atmosphérique et non nécessaires ici sont filtrées.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Fraction de couvert}}
+Le modèle ne discrétise pas seulement le sol en trois couches mais prend aussi en compte trois réservoirs distincts: le réservoir de végétation, le réservoir de sol et le réservoir de neige. \\
+Ces trois composants permettent de considérer des processus contribuant à une meilleure représentation du cycle de l'eau et de l'énergie. La paramétrisation de la surface couverte par chacun des réservoirs est faite sous-maille suivant le schéma \ref{fraction_sol}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.0\textwidth]{fraction_sol}
+\caption{Représentation sous-maille de la surface dans ISBA suivant la canopée, le sol et le manteau neigeux.}
+\label{fraction_sol}
+\end{figure}
+
+\noindent Ainsi il est possible de retrouver:\\
+
+\begin{itemize}
+\item[$\bullet$] $veg$ la fraction de sol recouverte par la canopée;
+\item[$\bullet$] $p_{sn}$ la fraction totale de surface couverte de neige composée des fractions de sol $p_{sn,g}$ et de végétation $p_{sn,v}$ recouvertes de neige.
+\end{itemize}
+\clearpage
+\noindent La fraction totale de surface couverte de neige se distingue par deux composantes définies pour le schéma mono-couche tel que:
+
+\begin{align}\label{eq:frac_snow}
+p_{sn,v} = \frac{h_{s}}{h_{s}+\omega_{sv}z_{0}}\\
+p_{sn,g} = \frac{W_{s}}{W_{s}+W_{crn}}
+\end{align}
+avec $h_{s}$ l'épaisseur totale de neige (m). $z_{0}$ la longueur de rugosité (m). $\omega_{sv}$ est un paramètre empirique fixé à 2 \citep{decharme2019}. $W_{s}$ l'équivalent en eau de la neige (kg.m$^{-2}$). $W_{crn}$ l'équivalent critique en eau de la neige égal par définition à 10 kg.m$^{-2}$.\\
+
+\noindent La fraction totale de neige est enfin calculée par:
+\begin{equation}
+p_{sn} = (1-veg)p_{sn,g}+veg \: p_{sn,v}
+\end{equation}
+avec $veg$ la fraction de végétation sur la maille. Cette fraction de végétation varie selon le type de sol (\textit{e.g.} 0.0 pour un sol nu et 0.95 pour une prairie) et de façon exponentielle suivant l'indice de surface foliaire, LAI, issu d'ECOCLIMAP\footnote{Le $LAI$, Leaf Area Index, est une grandeur qui informe sur la densité de végétation sur la surface du sol.}.\\
+
+\subsection{{\fontfamily{lmss}\selectfont Le modèle ISBA-3L}}
+\label{subsec:ISBA-3L}
+
+La version d'ISBA avec une discréatisation du sol en 3 couches a été initialement développée afin de distinguer les flux d'eau dans la zone influencée par les processus racinaires et la couche sous-racinaire. Le principe général du modèle est dicté par les principes de conservation de l'énergie et de la masse. 
+
+\subsubsection{{\fontfamily{lmss}\selectfont Température du sol et bilan d'énergie}}
+\label{subsubsec:energie}
+La température de la couche superficielle du sol $T_s$ (assimilée à une couche d'épaisseur 1 cm) assure la représentation du bilan d'énergie de surface dans ISBA-3L.\\
+
+\noindent Le cycle diurne de la température dépend d'une part du flux de chaleur vertical dans le sol G et d'autre part de la température moyenne du sol profond $T_{2}$ (Figure \ref{boone}) sur une durée temporelle $\tau$ fixée à une journée (en $s$) suivant la formulation de \citet{bhumralkar1975} et \citet{blackadar1976}:
+
+\begin{equation}
+\begin{cases}
+\label{eq_t_surf_3L}
+\dfrac{\partial T_{s}}{\partial t} = C_{T}G - \dfrac{2\pi}{\tau}(T_{s}-T_{2})\\
+
+\\
+
+\dfrac{\partial T_{2}}{\partial t} =\dfrac{1}{\tau}(T_{s}-T_{2})
+\end{cases}
+\end{equation}
+avec $C_{T}$ la capacité calorifique du sol (J.kg$^{-1}$.K$^{-1}$).\\
+
+\begin{figure}[h!]
+  \includegraphics[width=1.\textwidth]{boone.png}
+  \caption{Discrétisation du sol dans les différentes versions du modèle ISBA, d'après \citet{boone2000}}
+  \label{boone}
+\end{figure}
+
+\noindent La capacité calorifique du sol est dépendante notamment de la discrétisation du sol entre les différents couverts selon la figure \ref{fraction_sol}:
+
+\begin{equation}
+C_{T} = \dfrac{1}{\left[\dfrac{(1-veg)(1-p_{sn,g})}{C_{g}}+\dfrac{veg(1-p_{sn,v})}{C_{v}}+\dfrac{p_{sn}}{C_{s}}\right]}
+\end{equation}
+où $veg$ est la fraction de végétation dans un pixel ISBA prescrit par ECOCLIMAP-II ou issue d'observations. $C_{g}$, $C_{v}$ et $C_{s}$ sont les capacités calorifiques respectivement du sol, de la canopée et de la neige (J.kg$^{-1}$.K$^{-1}$). \\
+
+\noindent Considérant le volume de sol comme infiniment petit, il est possible de négliger les variations temporelles d'énergie dans le sol et de réduire l'équation de conservation de l'énergie pour donner une estimation de l'évolution du flux de chaleur vertical dans le sol:
+
+\begin{equation}
+\label{eq_fluxsol_3L}
+G = R_{n} - H - LE
+\end{equation}
+avec $R_{n}$ le rayonnement net (W.m$^{-2}$), H le flux de chaleur sensible (W.m$^{-2}$) et LE le flux de chaleur latente (W.m$^{-2}$)\\
+
+\noindent Conformément à ce que nous avons vu à la section \ref{sec:bilan_energie}, le flux de chaleur sensible s'écrit comme : 
+
+\begin{equation}
+\label{eq_sensheat}
+H = \rho_{a}c_{p}C_{H}V_{a}(T_{s}-T_{a})
+\end{equation}
+où $\rho_{a}$ est la masse volumique de l'air (kg.m$^{-3}$), $c_{p}$ la capacité calorifique à pression constante de l'air (J.kg$^{-1}$.K$^{-1}$), $V_{a}$ la vitesse du vent (m.s$^{-1}$) et $C_{H}$ le coefficient d'échange dépendant des conditions de stabilité de l'air et de la rugosité de surface.\\
+
+\noindent En général, les températures de l'Eq.\ref{eq_sensheat} sont exprimées en température potentielle, mais pour simplifier, nous les avons approchées dans ce manuscrit en utilisant la température réelle de l'air.
+\\
+
+\noindent Le flux de chaleur latente $LE$, quant à lui, est la somme de l'évaporation d'eau liquide pour un sol nu $E_{g}$ (kg.m$^{-2}$.s$^{-1}$), de l'évapotranspiration de la végétation $E_{v}$ (kg.m$^{-2}$.s$^{-1}$) et de la sublimation de la neige $E_{s}$ (kg.m$^{-2}$.s$^{-1}$) selon l'équation:
+
+\begin{equation}
+\label{eq_latentheat}
+LE = L_{v}(E_{g}+E_{v})+L_{s}E_{s}
+\end{equation}
+avec $L_{v}$ et $L_{s}$ la capacité calorifique respectivement de vaporisation et de sublimation (J.kg$^{-1}$). \\
+
+\noindent L'évaporation pour le sol nu est donnée par:
+\begin{equation}
+\label{eq_evap_3L}
+E_{g} = (1-veg)\rho_{a}C_{H}V_{a}[h_{u}q_{sat}(T_{s})-q_{a}]
+\end{equation}
+
+\noindent et l'évapotranspiration au niveau de la végétation par:
+
+\begin{equation}
+\label{eq_etr_3L}
+E_{v} = E_{c} + E_{tr}=veg\rho_{a}C_{H}V_{a}h_{v}[q_{sat}(T_{s})-q_{a}]
+\end{equation}
+avec $veg$ la fraction de sol couverte par la végétation, $q_{sat}(T_{s})$ l'humidité spécifique saturante à la surface (kg.kg$^{-1}$), $q_{a}$ l'humidité spécifique de l'air (kg.kg$^{-1}$), $h_{u}$ l'humidité relative à la surface et $h_{v}$ le coefficient adimensionnel de Halstead. \\
+
+\noindent Ce dernier coefficient assure une distinction entre l'évaporation directe de la végétation $E_{c}$ et la transpiration des feuilles $E_{tr}$ selon l'équation définie dans \citet{noilhan1989}:
+
+\begin{equation}
+h_{v} = (1- \delta)\frac{R_{a}}{R_{a}+R_{s}}+\delta
+\end{equation}
+où $R_{a}$ est la résistance aérodynamique (s.m$^{-1}$), $R_{s}$ est la résistance stomatique (s.m$^{-1}$) et $\delta$ la fraction de feuillage interceptant l'eau. \\
+
+
+\subsubsection{{\fontfamily{lmss}\selectfont Bilan en eau}}
+
+Le bilan en eau de surface est principalement influencé par la quantité de précipitations reçue au niveau du sol. Cependant toutes les précipitations ne rejoignent pas directement le sol et une distinction doit être faite entre la part interceptée par le canopée, la part stockée au niveau de la neige et enfin la part précipitante directement au sol. Le bilan en eau global d'ISBA pour la surface est définie tel que:
+
+\begin{equation} \label{bilan_eau_3L}
+\frac{dW}{dt} = \frac{dW_{g}}{dt} + \frac{dW_{n}}{dt} + \frac{dW_{r}}{dt}
+\end{equation}
+avec $W_{g}$ le stock en eau du sol (kg.m$^{-2}$), $W_{n}$ le stock en eau dans le réservoir de neige (kg.m$^{-2}$) et $W_{r}$ le stock en eau de la canopée (kg.m$^{-2}$).\\
+
+\noindent Ce schéma reprend l'approche réservoir de \citet{deardorff1978} pour représenter l'évolution temporelle des masses d'eau stockées. Pour le réservoir de végétation l'équation de masse s'écrit:
+
+\begin{equation}
+\label{eq_waterfx_veg}
+\frac{dW_{r}}{dt} = (1-p_{sn,v})vegP_{r}-(E_{c}+d_{r})
+\end{equation}
+$p_{sn,v}$ correspond à la fraction de la végétation recouverte de neige. $veg\,P_{r}$ est la fraction de précipitation interceptée par la canopée (kg.m$^{-2}$.s$^{-1}$). $E_{c}$ est l'estimation de l'évaporation directe de l'eau interceptée par la végétation. $d_{r}$ est la composante du stock d'interception qui contribue au ruissellement de surface lorsque ce réservoir est saturé.\\
+
+\noindent Une paramétrisation de la contribution du réservoir de la canopée au ruissellement a été proposée par \citet{mahfouf1995} à l'échelle globale selon une fonction exponentielle:
+
+\begin{equation}
+d_{r}=P_{r}e^{\dfrac{\mu(W_{r}-W_{r,max})}{P_{r}\Delta t}}
+\end{equation}
+$\mu$ représente la fraction de la maille effectivement mouillée, elle est fixée à 0.1. $W_{r,max}$ est la capacité maximale du réservoir de la canopée proportionnelle à la densité de feuillage.\\
+
+\noindent L'évolution temporelle de la masse d'eau stockée par le réservoir de sol est définie par:
+
+\begin{equation}
+\label{eq_waterfx_sol}
+\frac{dW_{g}}{dt} = I_{r} - E_{g} - E_{tr}  - D 
+\end{equation}
+avec $I_{r}$ l'infiltration réelle (kg.m$^{-2}$.s$^{-1}$). $E_{g}$ l'évaporation du sol nu définie par l'Eq. \ref{eq_evap_3L} (kg.m$^{-2}$.s$^{-1}$). $D$ représente le puits de masse par drainage (kg.m$^{-2}$.s$^{-1}$).\\
+
+\noindent Enfin l'évolution temporelle dans le réservoir de neige s'écrit:
+\begin{equation}
+\label{eq_waterfx_sn}
+ \frac{dW_{n}}{dt}  = P_{n} + p_{sn,g}[ P_{r}(1-veg) + d_{r} ] - E_{s} - S_{m}
+\end{equation}
+avec $P_{n}$ les précipitations neigeuses (kg.m$^{-2}$.s$^{-1}$). $E_{s}$ l'évaporation du manteau neigeux (kg.m$^{-2}$.s$^{-1}$). $S_{m}$ la masse de neige fondue quittant le réservoir (kg.m$^{-2}$.s$^{-1}$).\\
+
+\noindent Ce bilan global est complété par des bilans hydrologiques spécifiques décrivant les flux de masse au sein des différentes couches du sol. Ces bilans sont définis sur les trois couches hydrologiques prescrites selon la figure \ref{isba_3L}. Ces trois couches correspondent pour la profondeur comprise entre 0 et $d_1$ à la couche superficielle, pour la profondeur comprise entre 0 et $d_2$ à la couche racinaire (cela implique que la couche superficielle est incluse dans la couche de profondeur $d_2$) et pour la profondeur entre $d_2$ et $d_3$ à la couche sous-racinaire. \\
+
+\noindent Chacune des trois couches possède une équation de bilan en eau distincte liée aux autres couches par le biais de transferts verticaux de contenu en eau. Ainsi la teneur en eau de la couche superficielle $\omega_1$ contribue à la teneur en eau de la couche racinaire $\omega_2$ suivant une approche force-restore \citep{deardorff1978}.\\ 
+\noindent La couche sous-racinaire a été introduite par \citet{boone1999} pour différencier la couche racinaire de la profondeur totale du sol et pour prendre en compte un contenu en eau distinct et non influencé par la végétation, $\omega_3$, de cette zone. Toutes les valeurs de teneurs en eau sont bornées par une valeur minimale $\omega_{min}$ qui évite que le sol ne s'assèche totalement (en effet même dans un sol très sec une fine pellicule d'eau reste liée aux grains par adsorption) et une valeur maximale $\omega_{sat}$, définie pour caractériser la porosité du sol.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{ISBA_3L}
+\caption{Représentation du bilan d'eau comme modélisé par ISBA-3L.}
+\label{isba_3L}
+\end{figure}
+~\\
+
+\noindent Les équations qui régissent l'évolution de la teneur en eau de ces différentes couches sont de la forme:
+\begin{equation}
+ \begin{cases}
+ \dfrac{\partial \omega_{1}}{\partial t} =& \dfrac{C_{1}}{\rho_{\omega}d_{1}}(I_{r}-E_{g}-Q_{fz_{1}})-D_{1} \qquad 
+ \hskip3.15cm
+ \left(\omega_{min} <\omega_{1} <  \omega_{sat}\right)
+ \\
+ \dfrac{\partial \omega_{2}}{\partial t} =& \dfrac{1}{\rho_{\omega}d_{2}}(I_{r}-E_{g}-E_{tr}-Q_{fz_{1}}-Q_{fz_{2}})-K_{2}-D_{2} \qquad 
+ \left(\omega_{min} <\omega_{2} <  \omega_{sat}\right)
+ \\
+ \dfrac{\partial \omega_{3}}{\partial t} =& \dfrac{d_{2}}{d_3-d_2}(K_{2}+D_{2})-K_{3} \qquad 
+ \hskip3.85cm
+ \left(\omega_{min} <\omega_{3} <  \omega_{sat}\right)
+ \end{cases}
+\end{equation}
+ %
+avec $C_{1}$ le coefficient de relaxation du sol contrôlant les échanges d'humidité entre la surface et l'atmosphère, $\rho_{\omega}$ la masse volumique de l'eau (kg.m$^{-3}$). $D_{1}$ (s$^{-1}$) et $D_{2}$ (s$^{-1}$) les termes de diffusion de l'humidité. $Q_{fz_{1}}$ et $Q_{fz_{2}}$ représentent les flux respectivement de surface et sub-surface lors du gel/dégel du sol (kg.m$^{-2}$). $K_{2}$ (s$^{-1}$) et $K_{3}$ (s$^{-1}$) sont les termes de drainage gravitationnels. $I_{r}$ correspond à l'infiltration réelle (kg.m$^{-2}$).
+
+\subsubsection{{\fontfamily{lmss}\selectfont Ruissellement et infiltration}}
+
+Les deux mécanismes participant à la production de ruissellement, présentés dans la section \ref{sec:ruissellement}, sont représentés dans ISBA par des paramétrisations sous-maille.
+Le ruissellement de Dunne, généré par une saturation du réservoir de sol, est paramétré suivant deux approches. La première, introduite par \citet{habets1999}, s'appuie sur le schéma proposé dans le modèle hydrologique Variable Infiltration Capacity \citet[VIC,][]{dumenil1992}. Le ruissellement se base sur une discrétisation de chaque cellule en réservoirs élémentaires auxquels sont affectés des capacités d'infiltration propres $I_{pr}$. Lorsque la capacité des réservoirs non-saturés est connue, alors tous les réservoirs ayant une capacité inférieure à $I_{pr}$ contribuent à l'estimation de la fraction de cellule saturée $A$.
+La deuxième méthode se base sur l'approche TOPMODEL développée par \citet{habets2001} et étendue par \citet{decharme2006}. Cette méthode détermine la fraction de maille saturée $f_{sat}$ afin d'estimer la fraction de précipitations atteignant directement le sol. 
+Le ruissellement résultant s'exprime selon les équations:
+%
+\begin{equation}\label{eq_runoff}
+\begin{cases} 
+Q_{D}^{VIC}&= \int_{I_{pr}}^{I_{pr}+P_{r}} A(I)dI
+\\
+Q_{D}^{TOP}&= f_{sat}(1-veg)P_{r}
+\end{cases}
+\end{equation}
+%
+avec $P_{r}$ le cumul de précipitations (kg.m$^{-2}$.s$^{-1}$) et $f_{sat}$ la fraction de cellule saturée. \\
+
+\noindent Le ruissellement de Horton, atteint lorsque l'intensité des précipitations dépasse le taux d'infiltration du sol, a été paramétré par \citet{decharme2006} selon:
+\begin{equation}
+Q_{H} = (1-\delta_{f})max(0,S_{m}+(1-veg)P - I_{no\_gel})+\delta_{f}max(0,S_{m}+(1-veg)P-I_{gel})
+\end{equation}
+avec $\delta_{f}$ la fraction de sol gelé, $I_{no\_gel}$ le taux d'infiltration d'un sol non gelé et  $I_{gel}$ le taux d'infiltration d'un sol gelé. \\
+
+\noindent Le ruissellement simulé par ISBA se résume donc à:
+\begin{equation}
+Q_{ISBA}=Q_{D}+(1-f_{sat})Q_{H}
+\end{equation}
+
+\noindent En ce qui concerne l'infiltration réelle $I_{r}$, elle est définie comme la différence du potentiel maximal d'infiltration du sol $I_{p}$ et la part du stock ne s'infiltrant pas mais participant au ruissellement $Q_{ISBA}$ tel que:
+\begin{equation} \label{eq_infiltration}
+I_{r}=I_{p}-Q_{ISBA}
+\end{equation}
+
+L'infiltration potentielle maximale est définit par:
+
+\begin{equation}
+I_{p} = \left[(1-veg)P_r + d_r\right]\left(1-p_n\right)+ p_n \,S_m
+\end{equation}
+
+soit pour l'infiltration réelle:
+\begin{equation}
+I_{r}={\rm min}\bigg\lbrace
+I_{p}, \,
+\left[(1-veg)P_r + d_r
+\right]\left(1-p_n\right)
++ p_n \,S_m
+-Q_{ISBA}
+\bigg\rbrace
+\end{equation}
+
+\subsubsection{{\fontfamily{lmss}\selectfont Diffusion}}
+%
+La diffusion verticale de l'humidité dans le sol est un processus clé dans les échanges entre les différentes couches du sol et caractérise la capacité d'un liquide à monter ou descendre dans un milieu poreux. Dans le schéma d'ISBA-3L deux types de diffusion sont décrites suivant le milieu dans lequel elle apparaît.\\ 
+La diffusion entre la couche superficielle $d_{1}$ et la couche racinaire $d_{2}$ est proportionnelle à la teneur en eau de la première couche et le contenu en eau superficielle à l'équilibre entre les forces de gravité et de capillarité noté $\omega_{w_{eq}}$ suivant l'équation:
+\begin{equation}
+D_{1} = \frac{C_{2}}{\tau}(\omega_{1}-\omega_{w_{eq}})
+\end{equation}
+où $C_{2}$ est le coefficient de relaxation qui détermine la vitesse de rétablissement de l'équilibre hydrique entre les deux couches et $\tau$ la constante de relaxation égale à un jour (en s).
+
+La diffusion entre la couche racinaire et sous-racinaire est directement calculée suivant la différence de teneur en eau:
+
+\begin{equation}
+D_{2} = \frac{C_{4}}{\tau}(\omega_{2}-\omega_{w_{3}})
+\end{equation}
+avec $C_{4}$ le coefficient de relaxation qui détermine la vitesse de rétablissement de l'équilibre hydrique entre les deux couches.
+
+\subsubsection{{\fontfamily{lmss}\selectfont Drainage}}
+%
+De la même façon le drainage gravitationnel est séparé en deux termes. Le premier définit le drainage gravitationnel entre la couche racinaire et la couche sous-racinaire $K_{2}$ et le deuxième caractérise le drainage gravitationnel entre la couche sous-racinaire et le sous-sol. Ces termes apparaissent lorsque la teneur en eau est supérieure à la capacité totale du sol $\omega_{fc}$. Les deux termes de drainage sont calculés suivant les équations introduites par \citet{mahfouf1996} pour $K_{2}$ et \citet{boone1999} pour $K_{3}$:
+
+\begin{align}
+K_{2} =& \frac{d_{3}}{d_{2}}\frac{C_{3}}{\tau}max(0,\omega_{2}-\omega_{fc})
+\\
+K_{3} =& \frac{d_{3}}{(d_{3}-d_{2})}\frac{C_{3}}{\tau}max(0,\omega_{3}-\omega_{fc})
+\end{align} 
+%
+Depuis cette version initiale, \citet{habets1999} a introduit un drainage résiduel qui correspond à la valeur minimale assurant un soutien aux étiages en périodes sèches.\\
+
+\noindent Il est important de noter que tous les coefficients forçage-relaxation ainsi que les paramètres hydrologiques associés à chaque couche sont dépendants de l'humidité du sol ainsi que des propriétés de texture du sol développées par \citet{noilhan1995} elles-mêmes provenant des paramètres de \citet{clapp1978}. Elles ont été réécrites par \citet{decharme2006} afin de tenir compte du profil exponentiel de conductivité hydraulique à saturation tel que:
+
+\begin{equation}
+k_{sat}(z) = k_{sat,c} e^{-f(z-d_{c})}
+\end{equation}
+où $k_{sat,c}$ est la valeur minimale de la conductivité hydraulique à saturation (m.s$^{-1}$), $f$ est le coefficient de décroissance (m$^{-1}$) et $d_{c}$ la profondeur minimale de la zone saturée (m).\\
+
+Cette dernière équation amène à écrire la conductivité hydraulique du sol suivant le potentiel hydrique de la couche $i$, $w_{i}$, selon:
+
+\begin{equation}
+k(w_{i},z) = k_{sat(z)} \left(\frac{w_{i}}{w_{sat}}\right)^{2b+3}
+\end{equation}
+avec $w_{sat}$ l'humidité du sol à saturation et $b$ la pente de la courbe de rétention hydrique.
+
+\subsection{{\fontfamily{lmss}\selectfont Le modèle ISBA-DF}}
+\label{sec:ISBA-DF}
+
+
+\noindent La version diffusive d'ISBA reprend la structure d'ISBA-3L pour ce qui est de la structuration du sol mais divise celui-ci en N couches (le nombre de couches par défaut est de 12) dont la profondeur totale atteint 12 m \citep{decharme2013}. En outre, la surface est une couche explicite qui n'est plus contenue dans la deuxième couche comme cela est le cas dans la méthode "force-restore".\\
+%
+L'épaisseur de chaque couche est prescrite afin de réduire au maximum les artefacts introduits par la résolution numérique en différences finies. Ces profondeurs sont prescrites en mètres: 0.01 ,0.04, 0.2, 0.4, 0.6, 0.8, 1, 1.5, 2, 3, 5, 8 et 12, mais peuvent être modifiées par l'utilisateur pour les adapter à des cas spécifiques.\\
+
+\noindent Du point de vue des bilans d'énergie et d'eau, la méthode de résolution s'apparente à la méthode "force-restore" d'ISBA-3L à laquelle s'ajoute une résolution explicite des équations verticales de Fourier et de Darcy assurant une meilleure représentation de l'hétérogénéité verticale des propriétés thermiques et hydrauliques du sol \citep{decharme2016}. 
+Le drainage est similaire sur le plan conceptuel mais a une formule différente alors que les autres schémas, tels que le ruissellement de surface ou la prise en compte du manteau neigeux, restent identiques. \\
+
+\noindent Concernant le schéma de neige, seule l'expression donnant la fraction recouvrant le sol nu diffère légèrement de l'Eq. \ref{eq:frac_snow} avec:
+
+\begin{equation}
+p_{sn,g} = min(1, \frac{D_{n}}{D_{ng}})
+\end{equation}
+avec $D_{n}$ la profondeur totale de sol (similaire à $h_{s}$ mais la notation est modifiée afin de bien distinguer les deux schémas, ici il faut comprendre que la profondeur totale est équivalente à la somme des épaisseurs de chaque couche) et $D_{ng}$ une profondeur limite pour la neige dans le sol fixée à 0.01 m. \\
+
+\subsubsection{{\fontfamily{lmss}\selectfont Température du sol et bilan d'énergie}}
+
+\noindent Le flux de chaleur dans le sol est déterminé par l'équation unidimensionnelle de transfert thermique de Fourier:
+\begin{equation}
+\label{eq:heat_trans}
+c_{g}\frac{\partial T_{g} (z)}{\partial t} = \frac{\partial }{\partial z}\left[\lambda_{g}(z)\frac{\partial T_{g} (z)}{\partial z}\right] + \frac{L_{f}Q_{fz}(z)}{\Delta z}
+\end{equation}
+avec $c_{g}$ la capacité calorifique du sol (J.m$^{-3}$.K$^{-1}$), $T_{g}$ la température du sol (K), $\lambda_{g}$ la conductivité thermique du sol (W.m$^{-1}$.K$^{-1}$), $L_{f}$  la chaleur latente de fusion (3.337.10$^{5}$ J.kg$^{-1}$), $Q_{fz}$ le flux de gel/dégel pour le contenu en eau du sol dans chaque couche (kg.m$^{-2}$.s$^{-1}$).\\
+
+\noindent La spécificité du schéma de la version récente d'ISBA-DF est la séparation du bilan d'énergie en deux schémas indépendants: l'un associé au manteau neigeux et l'autre au continuum sol-végétation-plaines d'inondations \citep{decharme2019}. Les équations décrivant l'évolution de la température de surface $T_{g1}$ et de la couche $i$, $T_{i}$ sont:
+
+\begin{align} \label{eq:heat_trans_discret}
+\frac{\partial T_{g1}}{\partial t}=& C_{T}[G - \frac{\overline{\lambda}}{\Delta\widetilde{z}}(T_{s}-T_{2})] \\
+\frac{\partial T_{i}}{\partial t}=& \frac{1}{c_{gi}}\frac{1}{\Delta z_{i}}[ \frac{\overline{\lambda_{i-1}}}{\Delta\widetilde{z}_{i-1}}(T_{i-1}-T_{i})-\frac{\overline{\lambda_{i}}}{\Delta\widetilde{z_{i}}}(T_{i}-T_{i+1})] \qquad \forall i =2,N
+\end{align}
+%
+avec $\Delta z_{i}$ l'épaisseur de la couche i (m), $\Delta\widetilde{z_{i}}$ l'épaisseur entre les centres de deux couches successives (m), $C_{T}$ la capacité calorifique de la surface (K.m$^{-2}$.J$^{-1}$), $c_{gi}$ est la capacité calorifique totale du sol pour la couche i (J.m$^{-3}$.K$^{-1}$) et $\overline{\lambda_{i}}$ représente la conductivité thermique moyenne à l'interface entre deux couches successives (W.m$^{-1}$.K$^{-1}$).\\
+
+L'épaisseur entre les centres de chaque couche $\Delta\widetilde{z_{i}}$ est calculée en prenant la moyenne des épaisseurs de deux couches successives tandis que la conductivité thermique moyenne de ces mêmes couches correspond à une moyenne harmonique de chaque couche pondérée par l'épaisseur:
+
+\begin{equation}
+\overline{\lambda_{i}} = \frac{(\Delta z_{i+1}\lambda_{i+1}+\Delta z_{i}\lambda z_{i})}{\Delta z_{i+1}+\Delta z_{i}}
+\end{equation}
+
+\noindent La capacité calorifique totale du sol $c_{gi}$, dépendante de la porosité du sol, de la teneur en eau du sol et de sa conductivité, est la somme des capacités calorifiques de l'eau et de l'air comme proposé par \citet{peters1998}. Afin de résoudre ces équations, un schéma numérique implicite "backward" basé sur la méthode des différences finies a été introduit dans le modèle ISBA-DF.
+
+\subsubsection{\fontfamily{lmss}\selectfont Le bilan en eau}
+Le bilan en eau dans le modèle ISBA-DF utilise une version des équations de Richards qui permet de décrire les flux massiques dans le sol suivant la loi de Darcy. Les évolutions massiques sont alors exprimées sous forme de bilan volumique et les gradients hydrauliques sous forme de charge en eau. Le principal avantage d'utiliser cette forme d'équations est la possibilité d'applications à tous types de sols qu'ils soient homogènes ou hétérogènes, saturés ou non-saturés.\\
+
+\noindent Le bilan en eau général d'ISBA-DF reprend l'aspect général de l'Eq. \eqref{bilan_eau_3L}. Seul le terme de ruissellement $S_{m}$ issu du manteau neigeux est corrigé afin de prendre en compte des processus supplémentaires comme la percolation de l'eau de fonte à travers le manteau neigeux, le gel de l'eau de fonte et la modification des contenus en eau pour les différentes couches.\\
+
+\noindent En considérant le même nombre N de couches que précédemment établi, la combinaison de l'équation de continuité et de la loi de Darcy amène à l'équation de Richards où les flux en eau $F$ sont paramétrés suivant le jeu d'équations suivant pour le flux de masse et de vapeur:
+
+\begin{align}
+\frac{\partial \omega_{1}}{\partial t} =& \frac{1}{\Delta z_{1}}[-\overline{k_{1}}(\frac{\Psi_{1}-\Psi_{2}}{\Delta \widetilde{z_{1}}}+1)- \overline{\nu_{1}} (\frac{\Psi_{1}-\Psi_{2}}{\Delta \widetilde{z_{1}}})+\frac{Q_{src}-Q_{fz}-Q_{sb}}{\rho_{\omega}}]
+\\
+\frac{\partial \omega_{i}}{\partial t} =& \frac{1}{\Delta z_{i}} [F_{i-1}-F_{i}+\frac{Q_{src_{i}}-Q_{fz_{i}}-Q_{sb_{i}}}{\rho_{\omega}}]
+\end{align}
+%
+avec le flux à l'interface entre deux couches calculé par:
+\begin{equation}
+F_{i}=\overline{k_{i}}\left(\frac{\Psi_{i}-\Psi_{i+1}}{\Delta \widetilde{z_{i}}}+1\right) + \overline{\nu_{i}}\left(\frac{\Psi_{i}-\Psi{i+1}}{\Delta \widetilde{z_{i}}}\right)
+\end{equation}
+où $\overline{k_{1}}$ est la conductivité hydraulique moyenne de la couche superficielle (m.s$^{-1}$), $\overline{k_{i}}$ est la moyenne des conductivités hydrauliques entre les centres de deux couches successives (m.s$^{-1}$) soit :
+%
+\begin{equation}
+\overline{k_{i}}= \sqrt{ k_{i}\left(\Psi_{i})  \, k_{i+1}(\Psi_{i+1}\right)}
+\end{equation}
+%
+$\overline{\nu_{1}}$ est la conductivité isotherme de vapeur de la couche superficielle (m.s$^{-1}$), $\overline{\nu_{i}}$ est la moyenne des conductivités isothermes de vapeur entre les centres de deux couches successives calculées selon l'approche de \citet{braud1993} (m.s$^{-1}$), $\Psi_{i}$ le potentiel hydrique de la couche $i$ (m), $Q_{src}$ l'ensemble des termes sources/puits du sol telles que l'évapotranspiration et l'infiltration (kg.m$^{-2}$.s$^{-1}$) et $Q_{sb}$ les ruissellements de sub-surface simulés par l'approche TOPMODEL par rapport à la topographie sous-maille (kg.m$^{-2}$.s$^{-1}$).\\
+
+\noindent Cette dernière équation est simplifiée pour la couche $N$ la plus profonde du sol où les gradients de potentiel hydrique sont négligeables pour devenir:
+%
+\begin{equation}
+F_{N} = k_{N}
+\end{equation}
+%
+avec $k_{N}$ le conductivité hydraulique de la couche $N$.\\
+
+\noindent Cette hypothèse assure une condition à la limite basse pour le drainage même si la description des eaux souterraines et donc la présence d'aquifères nécessite une paramétrisation différente. Pour plus de détails sur la paramétrisation des aquifères, le lecteur se tournera vers la thèse de \citet{vergnes2012these}. Le lecteur se référera à \citet{boone2000} pour la méthode de résolution.\\
+Dans cette approche, le sol est discrétisé en N couches dont l'épaisseur de la couche $j$ est $\Delta z_{j}$ et l'épaisseur entre le milieu de deux couches successives est $\Delta \widetilde{z_{j}}$. 
+Les différentes discrétisations sont illustrées par la figure \ref{boone} de la section \ref{subsec:ISBA-3L}.\\
+
+\subsubsection{\fontfamily{lmss}\selectfont Les processus de gel/dégel du sol}
+
+Afin de compléter la représentation du sol, un processus de gel du sol a été mis au point par \citet{decharme2016} dans le but d'améliorer la dynamique des régions sujettes à ce phénomène. \\
+La tendance du sol à geler est résolue explicitement sur chaque couche de sol en prenant en compte les effets de sublimation de la glace et le rayonnement de la végétation \citep{boone2000}. Ce changement de phase est simulé à chaque pas de temps si la disponibilité en énergie et en eau est suffisante. L'ajout de ces processus se traduit par des termes supplémentaires de changement de phase dans les bilans d'énergie et d'eau pour la couche superficielle et la couche racinaire. En terme de contenu en eau, l'évolution temporelle est définie par les équations:
+
+ \begin{align}
+ \dfrac{\partial \omega_{1,f}}{\partial t} =& \dfrac{1}{d_{1} \rho_{\omega}}\left(F_{1,\omega} - E_{g,f}\right) \qquad 
+ \hskip.36in
+ \left(0 \leq\omega_{1,f} \leq  \omega_{sat} - \omega_{min}\right)
+ \\
+ \dfrac{\partial \omega_{2,f}}{\partial t} =& \dfrac{1}{(d_{2}-d_{1})\rho\omega} F_{2,\omega} \qquad 
+ \hskip.46in
+ \left(0 \leq \omega_{2,f} \leq  \omega_{sat} - \omega_{min}\right)
+ \end{align}
+avec $\omega_{1,f}$ et $\omega_{2,f}$ respectivement le contenu en eau volumique équivalent pour la glace dans la couche superficielle et la couche racinaire ($m^{3}.m^{-3}$). $F_{1,\omega}$ et $F_{2,\omega}$ ($kg.m^{-2}.s^{-1}$) respectivement le terme de changement de phase dans la couche superficielle et dans la couche racinaire. $E_{g,f}$ ($kg.m^{-2}.s^{-1}$) le flux de sublimation à la surface en présence de glace.\\
+
+Les flux de masse dus à la formation de glace ou à la fonte sont exprimés suivant les équations:
+
+\begin{align}
+ F_{1,\omega} =& (1-p_{n,g}) (F_{1,m}-F_{1,f})
+ \\
+ F_{2,\omega} =& (1-p_{n,g}) (F_{2,m}-F_{2,f}) 
+\end{align}
+avec l'indice numérique représentant la couche (1 pour la couche superficielle et 2 la couche racinaire). L'indice alphabétique informe sur le gel ($f$) ou la fonte ($m$).\\
+
+  De plus, le contenu en eau maximal susceptible de geler est déterminé par l'approche énergétique de Gibbs en fonction de la température \citep{fuchs1978}. Ce paramètre introduit une limite pour la formation de la glace dans le sol. Cette approche permet aussi de déterminer la température maximale de changement d'état de l'eau \citep{decharme2016}.\\
+  
+Ce phénomène de gel-dégel est important en hydrologie car il influence la capacité de rétention en eau du sol. En effet, l'eau gelée est prise en compte dans la couche de sol ce qui laisse moins d'espace à l'eau liquide tout en modifiant les flux de masse par capillarité ou drainage.\\
+
+Enfin, la végétation possède un effet de rayonnement non négligeable qui est pris en compte dans les équations de production de glace ou sa fonte par le biais du coefficient $K_{I,s}$ \citep{boone2000}:
+
+\begin{equation}
+K_{I,s} = \left(1-\dfrac{veg}{K_{I,2}}\right) \left(1-\dfrac{LAI}{K_{I,3}}\right)
+\end{equation} 
+avec $K_{I,2}$ et $K_{I,3}$ des coefficients sans dimension pour la végétation déterminés par \citet{giard2000}.\\
+\noindent Cette équation assure un ralentissement du processus de gel lorsque la fraction $veg$ augmente et donc qu'une partie de l'énergie radiative est utilisée pour réchauffer ou refroidir la végétation présente sur la maille.
+\subsection{\fontfamily{lmss}\selectfont Le traitement spécifique de la neige dans ISBA}
+
+La neige modifie de façon significative le bilan d'énergie de surface, notamment les flux de conduction du sol, par une réduction de la longueur de rugosité et l'augmentation de l'albédo de surface. Ces composantes sont donc indispensables pour une modélisation réaliste des interactions neige-atmosphère et des processus hydrologiques. \\
+Les lacs se situent principalement dans des zones soumises aux précipitations neigeuses et couvertes de sols pouvant geler. Cela s'observe de manière générale et plus spécifiquement pour les lacs étudiés dans le cadre de cette thèse (voir notamment au chapitre \ref{chap:etude-globale}). Même si les processus neigeux ne figurent pas au cœur du travail présenté, il est nécessaire d'en tracer les grandes lignes. \\
+Plusieurs schémas de neige sont proposés dans ISBA:
+
+\begin{itemize}
+\item[$\bullet$] un schéma mono-couche;
+\medbreak
+\item[$\bullet$] un schéma multi-couches ISBA-Explicit Snow \citep[ES,][]{boone2001};
+\medbreak
+\item[$\bullet$] un schéma complexe pour le suivi des propriétés du manteaux neigeux et le risque d'avalanches CROCUS \citep{vionnet2012}.
+\end{itemize}
+\medbreak
+La mise en place d'un schéma explicite de neige assure la résolution des gradients thermiques et de densité présents dans le manteau neigeux. Le schéma permet aussi la distinction entre le bilan d'énergie du sol et du manteau neigeux ainsi que l'estimation des échanges thermiques conductifs entre le sol et la neige et la simulation de l'évolution des réservoirs d'eau.
+
+\subsubsection{\fontfamily{lmss}\selectfont Le schéma mono-couche}
+
+Le schéma mono-couche possède trois variables pronostiques: l'équivalent en eau $W_{n}$ (Snow Water Equivalent, SWE), l'albédo $\alpha_{n}$ et la densité moyenne de la neige $\rho_{n}$.
+La première est régie par l'Eq. \eqref{eq_waterfx_sn} et estime les évolutions du manteau neigeux  suivant les précipitations neigeuses et la sublimation de la neige. La densité de neige décrit l'état du manteau neigeux et varie, à un taux fixe \citep{verseghy1991} jusqu'à une valeur seuil de 300 kg.m$^{-3}$. Enfin l'albédo de la neige est une variable permettant de corriger l'estimation d'albédo moyenne $\alpha_{t}$ sur la cellule en prenant en compte les phénomènes de fonte et de vieillissement de la neige tel que:
+
+\begin{equation}
+\alpha_{t} = (1-\rho_{sn}\alpha + p_{sn}\alpha_{n})
+\end{equation}
+avec $\alpha$ l'albédo du couvert de sol sur la maille.\\
+
+\noindent Concernant le bilan d'énergie, la forme du bilan pour le manteau neigeux peut se résumer sous la forme:
+
+\begin{equation}
+c_{n} \frac{dT_{n}}{dt} = R_{n,n} - H_{n} - LE_{S,n} - G_{n} + F_{n}
+\end{equation}
+
+\noindent L'apport du schéma ES par \citet{boone2001} est de mieux détailler la représentation des processus au sein du manteau neigeux et notamment les échanges d'eau entre les différentes couches de neige. Le modèle ISBA-ES a été développé dans une optique de couplage avec les modèles atmosphériques et les modèles hydrologiques distribués. Ce schéma divise le manteau neigeux en trois couches utilisant quatre variables pronostiques pour décrire l'état du manteau neigeux à chaque pas de temps: l'équivalent en eau du manteau neigeux, la chaleur stockée par la neige $H_{s}$, l'épaisseur de la couche $D$ et l'albédo $\alpha_{n}$.\\
+Ainsi le réservoir de neige est assimilé à un réservoir qui vide une partie de son contenu dans la couche du dessous si sa capacité maximale est atteinte et où l'eau qui a percolé peut à nouveau geler. Le bilan simplifié s'écrit donc:
+
+\begin{equation}
+ \frac{dW_{n}}{dt}  = P_{n} - E_{s} - T_{r}
+\end{equation}
+avec $T_{r}$ la composante prenant en compte les phénomènes de ruissellement mais aussi de percolation et de gel/dégel à travers le manteau.\\
+
+L'ajout de ces derniers processus implique un possible retard entre la fonte de surface\footnote{La fonte de surface débute lorsque la température de la neige, $T_{n}$ est supérieure à 273.15 K.} et le ruissellement qui s'écoule hors du manteau neigeux avec un effet sur l'hydrologie des bassins versants soumis à des régimes de type montagneux ou arctique.
+
+Pour des détails plus précis, le lecteur se tournera vers les études de \citet{boone2001, vionnet2012, decharme2016}
+
+
+\section{{\fontfamily{lmss}\selectfont Le modèle de routage en rivière: CTRIP}}
+\label{sec:CTRIP}
+
+Les modèles de surface tels qu'ISBA assurent la production des flux de surface et de sub-surface mais n'ont pas vocation à transformer ces quantités d'eau en débits transférés dans les bassins versants considérés. Ce transfert est simulé par le biais de modèles dédiés appelés modèles de routage en rivière.
+
+\subsection{\fontfamily{lmss}\selectfont Version native: le modèle TRIP}
+
+Plusieurs schémas de routage ont été développés dans les années 90 \citep{vorosmarty1989, coe1998, hagemann1997, fekete2001}. Le modèle initial utilisé au CNRM était celui de \citet{oki1998} appelé Total Runoff Integrating Pathways (TRIP). Ce schéma utilise une vitesse constante et uniforme de 0.5 m.s$^{-1}$ pour transférer les masses d'eau sur des grands bassins fluviaux à la résolution de 1° x 1° \footnote{Cette résolution correspond à une distance de 110 km en longitude et 110 km en latitude au niveau de l'équateur.}. De plus, chaque cellule contient un unique tronçon de rivière. Pour déterminer l'évolution temporelle des masses d'eau, TRIP résout une équation de bilan de masse avec comme variable pronostique la stock d'eau contenu dans un tronçon de rivière sur la maille. Ainsi sur chaque cellule du bassin, le débit entrant est issu des cellules amonts puis ajouté au ruissellement et drainage de la cellule étudiée pour déterminer le débit sortant à transférer à la cellule aval. L'ordre des cellules est spécifié par un réseau de routage intrinsèque à TRIP sous l'hypothèse que chaque tronçon de rivière peut recevoir une certaine quantité d'eau de plusieurs affluents mais ne peut transférer son stock qu'à travers un unique exutoire. À l'échelle de travail, il n'est pas possible de représenter chaque tronçon de rivière de manière correcte et réaliste ce qui oblige à regrouper plusieurs tronçons de rivière sous la forme d'un tronçon rectangulaire équivalent.
+
+\subsection{\fontfamily{lmss}\selectfont La version CNRM: CTRIP}
+\subsubsection{\fontfamily{lmss}\selectfont Principe général}
+
+
+\noindent Dans le cadre d'applications spécifiques au CNRM, TRIP a subit de nombreuses améliorations qui ont abouti au développement d'une version de TRIP propre au CNRM, appelée CTRIP et présentée sur la figure \ref{decharme2019}.\\
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[scale=0.35]{Decharme2019.png}
+  \caption{Schéma des différents processus du modèle couplé ISBA-TRIP.}
+  \label{decharme2019}
+\end{figure} 
+
+
+CTRIP est un modèle de routage en rivière modulaire qui donne la possibilité de simuler le réservoir d'eau souterrain \citep{decharme2010} ainsi que les interactions entre la rivière et les plaines d'inondations \citep{decharme2008} ou encore la dynamique bidimensionnelle des aquifères \citep{vergnes2012}. Ainsi le réservoir de surface a été complété par un réservoir d'eaux souterraines afin de retarder la contribution du drainage dans la production de débit \citep{decharme2010}. CTRIP donne aussi la possibilité de considérer les écoulements paramétrés par une une vitesse variable dérivée d'une équation de Manning à la place de la vitesse constante initialement utilisée dans TRIP. Enfin le modèle a été couplé à ISBA par \citet{decharme2006}. Le couplage assure l'alimentation du système de routage en ruissellement de surface et en drainage par ISBA en réponse aux forçages atmosphériques afin de simuler le débit des grands bassins fluviaux et la gestion de leurs eaux à l'échelle globale. En plus des transferts latéraux, il considère les échanges verticaux et permet notamment de simuler les remontées capillaires du réservoir souterrain de CTRIP vers la zone racinaire d'ISBA ainsi que l'évaporation sur les zones inondées. Ce dernier point est essentiel puisque c'est sur ce principe que se base la prise en compte de l'évaporation sur les lacs. Ce couplage est aussi une pierre angulaire dans la caractérisation du cycle hydrologique régional \citep{decharme2008}, global \citep{alkama2010, decharme2012}, est intégré aux modèles de climat \citep{voldoire2019}, de modélisation du Système Terre \citep{seferian2019} et permet une meilleure modélisation des flux du cycle du carbone de surface \citep{delire2020}. CTRIP représente aujourd'hui le routage en rivières en global à la résolution 1/12° comme représenté sur la figure \ref{12d_globe}.\\
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=1.\textwidth]{12d_dense}
+ \caption{Réseau de rivière CTRIP au 1/12° à l'échelle globale.}
+ \label{12d_globe}
+\end{figure}
+
+~\\
+
+Dans la version la plus complète, le modèle CTRIP comprend trois réservoirs: un réservoir de surface $S$ pour la stock en eau des rivières, un réservoir $F$ pour le stock contenu dans les plaines d'inondations et un réservoir $G$ pour les eaux souterraines. L'évolution temporelle de ces stocks est régie par un système d'équations basé sur une approche d'onde cinématique:\\
+
+\begin{eqnarray}
+\dfrac{\partial S}{\partial t} &=&  Q_{in}^{S} - Q_{out}^{S} - Q_{RF} \\ 
+\dfrac{\partial F}{\partial t} &=& Q_{RF}+ W_{F} \\ 
+\dfrac{\partial G}{\partial t} &=& Q_{RG}
+\end{eqnarray}
+
+\noindent $Q_{in}^{S}$ (kg.s$^{-1}$) représente la somme des contributions des débits amont $Q_{in, TRIP}^{S}$ et du ruissellement sur la cellule $ Q_{in, R}^{S}$ tel que $Q_{in}^{S} = Q_{in, R}^{S}+ Q_{in, TRIP}^{S}$. $Q_{RG}$ correspond aux flux échangés avec le réservoir profond comptés positivement lorsqu'ils sont reçus et négativement lorsqu'ils sont perdus (kg.s$^{-1}$). $Q_{RF}$ représente les échanges de masse entre la rivière et les plaines d'inondations adjacente comptés positivement lorsqu'ils sont reçus et négativement lorsqu'ils sont perdus (kg.s$^{-1}$). \\
+\clearpage
+\noindent Le bilan sur les plaines d'inondations fait apparaître un terme de flux de masse $W_{F}$ qui rend compte du couplage entre CTRIP et ISBA et de la résolution d'un bilan de masse spécifique mise en place lorsque la hauteur d'eau dans la rivière dépasse une hauteur critique de débordement tel que:
+
+\begin{equation}
+W_{F} = P_{F} - I_{F} - E_{F}
+\end{equation}
+avec $P_{F}$ la fraction des précipitations captée par la plaine d'inondations (kg.s$^{-1}$), $I_{F}$ la part d'infiltration (kg.s$^{-1}$) et $E_{F}$ la fraction du volume contenu dans les plaines s'évaporant (kg.s$^{-1}$).\\
+
+\noindent Ce schéma d'inondation ne sera pas utilisé dans l'évaluation du modèle de lacs développé dans cette thèse et tous les détails du modèle sont précisés dans \citet{decharme2010}.
+
+\subsubsection{\fontfamily{lmss}\selectfont Paramétrisation d'un écoulement à vitesse variable}
+\label{subsec:vitesse_var}
+
+Pour le réservoir de surface, la masse quittant le tronçon de rivière est déterminée proportionnellement à la masse $S$ présente dans le tronçon et des caractéristiques morphologiques de la rivière par l'équation:
+
+\begin{equation}
+Q_{out}^{s}=\frac{\nu_{s}}{L_{riv}}S
+\end{equation}
+avec $\nu_{s}$ la vitesse d'écoulement (m.s$^{-1}$) et $L_{riv}$ (m) la longueur du tronçon de rivière pondérée par un coefficient de méandrement de 1.4 \citep{oki1998}.\\
+
+\noindent Les caractéristiques d'un tronçon de rivière CTRIP sont représentées par la figure \ref{troncon_riv}. \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{troncon_riv_new}
+\caption{Représentation d'un tronçon de rivière dans CTRIP et ses caractéristiques associées.}
+\label{troncon_riv}
+\end{figure}
+
+\noindent La vitesse d'écoulement n'est plus constante dans la version actuelle du modèle car peu réaliste pour décrire les débits des grands bassins fluviaux à l'échelle globale. Une vitesse variable, pour les flux dans les rivières et les plaines d'inondations, à été introduite par \citet{decharme2010} dans CTRIP afin d'accroître le réalisme en liant la vitesse d'écoulement aux caractéristiques du tronçon de rivière selon une résolution de type Manning \citep{arora1999} pour une section rectangulaire:
+
+\begin{equation}
+\nu_{s} =  \dfrac{s_{riv}^{\frac{1}{2}}}{n_{riv}}\left(\frac{W_{riv}.h_{s}}{W_{riv}+2h_{s}}\right)^{\frac{2}{3}}
+\end{equation}
+$s_{riv}$ la pente du lit de la rivière (m.m$^{-1}$), $n_{riv}$ le coefficient de rugosité de Manning (s.m$^{\frac{-1}{3}}$), $W_{riv}$ la largeur de la rivière (m) et $h_{s}$ la cote de surface de la rivière (m). 
+\noindent Le rapport $\frac{W_{riv}.h_{s}}{W_{riv}+2h_{s}}$ est aussi appelé rayon hydraulique.\\
+
+\noindent Cette dernière hauteur est proportionnelle à la masse contenue dans le tronçon de rivière et inversement proportionnelle au produit de la longueur par la largeur du tronçon:
+
+\begin{equation}
+h_{s} = \frac{S}{\rho_{\omega}L_{riv}W_{riv}}
+\end{equation}
+ave $\rho_{\omega}$ la masse volumique de l'eau (kg.m$^{-3}$).
+\subsubsection{\fontfamily{lmss}\selectfont La dynamique des eaux souterraines}
+
+Même s'il ne constitue pas le cœur de la présente thèse, le modèle d'aquifère a été utilisé dans certains cas d'étude et mérite donc d'être succinctement détaillé.
+Le schéma résout une équation diffusive bidimensionnelle des écoulements souterrains avec pour variable pronostique la charge piézométrique $h_{\omega}$. Afin de prendre en compte la rotondité de la Terre dans les équations, celles-ci sont résolues en coordonnées sphériques selon:
+
+\begin{eqnarray}
+\omega_{eff} \dfrac{\partial h_{\omega}}{\partial t} &=& \dfrac{1}{r^{2} cos(\phi)}\left[\dfrac{\partial}{\partial \theta}\left(\frac{T_{\theta}}{cos(\phi)}\dfrac{\partial h_{\omega}}{\partial \theta}\right)+\dfrac{\partial}{\partial \phi}\left(T_{\phi}cos(\phi)\dfrac{\partial h_{\omega}}{\partial \phi}\right)\right] \\
+& & + \dfrac{1}{\rho_{omega}}(Q_{sb}+Q_{sg}+Q_{ice}+Q_{RG}) \nonumber
+\end{eqnarray}
+où $\omega_{eff}$ est la porosité effective du sol (m$^{3}$.m$^{-3}$), $\theta$ la longitude, $\phi$ la latitude, $r$ le rayon de la Terre (m), $T_{\theta}$ et $T_{\phi}$ représentent la transmissivité respectivement selon l'axe des longitudes et l'axe des latitudes (m.s$^{-1}$), $Q_{sb}$ est le drainage provenant du couplage avec le modèle ISBA (kg.m$^{-2}$.s$^{-1}$), $Q_{sg}$ correspond aux flux de masse sol-aquifères résolus suivant l'équation de Darcy (kg.m$^{-2}$.s$^{-1}$), $Q_{ice}$ correspond au ruissellement provenant du manteau neigeux (kg.m$^{-2}$.s$^{-1}$) et $Q_{RG}$ est le flux de masse entre la rivière et l'aquifère (kg.m$^{-2}$.s$^{-1}$). \\
+
+\noindent Les flux de masse transférés par capillarité à travers le sol $Q_{sg}$ ne sont pas uniformes sur les mailles CTRIP car ils ne sont effectifs que dans des plaines alluviales ou des zones planes. Ainsi certaines informations, comme la variabilité spatiale de la topographie sous-maille, doivent être partagées entre ISBA et CTRIP pour pouvoir considérer ces remontées d'eau par capillarité. L'équation régissant ces flux de masses a été développé par \citet{vergnes2014} selon:
+
+\begin{equation}
+Q_{sg} = f_{wtd}\rho_{\omega}k_{N}\left(\frac{\Psi_{N}-\Psi_{sat}}{z_{N}-z_{wtd}}+1\right)+(1-f_{wtd})\rho_{\omega}k_{N}
+\end{equation}
+$f_{wtd}$ est la fraction de maille où sont effectifs ces échanges. $k_{N}$, $z_{N}$ et $\Psi_{N}$ sont respectivement la conductivité hydraulique (m.s$^{-1}$), la profondeur (m) et le potentiel hydrique (m) de la dernière couche de sol $N$ dans le modèle ISBA (zone racinaire). $z_{wtd}$ est la profondeur de l'aquifère (m). $\Psi_{sat}$ est le potentiel hydrique du sol à saturation (m).\\
+ 
+\noindent Les échanges entre la rivière et l'aquifère sont paramétrés suivant le rapport entre la charge hydraulique de la rivière et celle de l'aquifère pour garantir que le flux soit dirigé vers l'aquifère lorsque la charge piézométrique est inférieure à l'altitude du lit de la rivière et inversement lorsqu'elle est supérieure. La profondeur réaliste des aquifères est garantie par l'ajout d'une condition limite basse où la profondeur maximale est fixée à 1000 m.\\
+La résolution de ce système d'équations se fait par un schéma numérique implicite en différences finies qui provient du modèle hydrogéologique MODCOU \citet{ledoux1989} au pas de temps journalier.
+
+\subsection{\fontfamily{lmss}\selectfont CTRIP 12D}
+\label{subsec:CTRIP_12D}
+
+\noindent La version la plus récente de CTRIP a vu des améliorations significatives lors des dernières années.\\
+En premier lieu, la résolution du modèle a été affinée pour passer d'une résolution de 0.5° x 0.5° \footnote{équivalent à environ 40 km pour la France métropolitaine.} à la résolution 1/12° \footnote{équivalent à environ 6-8 km en direction azimutale pour la France métropolitaine.}. Cette résolution assure une meilleure représentation de la structure des rivières avec une meilleure prise en compte des méandres des grands fleuves mais aussi une discrétisation plus performante entre les différents cours d'eau d'un même réseau (Figure \ref{ctrip_france}).
+
+\begin{figure}[!h]
+     \subfloat[CTRIP à 0.5°\label{ctrip_fr_2d}]{%
+       \includegraphics[width=0.45\textwidth]{CTRIP_2D.png}
+     }
+     \hfill
+     \subfloat[CTRIP à 1/12°\label{ctrip_fr_12d}]{%
+       \includegraphics[width=0.45\textwidth]{CTRIP_12D.png}
+     }
+     \hfill
+     \caption{Représentation des rivières à différentes résolutions.}
+     \label{ctrip_france}
+\end{figure}
+
+\subsection{\fontfamily{lmss}\selectfont Les caractéristiques nécessaires au fonctionnement de CTRIP}
+\label{sec:ctrip_caracteristique}
+L'ensemble des flux de masses vus ci-dessus sont calculés en fonction de paramètres et de caractéristiques intrinsèques à chaque tronçon de rivière eux-mêmes faisant partie d'une entité plus grande: le bassin versant. Ainsi la vitesse d'écoulement dépend de la localisation du segment dans le réseau mais aussi de la géomorphologie de la zone concernée. De plus, la qualité du routage dépend de paramètres essentiels à une reconstitution correcte du chevelu hydrologique et des apports des affluents. Par conséquent, il est primordial de définir les caractéristiques qui seront prescrites au modèle pour router les flux de masse. Les données initiales pour la détermination des caractéristiques sont différentes suivant la résolution du modèle et seule les données pour le réseau au 1/12° sont présentées ici. Les paramètres du modèle sont issus d'observations, de jeux de données haute résolution lorsque c'est possible (\textit{e.g.} la longueur des tronçons de rivière) ou de relations empiriques (\textit{e.g.} le coefficient de rugosité).
+
+\subsubsection{\fontfamily{lmss}\selectfont La topographie}
+
+Chaque cellule du réseau contient un unique tronçon de rivière. L'écoulement, et plus largement la structure du réseau au sein de ces tronçons, est contraint par la topographie. Cette topographie provient du modèle numérique de terrain (MNT) MERIT-DEM \citep[accessible à: \url{http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_DEM/ ,}][]{yamazaki2017} qui informe sur l'altitude de la surface à une résolution de 3 arcsec (soit 1/1200°)\footnote{équivalent à 90 m au niveau de l'équateur.}. Le réseau de drainage est, lui aussi, construit sur la base d'un MNT, cette fois-ci en utilisant MERIT-HYDRO \citep[accessible à: \url{http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_Hydro/}][]{yamazaki2019} à la même résolution de 90m. Ce réseau à haute résolution est ensuite projeté au 1/12° par un algorithme de Dominant River Tracing \citep{wu2011, wu2012}.\\
+
+La méthode de projection consiste en un algorithme automatique d'extraction et de remontée en échelle d'un réseau de rivières basé sur des informations hydrographiques à haute résolution. Pour ce faire, la méthode se base sur les paramètres de direction d'écoulement, d'accumulation de flux et du réseau à haute résolution pour déterminer des motifs récurrents à plus haute résolution. L'avantage de ce type d'approche est de conserver l'écoulement général dans les bassins fluviaux en déterminant un trajet entre les cellules sources et les exutoires à haute résolution et en donnant la priorité au plus grands cours d'eau. Pour cela, un identifiant est attribué à chaque rivière et conservé tout au long du processus afin de garder la cohérence et l'identification des bassins entre les deux résolutions (1/12° et 1/1200°).
+
+\subsubsection{\fontfamily{lmss}\selectfont Le séquençage}
+
+Le séquençage des tronçons de rivière est une étape primordiale qui attribue à chaque nœud du réseau un numéro de séquence $SN$ qui définit sa localisation dans le chevelu. La résolution numérique de CTRIP itère sur la base de ce numéro afin d'assurer la résolution du transfert de l'eau depuis les cellules amont vers les cellules aval.\\
+Dans cette méthode, les cellules les plus en amont se voient attribuer la valeur minimale de 1 qui est ensuite incrémentée pour chaque nouveau nœud aval rencontré. Dans le cas spécifique où une cellule reçoit un flux de plusieurs pixels amont, le numéro de séquence est attribué selon la règle:
+
+\begin{equation}\label{eq:SN}
+SN_{aval} = max(SN_{i,amont}) + 1
+\end{equation}
+avec $SN_{i,amont}$ le numéro de séquence de la rivière dont l'identifiant est $i$.
+
+\subsubsection{\fontfamily{lmss}\selectfont Paramètres morphologiques de la rivière}
+\label{subsec:param_riv}
+
+Différentes caractéristiques morphologiques sont nécessaires au routage (voir figure \ref{troncon_riv} en section \ref{subsec:vitesse_var}). Ces paramètres conditionnent le transfert horizontal mais aussi la structure de chaque tronçon de rivière et la cohérence générale des bassins. \\
+
+\noindent Précédemment, la longueur de rivière $L_{riv}$ (m) a été introduite. Cette longueur correspond à la distance parcourue par le tronçon de rivière au sein de la cellule, calculée à partir du réseau haute résolution MERIT-HYDRO. Au 1/12°, les longueurs sont considérées comme suffisamment réalistes pour se soustraire au coefficient de méandrement. Elles sont par ailleurs bornées entre 1000 m et 20000 m.\\
+
+\noindent De façon similaire la pente de la rivière $s_{riv}$ ($m$) est calculée à partir de la différence d'altitude provenant du MERIT-DEM entre l'amont et l'aval de chaque tronçon de rivière. Afin de garantir un écoulement dans tous les tronçons, une valeur minimale est prescrite égale à 10$^{-4}$ (m). La formule pour la pente se résume à:
+
+\begin{equation}
+s = max\left(\frac{z_{amont} - z_{aval}}{L_{riv}},10^{-4}\right)
+\end{equation}
+~\\
+
+Un paramètre géomorphologique essentiel pour ce travail de thèse est la largeur de la rivière. Celle-ci est calculée suivant une formule empirique validée sur la France par \citet{vergnes2014} et étendue à l'échelle globale \citep{decharme2019}. La formulation se base sur la relation entre le débit moyen annuel de la rivière $Q_{mean}$ ($m^{3}.s^{-1}$) sur la période 1958-2010 et la largeur de la rivière $W_{riv}$ ($m$) selon:
+
+\begin{equation}
+W_{riv} = max(W_{min}, \alpha Q_{mean}^{\beta})
+\end{equation}
+avec $\alpha$ et $\beta$ des coefficients empiriques égaux respectivement à 5.41 et 0.59. Une valeur minimale $W_{min}$ est prescrite égale à 30 m.\\
+
+Enfin la prescription de la profondeur de la rivière $h_{riv}$ ($m$) dans chaque cellule est donnée par la formule empirique introduite par \citet{vergnes2014}:
+
+\begin{equation}
+h_{riv} = 1.4 W_{riv}^{0.28}
+\end{equation}
+
+Sur la France métropolitaine, cette relation a été affiné et validé par \citep{vergnes2018} suivant:
+
+\begin{equation}
+h_{riv} = 0.14 W_{riv}^{0.53}
+\end{equation}
+
+\subsubsection{\fontfamily{lmss}\selectfont Le coefficient de Manning}
+Essentiel au calcul de la vitesse d'écoulement, le coefficient de Manning de rivière noté $n_{riv}$, caractérise la résistance, aussi appelée rugosité, du lit de la rivière sur l'écoulement. À l'échelle globale, l'estimation précise d'un coefficient de Manning est limitée par la connaissance d'une part du type de lit de rivière et d'autre part de la végétation qui recouvre ou non les berges.
+Dans CTRIP, ce paramètre est calculé en deux étapes. Tout d'abord, un paramètre empirique $\alpha_{r}$ est introduit pour rendre compte de la variation linéaire du coefficient de Manning à travers le réseau hydrographique. Cela permet d'assurer l'attribution de valeur élevée de coefficient de Manning pour les torrents en tête de bassin et des faibles valeurs pour les larges embouchures de fleuves tout en rendant compte d'un certain réalisme. Ce paramètre dépend du numéro de séquence tel que:
+
+\begin{equation}
+\alpha_{r} = \left(\frac{SN_{max}-SN}{SN_{max}-SN_{min}}\right)
+\end{equation}
+avec $SN_{max}$ et $SN_{min}$, respectivement, le numéro de séquence maximal et minimal du bassin dans le réseau CTRIP.\\
+
+\noindent Connaissant ce paramètre, le coefficient de Manning est déterminé comme la moyenne géométrique entre les coefficients des plaines d'inondations $n_{fld}$ et une valeur standard de 0.035 (m$^{-1/3}$.s) \citep{lucas2003, yamazaki2011}:
+
+\begin{equation}
+n_{riv} = 0.035^{1.0-\alpha_{r}}.n_{fld}^{\alpha_{r}}
+\end{equation}
+où $n_{fld}$ est définit comme la moyenne arithmétique des coefficients de chaque couvert présent sur la cellule pondéré par leur fraction (m$^{-1/3}$.s).
+
+\section{{\fontfamily{lmss}\selectfont Le modèle de bilan d'énergie: FLake}}
+\label{sec:FLake}
+Dans la résolution du bilan de masse, il est nécessaire d'estimer les flux de masse échangés avec l'atmosphère par le biais des flux de chaleur turbulents. Le modèle FLake est déjà intégré à la plateforme SURFEX pour résoudre le bilan d'énergie des lacs à l'échelle globale \citep{salgado2010}.\\
+FLake (Freshwater Lake model) est un modèle unidimensionnel simulant l'évolution du profil vertical de température au sein des lacs et résolvant le bilan d'énergie au sein des différentes couches qui les structurent, pour satisfaire les besoins de la prévision numérique du temps \citep{mironov2008, mironov2010}. Son utilisation en opérationnel a permis de réduire certains biais, notamment ceux sur les températures de l'air \citep{balsamo2012}. FLake est, aussi, intégré au modèle climatique CNRM-CM de Météo-France \citep{voldoire2019} et a été utilisé dans le cadre d'études climatiques afin d'améliorer la connaissance sur les interactions entre les lacs et le climat \citep{samuelsson2010, lemoigne2013,lemoigne2016}.\\
+
+Aujourd'hui utilisé dans de nombreux services de prévisions météorologiques comme le DWD (Allemagne) ou le CEPMMT, FLake a l'avantage d'être relativement peu coûteux en ressources de calcul et cela sans le besoin d'effectuer de réglage ses paramètres. De plus, le modèle se base sur des paramètres externes issus d'observations le rendant ainsi théoriquement applicable à n'importe quelle situation.\\
+\clearpage
+La structure verticale des lacs modélisée par FLake est composée de deux couches comme illustré sur la figure \ref{flake}. La première représente la couche superficielle de mélange, aussi appelée épilimnion, directement influencée par les échanges de surface. La deuxième couche correspond à la thermocline s'étendant jusqu'au fond du lac. Cette division limite en partie l'utilisation de FLake à des lacs assez peu profonds \footnote{La profondeur maximale prescrite dans FLake est de l'ordre de 50-60 m.} \citep[]{lemoigne2016} même si les résultats sur des lacs profonds comme les Grands Lacs Africains montrent des performances acceptables \citep{thiery2015}.\\
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1.0\textwidth]{flake2}
+  \caption{Présentation du profil de température et les variables pronostiques d'un lac de profondeur $h_{b}$ selon le modèle FLake. Adapté de \citet{mironov2008}.}
+  \label{flake}
+\end{figure}
+
+\noindent Pour la résolution du bilan d'énergie, FLake considère cinq variables pronostiques: $h_{ML}$ la profondeur de la couche de mélange déterminée en prenant en compte les conditions de mélange décrits par les efforts mécaniques et convectifs (m). $T_{b}$, $T_{s}$ et $T_{MW}$ respectivement la température du fond du lac, la température de surface et la température moyenne de la colonne d'eau (K). $C_{T}$ un coefficient, appelée facteur de forme, décrivant le profil de température au sein de la thermocline (\ref{flake}). En plus de ces variables pronostiques, le modèle possède deux paramètres prescrits par défaut ou ajustables selon des observations: la profondeur du lac (m) et le coefficient d'extinction (m$^{-1}$). \\
+
+\noindent Dans FLake, la profondeur du lac est supposée constante et les simulations ne considèrent pas de modifications du niveau d'eau. Le coefficient d'extinction, relié à la transparence du lac est généralement issu d'observations (mesuré par un disque de Secchi) et informe sur la capacité du rayonnement solaire à pénétrer dans le lac (voir Eq. \ref{eq:beer_lambert}).\\
+En plus de résoudre le bilan d'énergie dans le lac, FLake modélise en option la structure thermique de la couverture en glace et neigeuse au dessus du lac et les échanges thermiques avec une couche de sédiments au fond du lac. Cette dernière option n'a pas été activée dans le cadre de cette thèse.
+
+\subsection{{\fontfamily{lmss}\selectfont \'Evolution du profil de température dans la colonne d'eau}}
+Dans le cas où la surface du lac est libre de glace, le température de la couche superficielle de mélange $T_{ML}$ est uniforme, égale à la température de surface $T_{s}$.\\
+La température de la thermocline, dépendante de la profondeur, est paramétrée sur la base du concept d'auto-similarité proposé par \citet{kitaigorodskii1970}. Ce principe assure une conservation du profil de température et de ses caractéristiques sur toute l'épaisseur de la couche. \\
+En d'autres termes, cela signifie qu'à une profondeur $z$ fixe au sein de la thermocline, la température est seulement dépendante de la fonction $\phi_{T}$. Cette fonction, aussi appelée fonction de forme, prescrit l'allure générale que suit le profil de température dans la thermocline. 
+À une profondeur $z$ donnée et au pas de temps $t$, la température à l'intérieur du lac est définie par la fonction de forme $\phi_{T}$ définie comme:
+
+\begin{equation}
+\phi_{T}(\zeta) = \frac{T_{s}(t) - T(z,t)}{T_{s}(t)-T_{b}(t)}
+\end{equation}
+Les conditions aux limites auxquelles cette fonction doit satisfaire sont $\phi_{T}(0)=0$ et $\phi_{T}(1)=1$. \\
+
+\noindent La fonction de forme dépend de la profondeur adimensionnelle $\zeta$ définie par:
+
+\begin{equation}
+\zeta = \frac{z-h_{ML}(t)}{h_{b}-h_{ML}(t)}
+\end{equation}
+
+\noindent qui doit elle-même satisfaire à des conditions aux limites pour la fonction de forme induisant que cette profondeur soit bornée par $\zeta(h_{ML})=0$ et $\zeta(h_{b})=1$. 
+\clearpage
+
+\noindent Pour calculer cette fonction, une approximation empirique se basant sur un polynôme du quatrième degré à été intégré à FLake et lie la fonction de forme au profil de température dans la thermocline selon: \\
+
+\begin{equation}
+\phi_{T} (\zeta)=\left(\frac{40}{3}C_{T}-\frac{20}{3}\right) \zeta +(18-30C_{T})\zeta^{2}+(20C_{T}-12)\zeta^{3}+\left(\frac{5}{3}-\frac{10}{3}C_{T}\right)\zeta^{4} 
+\end{equation}
+
+\noindent La double paramétrisation de l'évolution de la température qui résulte de cette approche se résume alors à:
+
+\begin{align}\label{temp_flake}
+T(z,t)=
+\begin{cases}
+ T_{s}(t) & \text{si 0 $\leq z$ $\leq h_{ML}$}\\
+ T_{s}(t)-(T_{s}(t)-T_{b}(t))\Phi_{T}(\zeta )& \text{si $h_{ML} \leq$ z $\leq h_{b}$}
+\end{cases}
+\end{align}
+
+\noindent L'utilisation de la fonction de forme $\Phi_{T}(\zeta )$ introduit une dépendance des équations de température à sa forme empirique approchée. Pour éviter ces approximations, la fonction de forme est remplacée dans les équations par une variable pronostique, le coefficient de forme $C_{T}$. En considérant l'Eq. \eqref{temp_flake} il est possible de lier les quatre variables pronostiques selon:
+
+\begin{equation}
+\overline{T}(z,t) = T_{s} - C_{T}(1-\frac{h_{ML}}{h_{b}})(T_{s}-T_{b})
+\end{equation} 
+
+\noindent Cette dernière équation permet de se soustraire à cette dépendance en introduisant la forme explicite du facteur de forme $C_{T}$ dans les équations de bilan d'énergie:
+
+\begin{equation}
+C_{T} = \int_{0}^{1} \Phi_{T}(\zeta) d\zeta
+\end{equation}
+
+\noindent L'évolution de ce coefficient est calculée suivant l'équation:
+
+\begin{equation}
+\frac{dC_{T}}{dt}= \text{sign}(\frac{dh}{dt})\frac{C_{max}-C_{min}}{t_{rc}}
+\end{equation}
+où $t_{rc}$ représente un coefficient de relaxation proportionnel au carré de l'épaisseur de la thermocline (s). sign est la fonction signe. $C_{max}$, $C_{min}$ sont respectivement la valeur maximale et minimale du coefficient de forme fixé à $0.8$ et $0.5$ et qui représentent les états particuliers où l'épaisseur de la couche de mélange augmente ($\dfrac{dh}{dt}>0$) ou se réduit ($\dfrac{dh}{dt}<0$).\\
+
+\subsection{{\fontfamily{lmss}\selectfont Prise en compte des couches de neige et de glace}}
+
+La représentation des couches de neige et glace repose sur un modèle thermodynamique à deux couches. De la même façon que le profil de température dans la thermocline, le modèle est basé sur une représentation paramétrique de la température suivant le principe d'auto-similarité.\\
+
+\noindent L'évolution de la température dans la couche de neige et celle dans la couche de glace sont représentées par l'équation:
+
+\begin{align}\label{temp_neige_lake}
+T(z,t)=
+\begin{cases}
+ T_{f} - (T_{f} - T_{I}(t))\Phi_{I}(\zeta_{I}) & \text{si $-H_{I}(t) \leq z$ $\leq 0$}\\
+ T_{I}(t)-(T_{I}(t)-T_{S}(t))\Phi_{S}(\zeta_{S})& \text{si $-[H_{I}+H_{S}](t) \leq$ z $\leq -H_{I}(t)$}
+\end{cases}
+\end{align}
+où $T_{f}$ est la température de solidification de l'eau (K), $T_{I}$ est la température à l'interface neige-glace (K), $T_{S}$ est la température à l'interface neige-atmosphère (K), $H_{I}$ est l'épaisseur de la couche de glace (m) et $H_{S}$ est l'épaisseur de la couche de neige (m).\\
+
+\noindent Le cumul de neige est une variable temporelle donnée par les forçages atmosphériques ou les observations. L'évolution associée de la couche de neige est calculée, sans fonte, selon:
+
+\begin{equation}
+\dfrac{d\rho_{S}H_{s}}{dt} = \left(\dfrac{dM_{S}}{dt}\right)_{a}
+\end{equation}
+avec $\rho_{S}$ la masse volumique de la neige (kg.m$^{-3}$), $M_{S}$ la masse de neige par unité de surface (kg).\\
+
+L'épaississement de la couche de glace est initiée lorsque la température de la glace est inférieure à la température de solidification. Cette augmentation est corrélée à un dégagement de chaleur à la limite basse de la couche.\\
+Les processus de dégel et de fonte sont aussi représentés dans le modèle et sont associés à des échanges de chaleurs contrôlés par l'équation de transfert de chaleur intégrée sur les couches considérées. Pour plus de détails, le lecteur se réfèrera au rapport technique de \citet{mironov2008}.\\
+
+Comme présentée sur la figure \ref{flake} au début de cette section, la présence de glace et de neige modifie le profil de température de la colonne d'eau qui se trouve au-dessous. Cependant les processus thermodynamiques associés sont variés et complexes. C'est pourquoi, dans FLake, le profil de température dans la colonne d'eau reste inchangé lors des périodes de gel. Dans ce cas, la température à l'interface eau-glace est fixée à la température de solidification $T_{f}$.\\
+Dans le cas où la température du fond $T_{b}$ est inférieure à la température de densité maximale, la couche de mélange et le facteur de forme restent inchangés, soit $\dfrac{dh}{dt}=0$ et $\dfrac{dC_{T}}{dt}=0$.\\
+Si toute la couche est mélangée au moment du gel ($T_{S}=T_{b}=T_{MW}$) alors la couche de mélange est nulle ($h=0$) et le facteur de forme prend sa valeur minimale ($C_{t}=0.5$).
+
+\subsection{{\fontfamily{lmss}\selectfont Température de peau}}
+
+Plus récemment, \citet{lemoigne2016} a introduit un calcul de la température de peau dans le modèle FLake. Cette paramétrisation assure une meilleure estimation de la température de surface représentative du bilan d'énergie spécifique à l'interface lac-atmosphère. Cette température $\overline{T}_{0}$ est calculée sur une couche de surface constante, fixée à 1mm, telle que:
+
+\begin{equation}
+\overline{T}_{0} = \overline{T}_{-h} + \dfrac{h}{\lambda_{\omega}}(L^{*}+S^{*}-QH-QE)-\dfrac{1-\alpha_{\omega}}{h \: \lambda_{\omega}}I_{0}(1-e^{-kh})
+\end{equation}
+avec $I_{0}$ le forçage radiatif à la surface du lac (K.m.s$^{-1}$), $\overline{T}_{-h}$ la température de surface sans effet de peau (K), $\lambda_{\omega}$ la conductivité thermique de l'eau (W.m$^{-1}$.K$^{-1}$), $\alpha_{\omega}$ l'albédo, $L^{*}$ le rayonnement infrarouge net (W.m$^{-2}$), $S^{*}$ le rayonnement solaire net (W.m$^{-2}$). $QH$ et $QE$ respectivement les flux de chaleur latente et sensible (W.m$^{-2}$).\\
+
+\section{{\fontfamily{lmss}\selectfont Le modèle de bilan de masse: MLake}}
+\label{sec:MLake}
+
+Avant de détailler le processus de bilan de masse des lacs et les équations mises en jeu, il est important de noter que le réseau CTRIP ne possède, initialement, aucune information sur les lacs et leurs connectivités avec les rivières. Au sein du maillage au 1/12°, toutes les cellules sont occupées par un unique tronçon de rivière décrit par des caractéristiques et une dynamique propre comme détaillées dans la section \ref{sec:CTRIP}. \\
+\textbf{Cette thèse vise à développer un modèle de bilan de masse des lacs, MLake, pour ensuite l'intégrer, à l'échelle globale, dans le réseau de rivière CTRIP}. L'introduction des lacs dans CTRIP doit, par conséquent, satisfaire aux contraintes du réseau de routage: l'échelle de travail et le degré de complexité. L'échelle globale régit le cadre d'étude et nous oblige à développer un modèle à la fois simple, c'est-à-dire avec l'introduction d'un nombre de paramètres limités, sans pour autant sacrifier le réalisme physique et la structure du réseau hydrographique. \\
+Le principe général du développement de MLake s'organise d'abord autour de la création d'une carte de lac globale identifiant les lacs uniques dans ECOCLIMAP-II (section \ref{sec:masque_lac}). À l'aide de cette carte, il est possible d'intégrer les lacs, par le biais d'un masque spécifique, dans le réseau spatialisé à 1/12° (\ref{sec:intégration}) et de corriger l'ordre des séquences dans le chevelu (section \ref{sec:chevelu}). La création d'un second masque pour la gestion des forçages est aussi utile pour s'assurer d'un partage correct du ruissellement et du drainage entre les rivières et les lacs (section \ref{sec:part_forcage}). Toute ces étapes sont primordiales dans la mise en place du schéma numérique de résolution du bilan de masse des lacs (section \ref{sec:routines}).
+
+\subsection{{\fontfamily{lmss}\selectfont Création d'un masque de lac global}}
+\label{sec:masque_lac}
+D'un point de vue technique, le couvert de lac dans ECOCLIMAP-II informe de façon binaire sur la présence ou non d'un lac dans chaque cellule du maillage au 1/120°. Cette donnée est couplée à la base de données GLDB pour prescrire une profondeur moyenne sur ces mêmes cellules. Pour autant, ces données n'indiquent pas si deux cellules voisines identifiées comme lacs font partie d'un même lac. Autrement dit, l'association d'ECOCLIMAP-II avec GLDB ne permet pas d'extraire un masque de lacs nécessaire pour déterminer l'emprise en surface des lacs dans le maillage global. \\
+Pour y remédier, la première étape a pour but d'agréger l'information sur la présence d'un lac au 1/120° dans ECOCLIMAP-II afin de construire une carte globale, ECOCLIMAP-agrégée, prescrivant les caractéristiques morphologiques, principalement la profondeur moyenne et l'aire de surface, à chaque lac identifié par un unique numéro et nécessaires à la résolution du bilan de masse et le suivi de la dynamique lacustre.\\
+La méthode retenue consiste en une agrégation récursive des cellules identifiées comme lacs dans ECOCLIMAP-II sur la base d'une égalité entre les profondeurs moyennes prescrites dans GLDB. La figure \ref{recursion} présente une schématisation de la méthode employée.\\
+
+\noindent L'algorithme parcourt chaque cellule au 1/120° et s'informe dans un premier temps sur la présence d'un lac dans celle-ci. L'algorithme parcourt la grille en débutant à la cellule \textbf{A1}. Dans le cas où la cellule contient un lac, la récursion est initiée sur une branche issue de cette cellule (soit \textbf{B1} soit \textbf{A2}). Chaque cellule voisine est donc interrogée sur la présence d'une cellule lac et, si oui, sur l'égalité des profondeurs moyennes de ces cellules. Tant que l'algorithme récupère une réponse positive, il parcourt la branche (ici la branche issue de \textbf{B1}). Si la condition d'arrêt est atteinte (cas où toutes les cellules voisines renvoient une réponse négative, ici \textbf{D2} et \textbf{C3}) alors l'algorithme remonte l'arborescence jusqu'à la dernière branche non exploitée (ici \textbf{B3}) et cela jusqu'à remonter vers le point de départ (\textbf{A1}) et exploiter une autre branche non exploitée (\textbf{A2}). Si toute l'arborescence est interrogée et renvoie une réponse négative (branche \textbf{B1} et \textbf{A2}), l'algorithme cherche la première cellule non exploitée dans la maille (\textbf{E1}). Chaque branche contenant un lac est identifiée par un unique numéro qui assure une distinction entre les lacs. Pour chacun des identifiants, la profondeur moyenne et l'aire de surface sont attribuées. La profondeur moyenne correspond à la profondeur utilisée pour vérifier la condition d'égalité, tandis que l'aire de surface correspond à la somme des aires de chaque cellule, au 1/120°, identifiée comme appartenant au lac.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.\textwidth]{recursion}
+\caption{Représentation de l'algorithme d'agrégation et présentation du parcours récursif à partir de la carte d'occupation des sols ECOCLIMAP-II et de la base de données de profondeur moyenne GLDB.}
+\label{recursion}
+\end{figure}
+\clearpage
+
+Cette méthode est particulièrement efficace dans le cadre de grands lacs bien identifiables dans leur environnement régional comme les Grands Lacs Américains et Africains. Dans ce cas, même s'il y a des fausses détections ou des non détections dans la carte de départ, ces erreurs restent relativement faibles par rapport à la superficie totale du lac. Elle révèle par contre ses limites sur la distinction de petits lacs dans les régions de grande densité lacustre. Les corrections faites dans la base GLDB sur les profondeurs moyennes par \citet{choulga2014} se basent sur l'étude de couches géologiques afin de distinguer des zones lacustres spécifiques auxquelles s'applique une unique valeur. En agrégeant les lacs de ces zones, il est donc possible d'identifier, comme unique, plusieurs lacs, en limite de résolution, initialement distincts. Pour ces petits lacs, l'erreur relative est donc plus importante. Cette surestimation locale peut générer des anomalies hydrologiques pour un travail à fine échelle, mais ces anomalies sont généralement filtrées lors du passage à une résolution plus faible telle qu'à notre échelle de travail (1/12°).\\
+Dans le cas spécifique des lacs de petites dimensions qui ne recouvrent pas complètement une cellule de 1/120° (e.g. les lacs thermo-karstiques), ceci ne sont pas considérés dans ce travail, ce qui nécessitera des développements spécifiques à moyen terme.
+
+
+\subsection{{\fontfamily{lmss}\selectfont Intégration des lacs dans la réseau 12D}}
+\label{sec:intégration}
+
+Sur la base de cette carte globale, il est, dès lors, possible d'intégrer les lacs dans le réseau à 1/12°. Le choix des hypothèses à considérer est important pour assurer une distinction cohérente entre les cellules de lac et celles de rivière. En effet, chaque composante possède une hydrologie différente et il semble difficile de justifier, dans certains cas, la prédominance d'un lac par rapport à une rivière sur les flux dans le bassin. En d'autres termes, il est important que l'intégration se justifie à notre résolution par des considérations hydrologiques.\\
+
+Dans CTRIP, chaque cellule représente un seul bief de rivière avec toutes les caractéristiques associées. La logique voudrait que chaque cellule identifiée comme une rivière dans le réseau de rivière CTRIP mais étant un lac dans ECOCLIMAP-agrégée soit remplacée par les caractéristiques de lacs. La résolution complète du bilan de masse est paramétrée sous-maille, c'est-à-dire que les processus physiques de transfert sont résolus à l'échelle du modèle. Au 1/12°, les rivières ne sont divisées que selon leur longueur et les largeurs de ces rivières ne peuvent déborder sur plusieurs cellules. \\
+Pourtant dans le cas des lacs, il est possible de caractériser leurs emprises en surface de plusieurs manières. Dans la majorité des cas, les lacs, avec des dimensions spatiales faibles, peuvent être représentés par une seule cellule, facilement intégrable au réseau. Les problèmes d'intégration apparaissent dans le cas où un lac s'étend sur plusieurs cellules. Dans ce cas, il est impossible de dissocier les variables du lac car elles représentent le lac en une unique entité. Il convient de réunir plusieurs cellules pour décrire un seul processus. L'intégration d'un bilan de masse des lacs se retrouve donc contraint par la recherche d'un compromis entre la réalité du processus physique et la complexité de l'information spatiale. \\
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{huziu}
+  \caption{Représentation du continuum rivière-lac dans le modèle de climat régional canadien. Source: \citet{huziy2017}.}
+  \label{huziu}
+\end{figure}
+
+Pour répondre à ce problème, \citet{huziy2017} propose une intégration distincte des lacs en séparant les lacs de petites tailles des grands lacs. Pour ce faire, ils développent deux classes de lacs: les lacs locaux et globaux. Un lac est considéré comme local lorsqu'il couvre moins de 60\% d'une cellule et est considéré comme global lorsqu'il recouvre au minimum deux cellules (même partiellement) à l'échelle du modèle. Les auteurs appliquent, pour chaque classe, une dynamique lacustre différente. Les lacs locaux sont considérés comme des extensions d'un tronçon de rivière qui contribuent à son débit aval sans être alimentés par le tronçon de rivière amont. La possibilité est laissée dans le cas de lacs globaux de les intégrer totalement dans le réseau de rivières qu'ils coupent en une partie amont et une partie aval (Figure \ref{huziu}). \\
+
+Ce type de distinction n'est pas satisfaisant dans notre cadre d'étude car il ne prend pas en compte certains cas particuliers comme celui des lacs endoréiques et limite le rôle de la majorité des lacs à servir de tampon hydrologique. \\
+\noindent La méthode appliquée, dans notre cas, se base sur la création d'un \textbf{masque de réseau} (Figure \ref{masque_reseau}) prenant en compte explicitement toutes les cellules d'un même lac depuis la carte ECOCLIMAP-agrégée (Figure \ref{masque_reseau}.a) pour les localiser correctement sur les tronçons de rivières. L'exemple d'illustration proposé ici porte sur le cas du lac du Bourget en Savoie (France).\\
+
+\begin{figure}[!h]
+\centering
+       \includegraphics[width=1\textwidth]{masque_reseau}
+     \caption{Schéma descriptif des étapes de la construction du masque de réseau sur le bassin du lac du Bourget à 1/12°. (a) Carte ECOCLIMAP-agrégée pour le lac du Bourget. (b) Identification de la plus grande rivière (tronçon jaune) s'écoulant à travers le lac du Bourget dans le MERIT-HYDRO. (b) Identification de la rivière correspondante à 1/12° (tronçon rose). (d) Création du masque de réseau associé au lac du Bourget à 1/12° suivant le tronçon de rivière rose.}
+     \label{masque_reseau}
+\end{figure}
+
+\noindent La création du réseau de rivière CTRIP à 1/12° par l'algorithme DRT est susceptible de modifier localement la structure en privilégiant les plus grands cours d'eau. Il peut donc arriver que, sur la carte spatialisée, certains tronçons de rivières soient légèrement décalés pour assurer la cohérence du réseau. Ces adaptations entraînent la possibilité pour le lac, même s'il est correctement localisé à 1/120°, de se retrouver positionné sur un tronçon de rivière incorrect à 1/12°. Pour être sûr de la localisation, le réseau de rivière haute résolution MERIT-HYDRO (à 1/1200°) est utilisé afin d'identifier le numéro de rivière s'écoulant à travers le lac en question. La description de la méthode s'appuie sur la Figure \ref{masque_reseau} décrivant l'intégration du lac du Bourget dans le réseau CTRIP à 1/12°.\\
+La création du masque a été développée en remontant de façon récursive la plus grande rivière dans le MERIT-HYDRO, en considérant l'accumulation de flux \footnote{L'accumulation de flux est un nombre, affecté à chaque cellule, qui correspond à la somme de toutes les cellules amont contribuant au flux de la cellule.}, traversant le lac au 1/120° (le tronçon de rivière en jaune dans la Figure \ref{masque_reseau}.b). Cette méthode lie chaque identifiant de lac à un identifiant de rivière à haute résolution et garantit que le continuum rivière-lac dans le bassin soit respecté. En effet, lors de la construction du réseau à 1/12°, chaque tronçon de rivière conserve le numéro d'identification attribué à 1/1200° (Figure \ref{masque_reseau}.c) et il en est de même pour le lac. Dans le cas où il est nécessaire de déplacer un tronçon de rivière, le lac le sera aussi.\\ 
+
+\noindent Une question reste cependant en suspend concernant la prévalence d'une cellule lac par rapport à une cellule rivière. Dans certains cas, la fraction réelle de lac au sein d'une cellule peut s'avérer faible et donc le remplacement d'un tronçon de rivière par ce lac peut induire une modification trop importante de l'hydrologie. Il n'est d'ailleurs pas exclu que de fausses détections apparaissent dans ECOCLIMAP-II sur des rivières larges, comme l'Amazone, ou dans des régions avec une grande densité de lac. La méthode la plus adaptée semble être d'imposer un seuil sur la taille des lacs à partir duquel il est plus cohérent d'inclure un lac plutôt qu'une rivière dans le réseau. Comme ce type d'information est peu voire non existante à l'échelle globale, le choix arbitraire de ne considérer que les cellules dont le recouvrement par les lacs était d'au moins 50\% de l'aire d'une cellule CTRIP au 1/12° a donc été fait. \\
+Ce choix permet notamment de filtrer les lacs trop petits qui, étant donnée leur réponse relativement rapide à l'échelle de notre étude, ne perturbent que peu la dynamique hydrologique. \\
+
+Une autre question émerge ici quant à la cohérence hydrologique d'un tel masque avec des conséquences sur le comportement hydrologique du bassin. Dans l'exemple du lac du Bourget à 1/12°, le masque de réseau associé recouvre partiellement deux cellules. Une première cellule correspondant à la partie Nord du lac et une deuxième à la partie Sud (Figure \ref{masque_reseau}.d). Le lac du Bourget fait partie du bassin versant s'écoulant dans le Rhône par le biais du canal de Savières c'est-à-dire par sa partie Sud à 1/12°. La partie Nord, quant à elle, fait partie du bassin de la rivière Chéran qui se jette dans le Rhône plus en amont. À notre résolution, ces deux cellules ne contribuent donc pas aux mêmes écoulements avec la partie Nord et la partie Sud qui transfèrent de la masse vers deux bassins différents. Il y a ici l'apparition d'une incohérence induite par le choix d'échelle et les conflits entre des informations sous-maille. Pour pallier à ces problèmes, qui peuvent arriver sur d'autre lacs, le masque est lui-même corrigé par le biais d'un algorithme récursif remontant le tronçon de rivière identifié précédemment à 1/12° (tronçon rose sur la figure \ref{masque_reseau}.d). Depuis l'exutoire, l'algorithme identifie les cellules du masque de lac qui sont effectivement traversé par le tronçon de rivière. Le résultat pour le lac du Bourget est présenté sur la figure \ref{correction_reseau}. Le fait d'avoir un tel masque de réseau permet de dissocier ces deux cellules et de ne prendre en compte dans le bilan de masse que la partie Sud, cellule placée effectivement dans le bassin versant du lac. Ainsi même si une fraction du lac se trouve sur la partie Nord, le bilan de masse sur cette cellule restera celui d'une rivière.
+
+\begin{figure}[h!]
+\centering
+       \includegraphics[width=0.65\textwidth]{correction_reseau}
+       \caption{Masque de réseau pour le lac du Bourget et réseau CTRIP à 1/12° avant (a) et après correction (b) des incohérences hydrologiques.}
+     \label{correction_reseau}
+\end{figure}
+
+~\\
+~\\
+~\\
+
+\subsection{{\fontfamily{lmss}\selectfont Correction du chevelu hydrologique }}
+\label{sec:chevelu}
+
+Le travail d'intégration proposé dans cette thèse se base aussi sur la représentation du routage intrinsèque de CTRIP et notamment le travail sous forme de "nœud" de rivière. Comme illustré sur la figure \ref{algo_trip}, le réseau de rivières, en plus d'une représentation spatiale, est modélisé sous la forme d'une arborescence\footnote{\textit{tree representation}, en anglais.}. Ainsi tous les centres des cellules du réseau CTRIP sont associés à un nœud dans le réseau où est effective la résolution du bilan de masse. Ces nœuds sont ensuite reliés entre eux par des tronçons de rivière sous la condition qu'un nœud peut recevoir de la masse de plusieurs affluents mais ne peut la transférer qu'à un unique nœud aval. Dans la logique de CTRIP, chaque nœud tient compte des informations de la totalité de la cellule et notamment des données géomorphologiques et topographiques. Cette représentation en cascade assure un transfert amont-aval basé sur le numéro de séquence attribué à chaque nœud et présenté à la section \ref{sec:ctrip_caracteristique}. \\
+
+\begin{figure}[h!]
+\centering
+       \includegraphics[width=1.\textwidth]{trip_network}
+       \caption{Représentation du concept de réseau de routage tel qu'utilisé dans CTRIP au 1/12°. a) Réseau CTRIP sans lacs, b) Réseau CTRIP avec lacs.}
+     \label{algo_trip}
+\end{figure}
+
+Dans le cas du modèle CTRIP sans MLake, le séquençage résout le bilan de masse  de l'amont du réseau ("headwater cell") vers l'exutoire ("outlet"). Le numéro de séquence minimal est attribué aux cellules les plus en amont puis est incrémenté à chaque pixel aval. Une incrémentation spécifique est définie au niveau d'une confluence suivant l'Eq. \ref{eq:SN}. Chaque nœud possède donc les paramètres de la rivière correspondant à sa localisation dans le chevelu comme définie dans la section \ref{sec:ctrip_caracteristique}.
+
+\noindent Un schéma d'attribution du numéro de séquence similaire a été utilisé dans le cas des lacs. La spécificité repose sur l'attribution d'un unique nœud lac à la totalité des cellules recouvertes par un lac dans le masque de réseau.
+Prenons l'exemple du chevelu représenté sur la figure \ref{algo_trip} et contenant un lac. Dans ce cas, toutes les cellules qui ont été précédemment identifiées comme des tronçons de rivières (ici \textbf{B-IV} et \textbf{C-V}) sont remplacées par un nœud unique regroupant la somme des cellules du lac sur le masque de réseau. L'introduction des lacs dans le réseau ne supprime pas les paramètres de rivières existants sur ces cellules et ne font que rajouter en surcouche les caractéristiques associées aux lacs. Cela évite la reconstruction du réseau dans le cas où MLake serait désactivé. \\
+
+\subsection{{\fontfamily{lmss}\selectfont Gestion du partage des forçages }}
+\label{sec:part_forcage}
+
+Les problèmes d'intégration n'apparaissent pas seulement sur le comportement hydrologique dans le bassin mais aussi au niveau des processus comme l'interception des précipitations, le ruissellement ou les échanges de sub-surface qui sont spécifiques à chacune des cellules recouvertes. À l'inverse des caractéristiques morphologiques du lac, ces processus ne peuvent pas être spatialisés sur la totalité du lac.\\
+
+L'approche sous forme de dualité rivière/lac amène des interrogations sur l'attribution des variables hydrologiques et le calcul des différentes composantes du bilan. Même si le lac est représenté par un seul nœud, il reste que son emprise spatiale modifie le partage des flux de masse au sein des cellules où il est présent. Pour détailler ce point, revenons au cas du lac du Bourget décrit sur la figure \ref{bourget}. 
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=0.65\textwidth]{masque_ruiss}  
+  \caption{Représentation du masque réseau (a) et du masque de ruissellement (b) pour le lac du Bourget à 1/12° dans le réseau CTRIP.}
+  \label{bourget}
+\end{figure} 
+
+\noindent Comme vu précédemment, à 1/12°, le lac du Bourget recouvre partiellement deux cellules mais seule la partie Sud, localisée dans le bassin versant, est considérée pour la résolution du bilan de masse.\\
+Pourtant le lac récupère du ruissellement et intercepte des précipitations sur les deux cellules. Le bilan de masse est donc modifié par les contributions des deux cellules. Dans ce cas de figure, des problèmes de conservation peuvent apparaître et le masque de réseau n'est pas suffisant pour quantifier correctement l'interaction du lac avec de composantes du bilan comme les précipitations ou le ruissellement. Dans les faits, le lac intercepte une fraction des précipitations sur chaque cellule même si le volume résultant du bilan de masse sur ce lac participe seulement au débit du canal de Savières. \\
+
+Il a donc semblé judicieux de créer un deuxième masque de lacs, le \textbf{masque de ruissellement} (Figure \ref{bourget}.b), spécifiquement pour le calcul des différentes variables hydrologiques prises en compte dans le bilan. Ce masque est complémentaire du masque de réseau et garantit la cohérence de l'hydrologie locale. \\
+
+Ce masque est créé sur la base des informations à 1/120° fournies par ECOCLIMAP-agrégée. Pour chaque identifiant de lac, le masque de ruissellement est construit par interpolation de la donnée à 1/120° sur la grille 1/12°. Toutes les cellules à 1/12° contenant au moins une cellule de lac dans ECOCLIMAP-II (1/120°) sont alors considérées dans le réseau de ruissellement comme un lac, sans considération de bassin versant. Ce masque sert notamment pour le calcul de la masse d'eau interceptée et stockée par le lac en fonction de la fraction de cellule recouverte. Il doit, par contre, conserver la cohérence du réseau et le fait que certaines cellules rivière soient remplacées par des lacs, ce qui impose que la fraction de lac sur les cellules du \textbf{masque de réseau} soit ramenée à 1.\\
+
+\subsection{{\fontfamily{lmss}\selectfont Processus physiques}}
+\label{sec:routines}
+
+Les deux étapes précédentes ont permis la construction du réseau de routage et l'initialisation des champs physiographiques et morphologiques des différentes entités. À partir de ces données, tous les éléments sont réunis pour effectuer la résolution numérique. La gestion du transfert d'eau dans le réseau est assurée par une équation du bilan de masse appliquée à l'ensemble de la surface du lac, supposée homogène. Le modèle CTRIP-MLake résout alors un bilan distinct pour les rivières et les lacs. Dans un souci de simplicité et afin d'accroître la flexibilité du modèle face à la diversité des dynamiques lacustres, le bilan de masse se base sur la résolution d'une équation dont la variable pronostique est le stock $V_{lake}$ (Figure \ref{masslake}):
+
+\begin{equation}
+\frac{dV_{lake}}{dt} = P_{ol}-E_{ol} +  R_{S}+ D +  Q_{in} - Q_{out} - Q_{gw} - Q_{p}
+\end{equation}
+$P_{ol}$ correspond aux précipitations directement interceptées par le lac (kg.m$^{-2}$.s$^{-1}$). $E_{ol}$ est l'évaporation estimée directement au-dessus du lac (kg.m$^{-2}$.s$^{-1}$). $Q_{gw}$ représente les flux de masse échangés avec les aquifères qui ne sont pas pris en compte dans cette thèse (kg.m$^{-2}$.s$^{-1}$). $Q_{p}$ représente les flux de masse issus de prélèvements anthropiques qui ne sont pas pris en compte dans cette thèse (kg.m$^{-2}$.s$^{-1}$).
+Le ruissellement de surface $R_{S}$ (kg.m$^{-2}$.s$^{-1}$) et le drainage $D$ (kg.m$^{-2}$.s$^{-1}$) représentent la contribution des berges des lacs aux flux entrants.\\
+
+\begin{figure}[h!]
+  \includegraphics[width=1.\textwidth]{lac}
+  \caption{Schéma des processus impliqués dans le bilan de masse d'un lac.}
+  \label{masslake}
+\end{figure}
+
+\noindent L'initialisation du stock est effectuée par le biais des informations fournies par ECOCLIMAP-agrégée et GLDB. Le premier masque donne l'aire de surface pour chaque lac $A_{ECO}$ ($m^{2}$) et le deuxième informe sur la profondeur moyenne du lac $z_{moy,GLDB}$ ($m$). Le stock initial est ainsi déduit de la relation:
+\begin{equation}
+V_{lake,0} = A_{ECO}.z_{moy,GLDB}
+\end{equation}
+
+\noindent En ce qui concerne l'évaluation de la partie atmosphérique du bilan de masse( définit par le couple {précipitations, évaporation}), celui-ci est déterminé en calculant les précipitations interceptées sur le masque de ruissellement du lac $P_{ol}$ auquel est retranché l'estimation d'évaporation provenant d'une simulation FLake $E_{ol}$. \'A ce stade, il n'y a pas de rétroaction de la dynamique du lac sur l'évaporation, rétroaction qui sera introduite à terme par le couplage entre CTRIP-MLake et SURFEX. 
+
+\noindent Comme vu dans la partie \ref{sec:part_forcage}, le ruissellement et le drainage sont calculés pour chaque lac en cohérence avec le masque de ruissellement tel que:
+
+\begin{align}\label{mlake_rd}
+\begin{cases}
+ R_{S} = max(0, \sum_{p} r_{S}(p))\\
+ D = max(0, \sum_{p} d_{S}(p))
+\end{cases}
+\end{align}
+$r_{S}$ et $d_{S}$ sont respectivement le ruissellement de surface et le drainage sur chaque cellule du masque (kg.m$^{-2}$.s$^{-1}$). $p$ correspond aux cellules de lacs sur le masque de ruissellement. \\
+
+\noindent De façon similaire la contribution des affluents aux flux entrants $Q_{in}$ est calculée en prenant la somme des débits provenant des cellules rivières amont sur le masque de réseau, tel que: 
+\clearpage
+\begin{align}\label{mlake_qin}
+ Q_{in} = \sum^{l}_{k} q_{in}(k)
+\end{align}
+avec $q_{in}$ (kg.m$^{-2}$.s$^{-1}$) la contribution de l'affluent $k$ et $l$ le nombre d'affluents s'écoulant dans le masque de réseau du lac. \\
+
+\noindent Le calcul des flux entrants détermine un état intermédiaire du lac défini par un volume $V_{lake}^{*}$ (kg) à l'instant $t$ tel que:
+
+\begin{equation}
+V^{*}_{lake}(t) = V_{lake}(t-\Delta t) + (P_{ol}(t) - E_{ol}(t) +  R_{S}(t)+ D(t) +  Q_{in}(t))\Delta t
+\end{equation}
+où $V(t-\Delta t)$ est le volume du lac au pas de temps précèdent.\\
+
+\noindent En supposant que l'aire du lac reste constante quelle que soit la hauteur du lac \footnote{les lacs sont représentés sous forme prismatique.}, il est possible de définir une hauteur intermédiaire $h_{lake}^{*}$ (m) définie comme:
+
+\begin{equation}
+h_{lake}^{*}(t) = \frac {V_{lake}^{*}(t)}{A_{ECO}}
+\end{equation}
+
+\noindent Le débit s'écoulant hors du lac $Q_{out}$ est calculé sur la base d'une analogie avec un déversement de seuil qui lie la charge en eau au dessus d'un seuil au débit s'écoulant à travers ce seuil. Cette analogie est satisfaisante pour représenter la dynamique d'écoulement de l'eau s'écoulant principalement au-dessus de la contre-pente du lac. À 1/12°, les exutoires de lacs sont suffisamment étroits pour être considérés comme droit, de plus les effets de frottements sont négligeables et les lignes de courant rectilignes.\\
+
+\begin{figure}[h!]
+     \centering
+     \subfloat[Cas d'un lac sans déversement\label{sub_qout1}]{%
+       \includegraphics[width=0.49\textwidth]{q_ovfl_0}
+     }
+     \hfill
+     \subfloat[Cas d'un lac avec déversement\label{subquout2}]{%
+       \includegraphics[width=0.49\textwidth]{q_ovfl}
+     }
+     \hfill
+     \caption{Schéma de déversement d'un lac. Les figures du haut représentent une vue de face. Les figures du bas représentent une vue transversale.}
+     \label{qovfl}
+\end{figure}
+
+\noindent La charge en eau au-dessus du seuil est représentée par la hauteur relative, fruit de la comparaison entre $h_{lake}^{*}$ et la hauteur du seuil rectangulaire $h_{weir}$ (Figure \ref{qovfl}):
+
+\begin{align}\label{q_out}
+Q_{out}=
+\begin{cases}
+ 0 & \text{si $h_{lake}^{*}<h_{weir}$ }\\
+ C_{d} \rho_{\omega} \sqrt{2g}W_{weir}(h_{lake}^{*}-h_{weir})^{\frac{3}{2}}& \text{si $h_{lake}^{*}>h_{weir}$}
+\end{cases}
+\end{align}
+$C_{d}$ est le coefficient de traînée adimensionnel associée au seuil égal à $0.485$ \citep{lencastre1963}, $W_{weir}$ est la largeur du seuil égale à la largeur de la rivière dans le réseau CTRIP au niveau de l'exutoire du lac (m). \\
+
+Comme il n'existe aucune information globale sur la hauteur de la contre-pente ou le rapport entre profondeur du bassin lacustre et niveau d'eau, il a été décidé d'initialiser la hauteur du seuil au niveau initial du lac $z_{moy, GLDB}$. Le débit à l'exutoire devient donc seulement dépendant de la charge en eau au-dessus du seuil qui est atteinte après une phase de spin-up aboutissant à un régime d'équilibre pour le niveau du lac. Dans ce cas, la seule limitation est que le diagnostic sur le niveau du lac est construit en hauteur relative par rapport au niveau du lac et limite la comparaison directe avec des mesures absolues (comme les données d'altitude). \\
+
+\noindent Le volume final du lac pour le pas de temps se résume donc à:
+
+\begin{equation}
+V_{lake}(t)=V^{*}_{lake}(t) - Q_{out}(t)\Delta t
+\end{equation}
+
+\subsubsection{{\fontfamily{lmss}\selectfont Organisation générale et paramètres introduits dans CTRIP}}
+\begin{figure}
+  \includegraphics[width=1.\textwidth]{code_overview.pdf}
+  \caption{Organisation générale de la routine associée au module MLake dans la structure de CTRIP en mode offline.}
+  \label{codeoverview}
+\end{figure}
+\noindent L'organisation générale du code de MLake est représentée sur la figure \ref{codeoverview}. L'introduction de MLake dans le réseau de routage ajoute sept paramètres et une variable dans le modèle sans engendrer de complexité supplémentaire. En plus des variables et paramètres prescrits, le modèle produit trois variables diagnostiques utiles à sa validation et plus généralement à l'étude de la dynamique lacustre: $lake\_in$ la somme des débits entrants dans le lac ($kg.m^{2}.s^{-1}$), $lake\_out$ le débit produit par déversement à l'exutoire du lac ($kg.m^{2}.s^{-1}$) et $lake\_h$ la variation relative de hauteurs du lac ($m$).\\
+Le pas de temps de calcul choisis dans le cadre de ces travaux est un pas journalier.
+\clearpage
+
+\section{{\fontfamily{lmss}\selectfont Conclusion}}
+
+La modélisation hydrologique à l'échelle régionale et globale développée au CNRM repose sur l'utilisation couplée du modèle ISBA, résolvant les bilans d'énergie et d'eau pour l'estimation de la production de ruissellement et de drainage, et du modèle de routage en rivière CTRIP, assurant le transfert d'eau de l'amont à l'aval des bassins versants. Ces modèles assurent la fermeture du bilan hydrologique global et sont aujourd'hui intégrés au modèle de Météo-France CNRM-CM utilisé pour étudier le climat et son évolution. Pour avoir une vision complète du cycle de l'eau et corriger les flux simulés des grands bassins fluviaux, il est nécessaire de prendre en compte la dynamique des masses d'eau lacustres en plus de leur bilan énergétique permis par l'introduction du modèle FLake dans la plateforme de modélisation de surface SURFEX. \\
+
+À ce jour, CTRIP possède une résolution globale de 1/12° où chaque maille représente un unique tronçon de rivière dont la localisation provient de l'utilisation d'un modèle numérique de terrain à haute résolution. Cependant cette représentation occulte la dynamique hydrologique des régions où la densité de lac est importante. Le but de cette thèse est donc de corriger le réseau de rivière global en introduisant une paramétrisation des échanges en eau dans le continuum rivière-lac. Cela est permis par le couplage du modèle de bilan de masse de lac MLake à CTRIP. \\
+Dans un premier temps, le réseau a été corrigé par l'introduction d'un masque de lac agrégé à l'échelle globale comptant pour tous les lacs issus de la carte ECOCLIMAP-II à 1 km de résolution. Cette carte rend compte des disparités entre les régions sur la disponibilité de la ressource en eau. En se basant sur cette carte, la paramétrisation introduite dans CTRIP assure une représentation plus réaliste des variations de masse et permet la prescription des conditions de stocks d'eau à l'échelle globale. À terme, le couplage de CTRIP-MLake avec le modèle de climat assurera le suivi de la ressource en eau et de ses variations régionales pour la prévision hydrologique globale. Les lacs étant des sentinelles du changement climatique, la prise en compte de leurs niveaux d'eau en tant que variables climatiques essentielles aide à la détection des zones de stress hydrique notamment en réponse à des modifications environnementales induites par le changement climatique. Cette modélisation couplée est justifiée par la dépendance de chaque variable hydrologique. Par exemple, une modification de la température de la colonne d'eau influence les taux d'évaporation potentielle qui agissent en retour sur les niveaux d'eau et donc l'emprise de surface. Ces modifications restent cependant relatives et spatialement inégales. Entre 1984 et 2015, 90 000 km$^{2}$ de surface en eau permanente ont disparu à travers le monde quand 180 000 km$^{2}$ sont apparus dans d'autres régions du monde \citep{pekel2016}. \\
+
+\noindent Les deux chapitres qui suivent ont pour but d'évaluer et de valider cette nouvelle paramétrisation notamment par rapport aux débits produits et aux variations de hauteurs de lacs mais aussi en analysant la sensibilité du modèle à la largeur de l'exutoire des lacs. Ces évaluations se feront tout d'abord à l'échelle du bassin du Rhône grâce à l'utilisation de la chaîne SAFRAN-ISBA-MODCOU. Puis une évaluation à l'échelle globale sera détaillée sur trois bassins versants identifiés par des caractéristiques hydrologiques et climatiques différentes sur la base de forçages atmosphériques utilisés dans les études climatiques globales.
