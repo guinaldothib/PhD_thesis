@@ -1,0 +1,502 @@
+\chapter{{\fontfamily{lmss}\selectfont \'Evaluation et validation globale}}
+\label{chap:etude-globale}
+\minitoc
+
+\noindent Dans le chapitre précèdent, le modèle de bilan de masse MLake a été validé à 1/12° sur le bassin du Rhône. Cette évaluation locale nécessaire ne justifie pas, pour autant, la possibilité d'utiliser ce modèle pour des études globales. La confirmation de l'adéquation du modèle à l'échelle globale est menée dans un cadre plus large au sein de ce chapitre.\\
+La version de CTRIP à 1/12° est en cours de validation à l'échelle globale et ne peut pas être utilisée en tant que telle pour évaluer et valider MLake à cette échelle. C'est pour cela que ce chapitre se base notamment sur le travail de \citet{decharme2019} pour valider d'un point de vue local le comportement de CTRIP-MLake en global à 1/12°.\\
+L'évaluation du modèle est effectuée en mode off-line avec les mêmes forçages que ceux utilisés dans \citet{decharme2019} et interpolés à l'échelle de travail. Au niveau des modèles, le schéma ISBA est utilisé dans sa version diffusive alors que le modèle CTRIP ne tient pas compte des processus d'aquifères ni des plaines d'inondations. Ce choix est porté par le souci d'évaluer le modèle MLake indépendamment des autres processus. Pour autant la dernière partie de ce chapitre présentera les résultats préliminaires du modèle complet à l'échelle globale. 
+
+\section{{\fontfamily{lmss}\selectfont Les sites d'études}}
+\label{sec:bv-globe}
+
+Le choix des sites d'études n'est aucunement arbitraire et est motivé par des contrastes climatiques et hydrologiques. En effet, il est essentiel de vérifier que le non-étalonnage du modèle ne provoque pas de sensibilité accrue aux conditions locales. Trois sites d'études présentant des enjeux intéressants ont donc été choisis: le bassin de l'Angara, du Nil Blanc et enfin de la Neva.
+
+\subsection{{\fontfamily{lmss}\selectfont Bassin versant du lac Baïkal}}
+\label{sec:baikal}
+\subsubsection*{{\fontfamily{lmss}\selectfont Morphologie du bassin}}
+
+Provenant du turc \textit{Bay Köl} ('lac sacré'), le lac Baïkal est remarquable par ses spécificités. Conséquence d'une subsidence et de la formation d'une zone de rift, le lac Baïkal occupe un fossé d'effondrement et bat les records du lac le plus profond (1640 m) et le plus vieux (environ 25 millions d'années) du monde. À cela s'ajoute que le lac Baïkal, avec un volume de 23 600 km$^{3}$ pourrait contenir l'équivalent des eaux des Grands Lacs Américains, soit 20\% des réserves d'eau douce lacustre \citep{brunello2003, messager2016}.\\
+Pour ce qui est de ses caractéristiques, le lac Baïkal s'étire sur près de 650 km dans une orientation Nord-Est/Sud-Ouest (Figure \ref{bv_baikal}). Dans sa partie aval, le bassin versant est principalement recouvert de forêts; la partie amont, plus montagneuse, est recouverte de steppe. La particularité de cette partie de la planète est la présence quasi-exclusive de permafrost, sol dont la température reste égale ou inférieure à 0°C tout au long de l'année voir pendant plusieurs années \citep{tornqvist2014}. \\
+Au niveau climatique, le bassin du Selenga est soumis à un climat continental  particulièrement rude avec des hivers froids et secs ($\overline{T}_{janvier}$ = -23.5 °C) et des étés tempérés ($\overline{T}_{juillet}$ = 16.9 °C) \citep{tornqvist2014} \footnote{Dwb dans la classification de Köppen-Geiger \citep{beck2018}}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{BV_baikal}
+\caption{Bassin versant de l'Angara depuis Irkoutsk.}
+\label{bv_baikal}
+\end{figure}
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Hydrologie}}
+\label{sec:hydrologie_baikal}
+
+Le Selenga est le principal affluent du lac Baïkal et contribue pour 50 à 60 \% aux écoulements entrants dans le lac. L'hydrologie du bassin est saisonnière et dominée par la succession de période de gel en hiver et de dégel en été. Ainsi le principal apport au niveau des masses d'eau provient de la fonte de la neige, apport qui est aujourd'hui altéré par la fonte du permafrost \citep{karlsson2012}. Une dépendance hydrologique très forte existe entre le Selenga et le lac Baïkal puisque 82\% du bassin du lac est recouvert par le bassin du Selenga \citep{nadmitov2015}. \\
+Le lac Baïkal alimente et contrôle un unique effluent: l'Angara qui lui-même fait partie du bassin du Yenissei, 5\ieme{} plus long fleuve du monde.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Intérêt économique et gestion du bassin}}
+
+L'intérêt du lac Baïkal sur l'économie régionale est évidente en ce qui concerne l'approvisionnement en eau douce continue au cours de l'année, la pêche et par l'attrait touristique des lieux. Deux pays se partagent son trait de côte: la Mongolie et la Russie. De plus, la ressource minière du bassin du lac Baïkal est riche  (aluminium, or, tungsten) et participe considérablement au développement économique des régions voisines \citep{brunello2003}. Enfin la Russie et plus particulièrement l'Oblast d'Irkoutsk utilise les eaux du bassin pour refroidir les centrales thermiques et produire de l'électricité à partir de barrages hydroélectriques.\\
+
+Pour faire face à la pression importante introduite par l'homme sur le lac et l'impact écologique qui en résultent, la Russie a établi une commission pour le lac Baïkal en 1993. Cette commission composée de représentants locaux et fédéraux a abouti à la "Loi Baïkal" en 1999 fixant des règles pour une gestion active du bassin en matière de pollutions et d'usages et gérées par l'Agence Fédérale pour la Protection de l'Environnement \citep{garmaeva2001,brunello2006}. Cette loi préserve le biotope exceptionnel du lac Baïkal, conséquence de l'oxygénation de la totalité de la colonne d'eau, protégé depuis 1996 en tant que patrimoine mondial de l'UNESCO \citep{moore2009}.  
+
+\subsection{{\fontfamily{lmss}\selectfont Bassin versant du lac Victoria}}
+\label{sec:victoria}
+\subsubsection*{{\fontfamily{lmss}\selectfont Morphologie du bassin}}
+
+Deuxième plus grand lac du monde avec 69 500 km$^{2}$, le lac Victoria est le plus grand des lacs africains (Figure \ref{bv_victoria}). Seul Grand Lac africain à ne pas être situé dans une dépression du Grand Rift, son origine est encore discutée et résulterait vraisemblablement d'un inversion de l'écoulement des rivières suite à un soulèvement des régions situées à l'ouest. De par cette localisation particulière, le lac recouvre près de 42\% du bassin versant avec des conséquences sur l'hydrologie régionale. Le bassin d'alimentation du lac est donc relativement petit par rapport au lac en lui-même.\\
+Malgré une superficie importante, le lac Victoria, dont la profondeur moyenne est de 40 m et la profondeur maximale de 80 m, contient une masse d'eau très inférieure à celle des lacs voisins comme le Tanganika ou le lac Malawi.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{BV_victoria}
+\caption{Bassin versant du lac Victoria depuis Jinja.}
+\label{bv_victoria}
+\end{figure}
+
+D'un point de vue climatique, le bassin du lac Victoria se trouve dans une zone tropicale \footnote{Af dans la classification de Köppen-Geiger \citep{beck2018}} avec une alternance de périodes humides et de périodes sèches. Malgré cette alternance, la température moyenne de l'air est plutôt uniforme avec des variations saisonnières inférieures à 3°C. Au niveau des précipitations, des disparités existent entre les différentes rives mais elles sont principalement dues au mouvement de la Zone de Convergence Inter-Tropicale \citep[ZCIT,][]{nicholson2017}. On retrouve donc une saison humide bien marquée entre mars et mai puis une deuxième période qui l'est beaucoup moins entre novembre et décembre. Ainsi, les rives Ouest sont généralement plus humides ($\approx$ 2 000 mm/an) que les rives Sud-Ouest ($\approx$ 1 100 m/an) ou Sud-Est ($\approx$ 750 mm/an) \citep{paugy2019}. Une autre particularité est l'intensification de 30\% des cumuls de pluie au-dessus du lac Victoria engendrée par la seule présence du lac \citep{sutcliffe1999}.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Hydrologie}}
+\label{sec:hydrologie_victoria}
+
+Le lac Victoria constitue la partie amont du Nil Blanc et contribue à environ 14\% du débit conjoint Nil Blanc-Nil Bleu à Assouan \citep{crul1995}. Une dizaine d'affluents principaux alimente le lac mais c'est surtout le couple précipitations-évaporation qui contrôle les niveaux d'eaux. L'évaporation estimée du lac Victoria se situe aux alentours de 1 500 mm/an ce qui fait que le bilan de masse du lac est globalement équilibré sur l'année \citep{vanderkelen2018a}.\\
+Pour ce qui est de l'hydrologie, le lac Victoria possède donc un intérêt particulier car principalement contrôlé par les facteurs climatiques.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Intérêt économique}}
+
+Les côtes du lac Victoria sont partagées par trois pays: la Tanzanie, l'Ouganda et le Kenya qui profitent de la riche biodiversité et des ressources minières comme leviers économiques majeurs.\\
+Comme la majorité des grands lacs et encore plus les Grands Lacs africains, le lac Victoria apporte une indépendance économique majeure issue de la pêche, de la ressource en eau douce, du transport et du tourisme \citep{crul1995}. Aussi, depuis les années 1990, le bassin est au cœur d'une industrie pétrolière qui profite des ressources du sous-sol.\\
+Cependant l'importance majeure du lac Victoria repose sur son niveau d'eau qui régule en grande partie la vie socio-économique du bassin versant du Nil et ce jusqu'en \'Egypte.\\
+L'importante biodiversité du lac provient de la variété des zones d'intérêt comme les grandes zones marécageuses littorales ou de la diversité des substrats dans les zones pélagiques \citep{paugy2019}.\\
+Enfin, l'intérêt du lac est aussi industriel puisque ses eaux sont aujourd'hui largement anthropisées et notamment pour les besoins en hydroélectricité avec la construction du complexe de Nalubaale initié en 1954 et finalisé en 2000 par un deuxième barrage \citep{kull2006}. 
+\subsection{{\fontfamily{lmss}\selectfont Bassin versant du lac Ladoga}}
+\label{sec:ladoga}
+\subsubsection*{{\fontfamily{lmss}\selectfont Morphologie du bassin}}
+
+La Neva est un fleuve russe long de 74 km et qui draine une surface de 281 000 km$^{2}$. Situé en Russie occidentale, au sein du bouclier scandinave, ce système possède les deux plus grands lacs d'eau douce du continent européen: le lac Ladoga et le lac Onega. Situé au nord-est de Saint-Pétersbourg la superficie du lac Ladoga est de 17 800 km$^{2}$ et son volume de 850 km$^{3}$. En amont de ce lac se trouve le lac Onega dont la superficie est de 9 720 km$^{2}$ pour un volume de 290 km$^{3}$ \citep{filatov2019}. Ces lacs se sont formés en deux temps, tout d'abord la formation du bassin à la suite de mouvements tectoniques et ensuite le remplissage en eau douce lors du retrait glaciaire \citep{malmqvist2009}.\\
+Le bassin versant de la Neva est un système hydrologique connecté où chaque compartiment est relié aux autres par un réseau de rivières et de lacs dont l'exutoire se trouve dans le Golfe de Finlande à Saint-Pétersbourg. Ainsi la Neva est issue du lac Ladoga, lui-même connecté au lac Onega par le Svir', au lac Saimaa par la Vuoksa et au lac Ilmen par le Volkhv \citep{rukhovets2010}.\\
+Contrairement aux lacs précédents l'environnement proche du lac Ladoga est assez uniforme et composé de plaines recouvertes d'une combinaison de forêts de conifères boréales (à hauteur de 55\%) et de zones humides (à hauteur de 13\%) \citep{malmqvist2009}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{BV_ladoga}
+\caption{Bassin versant de la Neva depuis Kirovsk.}
+\label{bv_ladoga}
+\end{figure}
+
+En ce qui concerne le climat, la région est à la frontière entre un climat océanique et un climat continental humide \footnote{Dfb dans la classification Köppen-Geiger \citep{beck2018}} caractérisé par des hivers froids et des étés tempérés pour une température moyenne annuelle aux alentours de 2.5 °C. Pour ce qui est des précipitations, elles se répartissent uniformément tout au long de l'année pour un cumul annuel aux alentours de 550 mm dont 70\% sous forme de neige \citep{malmqvist2009}. Ces conditions climatiques sont essentielles pour comprendre le comportement de ces lacs et expliquent notamment la couverture glaciaire partielle du Ladoga et totale de l'Onega chaque hiver.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Hydrologie}}
+\label{sec:hydrologie_ladoga}
+
+Le régime nival de la région, associé au système lacustre particulier assure une alimentation en eau constante de la Neva. Il existe cependant un pic de débit arrivant généralement à la fin du mois de mai. Le couple Ladoga-Onega recouvre près de 30\% du bassin versant du fleuve. C'est pour cela qu'en hydrologie le linéaire Svir'-Neva est généralement considéré comme un ensemble \citep{malmqvist2009}.\\
+Au vu des conditions climatiques, le bilan hydrologique est dominé par les affluents et effluents ce qui donne un lac de type fluvial.\\
+L'intérêt hydrologique d'étudier ce lac vient de l'importance de simuler correctement les processus hydrologiques de surface et le transfert d'eau mais aussi le fait que le lac Ladoga est lui même dominé par les apports d'un grand lac en amont.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Intérêt économique}}
+Riche d'une biodiversité unique, le bassin de la Neva et notamment ces deux grands lacs en font une destination touristique prisée notamment par les agglomérations proches (4.7 millions d'habitants). Cet environnement unique reste fragile et une partie des berges du lac Ladoga est aujourd'hui protégée par la réserve naturelle de Nizhnesvirsky \citep{malmqvist2009}.\\
+La Neva est l'unique ressource d'eau potable alimentant la ville de Saint-Pétersbourg et d'autres villes de Karélie pour environ 1.1 km$^{3}$ d'eau par an \citep{rukhovets2010}.\\
+
+La présence de ce système hydrologique assure à la région un essor économique considérable qui passe par une proportion et une grande diversité d'industries. Au-delà du niveau socio-économique élevé, la pression anthropique est forte et pose des enjeux environnementaux majeurs notamment pour la préservation de la qualité des eaux des lacs \citep{rukhovets2010}
+
+En plus de ces émissaires naturels, la Neva et le lac Ladoga sont connectés à un réseau national de canaux, qui permettent le transport de marchandises vers la Volga, la Mer Noire et la Mer Blanche et contribuent donc à l'indépendance économique de Saint-Pétersbourg \citep{malmqvist2009}. \\
+Les lacs sont aussi utilisés pour la production électrique et les deux principales usines hydroélectriques se situent sur le Svir' en amont du lac Ladoga.
+
+\section{{\fontfamily{lmss}\selectfont Les forçages globaux}}
+\label{sec:forcing_blog}
+
+\subsection{{\fontfamily{lmss}\selectfont Les précipitations}}
+\label{sec:e2O}
+Dans son étude \citet{decharme2019} a utilisé et testé différents forçages atmosphériques pour l'évaluation à l'échelle globale du modèle ISBA-CTRIP.\\
+Les premiers forçages sont les Princeton Global Forcing \citep[PGF; {\small \url{https://rda.ucar.edu/datasets/ds314.0/}}]{sheffield2006} pour la période 1978-2014. Les cumuls de précipitations horaires PGF sont issus des réanalyses NCEP-NCAR issus d'observations des variables atmosphériques corrigées par des cumuls mensuels observés par le Global Precipitation Climatology Center (GPCC).\\
+Le deuxième forçage est issu de réanalyses du projet Earth2Observe (E2O) et plus spécifiquement des réanalyses Tier-2 Water Resources (WRR2). Ces réanalyses proviennent des produits ERA-Interim ({\small \url{https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era-interim}}) qui sont combinées aux observations mensuelles Multi-Source Weighted-Ensemble Precipitation \citep[MSWEP,]{beck2017}.\\
+
+L'utilisation de plusieurs jeux de forçages permet l'analyse des biais introduits par la réponse des variables de surface et de sub-surface aux conditions atmosphériques. Cependant, \citet{decharme2019} a montré que les forçages E2O avaient de meilleures performances pour l'estimation des intensités de précipitations et permettait notamment une meilleure simulation des débits de rivières. Ces forçages sont disponibles pour la période 1978-2014.\\
+Pour ces raisons, le modèle ISBA dans sa version diffusive sera forcé pour la suite de l'étude par les forçages ERA-Interim E2O.
+
+\subsection{{\fontfamily{lmss}\selectfont L'évaporation}}
+\label{sec:flake_globe}
+
+Comme présenté dans la section \ref{sec:config_rhone}, les flux de masse au niveau des lacs sont déduits d'une estimation du bilan entre l'évaporation et les précipitations. Les estimations d'évaporation, sur la période  1979-2014, sont issues d'une simulation globale avec FLake similaire à celle de \citet{voldoire2019} avec la configuration proposée par citet{lemoigne2016}. Le coefficient d'extinction est fixé à 0.5 m$^{-1}$ et la profondeur maximale des lacs à 60 $m$.\\ Ainsi, un calcul préliminaire simule un correction des forçages en prenant la différence entre les estimations de précipitations MSWEP et l'évaporation au-dessus du lac. Cela permet de déduire la masse d'eau qui contribue directement au bilan sur le masque de ruissellement du lac (voir section \ref{sec:MLake})
+Les estimations d'évaporation sont issues d'une simulation globale avec FLake similaire à celle de \citet{voldoire2019}.\\
+
+\section{{\fontfamily{lmss}\selectfont Les caractéristiques de TRIP}}
+\label{sec:trip_globe_carac}
+
+La version de CTRIP utilisée en global repose sur une version préliminaire développé par Simon Munier, chercheur au CNRM. Pour ce faire, l'essentiel des paramétrisations développées sur la France et à l'échelle globale \citep{decharme2010,decharme2012, decharme2019} ont été reprises ici. Afin de garantir la cohérence des réseaux hydrographiques à la résolution 1/12°, seuls certains paramètres comme la pente des rivières ou la largeur ont été recalculés pour s'adapter au changement de résolution.\\
+Les figures \ref{globe_w} et \ref{globe_seq} donnent un aperçu du numéro de séquence ainsi que de la largeur des rivières pour les trois bassins d'études. Il est évident que ces bassins n'ont pas les mêmes dimensions que le bassin du Rhône et présentent donc un intérêt particulier pour la validation du modèle.\\
+Pour cette évaluation globale, les schémas d'aquifères et de plaines d'inondations n'ont pas été pris en compte. Seul le modèle MLake modifie la dynamique de rivières.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{globe_w}
+\caption{Largeur de rivière pour le bassin de l'Angara (A), le bassin de la Neva (B) et le bassin du Nil Blanc (C).}
+\label{globe_w}
+\end{figure}
+
+~\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{globe_seq}
+\caption{Numéro de séquence pour le bassin de l'Angara (A), le bassin de la Neva (B) et le bassin du Nil Blanc (C).}
+\label{globe_seq}
+\end{figure}
+\clearpage
+
+
+\section{{\fontfamily{lmss}\selectfont Les données de validation}}
+\label{sec:donnees_globe}
+
+Comme nous l'avons vu en introduction de cette thèse, les mesures \textit{in situ} sont souvent rares, discontinues et se raréfient ces dernières années \citep{duan2013}. Dans ce contexte, les données issues de la télédétection spatiale revêtent une importance particulière puisqu'elles donnent accès à un suivi fiable, quasi-continu de la majorité de la surface. En outre, la télédétection assure un suivi de la ressource même dans des zones inaccessibles \citep{avisse2017}.\\
+Pour autant, certaines variables comme les débits sont difficilement suivies depuis l'espace et l'évaluation reste principalement contrainte par la disponiblité en données de terrain.
+\subsection*{{\fontfamily{lmss}\selectfont Données de débits}}
+\label{sec:donnees_globe_debits}
+
+L'évaluation des simulations pour les débits repose sur plusieurs bases de données. Pour chaque site d'étude, les séries temporelles de la station choisie doivent couvrir la période d'étude 1978-2014 avec, au minimum, trois ans de données continues sur une période totale de 10 ans et pour un bassin de drainage minimum de 10000 km$^{2}$. Dans le cas où deux stations se trouvent sur la même maille CTRIP, la station choisie est celle qui possède l'aire de drainage la plus grande.\\
+Concernant l'Angara, la station choisie se situe à Irkoutsk au niveau du barrage hydroélectrique du même nom et localisé à 66 km de l'exutoire du lac. Les mesures sont issues de la base de données globale du GRDC.\\
+Pour la Neva, le site de mesures choisi se trouve à la station de Novosaratovka. Les données de débits sont issues de la base de données ARCTICNET \citep{lammers2001}.\\
+Enfin, le Nil Blanc dans sa partie amont n'est présent dans aucune base de données et nous nous sommes confrontés à un manque évident de mesures dans cette partie du monde. Que ce soit dans la base GRDC, plus grande base de données de débits, ou dans des bases plus locales, aucune donnée n'était assez fiable pour le lac Victoria. Les mesures de débits faites au barrage de Nalubaale sont incomplètes du fait du non-respect des règles de gestion (voir en section \ref{sec:discussions_globe}). Une série temporelle du Nil Blanc à Jinja a été reconstruite par \citet{vanderkelen2018a} pour la période 1950-2006. Ces données ont été gracieusement fournies pour l'évaluation de cette étude. Ces données reposent donc sur un mélange de mesures directes et indirectes qui n'ont pas forcément les mêmes méthodes d'échantillonnage.
+\clearpage
+\subsection*{{\fontfamily{lmss}\selectfont Données sur les variations de hauteurs}}
+
+Contrairement au Léman, dont les hauteurs ont été évaluées sur la base de stations de jaugeage, l'évaluation globale des variations de niveaux de lac s'est appuyée sur la plateforme Hydroweb  \citep[\url{http://hydroweb.theia-land.fr/}]{cretaux2011}. Cette plateforme fournit des mesures altimétriques à la résolution centimétrique pour un peu plus de 1000 fleuves et 230 lacs à travers le monde. Ces données sont généralement accessibles depuis 1993 et possèdent une estimation des erreurs. En plus des données altimétriques, la plateforme propose des observations d'emprise au sol des lacs et estime le volume associé.\\
+Pour nos sites d'études, toutes les informations sont accessibles depuis Hydroweb.
+
+
+\section{{\fontfamily{lmss}\selectfont Intégration des lacs sur les bassins versants}}
+\label{sec:eval_globe}
+
+Comme nous l'avons vu pour le bassin du Rhône, le modèle nécessite quelques années de spin-up avant d'atteindre un niveau d'équilibre. Cette durée est variable suivant les lacs mais s'élève généralement autour de quelques années. Compte tenu des observations disponibles, l'évaluation portera sur la période 1983-2014 pour les débits de l'Angara et de la Neva, et sur la période 1983-2006 pour le Nil Blanc. Concernant les niveaux des lacs, les données issues d'Hydroweb imposent une période d'évaluation de 1993 à 2014 pour les trois lacs considérés. \\
+Comme pour l'étude locale, l'évaluation et la validation se font en deux étapes. Tout d'abord l'impact de MLake est évalué sur les performances des simulations de CTRIP. Ensuite, le modèle est confronté aux observations décrites dans la section \ref{sec:donnees_globe}.\\
+
+En complément des résultats sur le test de sensibilité du chapitre précédent, un test a été reconduit afin d'évaluer l'influence de la largeur du seuil sur d'autres cas et avec un intervalle de facteur multiplicatif plus étendu.\\
+Pour mener à bien le test de sensibilité plusieurs configurations ont été testées. Les caractéristiques de ces simulations sont regroupées dans le tableau \ref{ctrip_config_globe}.
+
+{\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]
+ \caption{Configuration des différentes simulations effectuées sur chacun des bassins fluviaux.}
+ \label{ctrip_config_globe}
+ \begin{tabularx}{\textwidth}{XXX}
+ \hline
+ Configuration &Forçages &Détails\\
+ \hline
+  $ctrip\_nolake$&Earth2Observe& \footnotesize{Simulation de référence ISBA-CTRIP sans activation du modèle de lac}\\
+    $ctrip\_mlake\_w0.1\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 0.1}\\
+    $ctrip\_mlake\_w0.5\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 0.5}\\
+      $ctrip\_mlake\_w0.7\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 0.7}\\
+  $ctrip\_mlake\_w1\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est égale à la largeur de la rivière à l'aval}\\
+  $ctrip\_mlake\_w1.5\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 1.5}\\
+  $ctrip\_mlake\_w2\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 2}\\
+  $ctrip\_mlake\_w4\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 4}\\
+  $ctrip\_mlake\_w5\_flake$&Earth2Observe, MSWEP&\footnotesize{ISBA-CTRIP-MLake dont la largeur de rivière est multipliée par 5}\\
+  \hline
+ \end{tabularx}
+\end{table}}
+
+\clearpage
+\subsection{{\fontfamily{lmss}\selectfont Apport des lacs sur les simulations CTRIP}}
+~\\
+Les résultats sur les trois bassins de l'évaluation concordent avec les conclusions émises dans le chapitre précédent concernant le Rhône. Dans un souci de lisibilité, la figure \ref{subset_2005_2008} donne un aperçu des débits simulés sur la période 2005-2008, cependant l'analyse est faite sur la période entière 1983-2014.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subset_q_2005_2008}
+\caption{Chroniques de débits simulés par CTRIP-MLake et des observations issues de la banque de débits GRDC et ARCTICNET sur la période 2005-2008. A) Nil Blanc (Ouganda), B) Angara (Russie), C) Neva (Russie).}
+\label{subset_2005_2008}
+\end{figure}
+\clearpage
+L'ajout du bilan de masse des lacs entraîne une diminution de la variabilité et de l'amplitude des débits simulés. L'impact le plus significatif est celui du lac Victoria sur le débit du Nil avec un effet aussi marqué sur le débit moyen que sur la variabilité. Ainsi, la seule introduction de MLake réduit le débit moyen de 37\% et la variabilité de 55\%. Les résultats des simulations pour l'Angara et la Neva sont plutôt similaires à ceux du Rhône avec un débit moyen annuel simulé peu ou pas impacté par la présence des lacs (augmentation de 4\% du module annuel de l'Angara et diminution de 0.1\% de celui de la Neva). Ces effets s'expliquent par la différence de forçages entre les simulations avec ou sans lac. La prise en compte explicite des lacs introduit un terme d'évaporation issu de FLake qui modifie les forçages de surface et donc le volume d'eau effectivement reçu sur la zone considérée.\\
+
+
+
+\noindent La réduction des amplitudes est dépendante de la taille du lac et c'est sur le lac Baïkal que l'on observe la baisse la plus importante avec une réduction de 63\%. Bien sûr cela n'est pas seulement la conséquence d'une diminution des pics de débits, mais c'est aussi dû à une augmentation des basses eaux. Pour l'Angara, le quantile $Q_{90}$ diminue de 4046 $m^{3}.s^{-1}$ à une moyenne de 2 633 $m^{3}.s^{-1}$ (intervalle [2 023 $m^{3}.s^{-1}$ - 3 185 $m^{3}.s^{-1}$]) sur la période 1983-2014. Pour le quantile $Q_{10}$, sa valeur croît de 148 $m^{3}.s^{-1}$ à 1 133 $m^{3}.s^{-1}$ (intervalle [651 $m^{3}.s^{-1}$ - 1 590 $m^{3}.s^{-1}$]) sur la même période. Cela se traduit par un lissage de l'hydrogramme et une atténuation de la variabilité haute fréquence. \\
+L'effet est similaire sur le bassin de la Neva avec une réduction de la variabilité de 49\% ($\overline{\sigma}_{ctrip\_mlake}$ = 534 m$^{3}$.s$^{-1}$ et $\sigma_{ctrip\_nolake}$ = 1 095 m$^{3}$.s$^{-1}$). Par ailleurs, le quantile $Q_{90}$ de la Neva diminue de 3 973 m$^{3}$.s$^{-1}$ à 2 970 m$^{3}$.s$^{-1}$ (intervalle [2 734 m$^{3}$.s$^{-1}$ - 3 860 m$^{3}$.s$^{-1}$])  alors que le quantile $Q_{10}$ augmente de 1 045 m$^{3}$.s$^{-1}$ à une moyenne de 1 729 m$^{3}$.s$^{-1}$ (intervalle [1 332 m$^{3}$.s$^{-1}$ - 2 264 m$^{3}$.s$^{-1}$]).\\
+
+\noindent Ces résultats indiquent la prédominance de la dynamique des lacs dans le cycle hydrologique local et la contribution de ces grands lacs à leurs effluents. Ainsi, les trois rivières sont les seuls exutoires des lacs et drainent donc l'intégralité des effluents du lac.\\
+L'apport de MLake a donc tendance à lisser les hydrogrammes issus des simulations de débits, à réduire les volumes d'eau transférés vers l'aval durant les périodes de hautes eaux et à soutenir les étiages par un apport de masse plus important en période de basses eaux.\\
+
+Enfin, le test de sensibilité préliminaire permet de confirmer la tendance qui se dégageait sur le Rhône. Un échantillonnage plus important a été utilisé afin de prendre en compte une amplitude permettant de comparer le comportement du modèle et du réseau hydrographique dans des situations extrêmes. Lorsque la largeur du seuil augmente, le transfert d'eau est plus rapide et l'hydrogramme se rapproche des simulations de référence. Au contraire, lorsque le seuil est plus étroit l'effet tampon du lac augmente et la variabilité chute. Dans le cas de la configuration avec lac, l'amplitude maximale augmente de 105\% entre la configuration $ctrip\_mlake\_w1\_flake$ et $ctrip\_mlake\_w5\_flake$.
+
+\subsection{{\fontfamily{lmss}\selectfont Validation du modèle CTRIP-MLake}}
+\label{sec:validation_globe}
+
+
+Vu les différences induites par l'introduction du bilan de masse des lacs sur les simulations de CTRIP, il convient de les valider pour estimer les performances du modèle.\\
+La validation est menée en deux étapes, d'abord en comparant les débits simulés puis en analysant la pertinence du diagnostic sur les variations de niveau d'eau.
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Débits simulés}}
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subplot_q_flake_globe}
+\caption{Chroniques de débits simulés par CTRIP-MLake et des observations issues de la banque de débits GRDC et ARCTICNET sur la période 1983-2014. A) Nil Blanc (Ouganda), B) Angara (Russie), C) Neva (Russie).}
+\label{subplot_q_globe}
+\end{figure}
+
+La figure \ref{subplot_q_globe} informe sur les performances du modèle CTRIP-MLake à simuler les débits. Une tendance se dégage quant à la meilleure simulation des débits par la configuration $\small{ctrip\_mlake\_w0.5}$. L'intérêt d'introduire les lacs assure un meilleur cycle saisonnier pour tous les bassins fluviaux (Figure \ref{seasonal_q_globe}). L'effet de lissage de l'hydrogramme et la réduction de variabilité permettent aux simulations de se rapprocher des débits observés notamment sur les bassins de l'Angara et de la Neva. Contrairement à la simulation de référence dont l'amplitude annuelle est élevée, les simulations CTRIP-MLake reproduisent une variabilité correspondant aux observations.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{seasonal_q_flake_globe}
+\caption{Cycles annuels des débits simulés par CTRIP-MLake et des observations de la banque de débits GRDC et ARCTICNET sur la période 1983-2014. A) Nil Blanc (Ouganda), B) Angara (Russie), C) Neva (Russie).}
+\label{seasonal_q_globe}
+\end{figure}
+
+Cela se confirme lorsqu'on compare les débits moyens annuels simulés et observés. Dans tous les cas, la réduction des débits (ou l'augmentation dans le cas de l'Angara) tend à rapprocher le débit moyen simulé de celui qui est observé. Les résultats sont les mêmes pour la variabilité qui est réduite et se rapproche des observations. Le cas de la Neva présente les meilleurs résultats avec un ratio de débit moyen annuel de 1.02, celui de l'Angara est de 0.96 et celui du Nil est de 0.84. Le ratio des écarts-types est de 0.93 pour la Neva, 1.21 pour l'Angara et 2.39 pour le Nil Blanc. Ces améliorations des débits simulés proviennent de la capacité de rétention plus importante des lacs par rapport à celle des rivières.
+Excepté pour le Nil Blanc, on constate la bonne corrélation du cycle annuel sur les bassins et une amplitude correcte entre les hautes et basses eaux. Cela est confirmé par le cycle saisonnier qui montre une amélioration des simulations de la variabilité interannuelle quand les lacs sont pris en compte.\\
+\clearpage
+En matière de scores, la figure \ref{plot_scores_globe} montre une faible performance de CTRIP-MLake à reproduire les débits de l'Angara. 
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{plot_scores_globe}
+\caption{Distribution des critères de NSE et KGE pour chaque site suivant le facteur multiplicatif appliqué à la largeur du seuil sur la période 1983-2014. A) Nil Blanc (Ouganda), B) Angara (Russie), C) Neva (Russie).}
+\label{plot_scores_globe}
+\end{figure}
+
+Sur le bassin de l'Angara, le critère NSE est positif pour trois configurations avec une amélioration maximale de 12.4 points pour la configuration $ctrip\_mlake\_w0.5$ (NSE = 0.2). Le détail sur le score de NSE$_{log}$ pour cette même configuration (0.12) rend compte d'une meilleure représentation des étiages. Même si la configuration $ctrip\_mlake\_w1$ présente des scores moins convaincants pour le critère NSE (-0.11), elle simule de façon correcte les débits puisque son score KGE est élevé (0.47). La comparaison des scores de NSE et KGE pour cette configuration montre l'influence de la corrélation sur la dégradation des critères NSE. Dans tous les cas, les résultats pour le KGE sont meilleurs ($\overline{KGE}=0.19$) ce qui contribue à une amélioration moyenne de 2.21 points. En tout état de cause, le NIC moyen de 0.87 indique l'importance de prendre en compte le lac Baïkal dans le bassin. Le lac Baïkal est glacé de janvier à mai-juin et entouré de permafrost. Cette saisonnalité spécifique est la principale contributrice au cycle hydrologique régional avec des pics de débits causés par la fonte de glace et de neige. Comme le NSE est particulièrement sensible à ces pics et encore plus au ruissellement de fonte saisonnier, cela confirme le choix de plutôt considérer le KGE dans l'analyse. \\
+
+Pour la Neva, les résultats sont similaires avec des scores positifs pour les mêmes configurations que l'Angara. Le score moyen pour le critère NSE est de 0.19 points (amélioration de 3.13 points) et de 0.17 pour le NSE$_{log}$ (amélioration de 3.37). L'apport global de MLake sur ce bassin est nette avec un NIC moyen de 0.56. Les processus de gel et dégel sont similaires pour la zone du lac Ladoga et les conclusions sur le NSE sont donc les mêmes ici. Il convient de privilégier le KGE sur ce bassin. Les hydrogrammes présentent un décalage temporel assez visible avec des pics de débits simulés en avance par rapport aux observations. Ce décalage impacte fortement les scores et notamment le NSE.\\
+
+Le cas du Nil Blanc reste donc un cas particulier. Sur la période de validation 1983-2006, les critères NSE et KGE sont constamment négatifs avec respectivement -16.06 et -2.77. Ces scores révèlent une inadéquation à représenter les débits observés que ce soit pour la variabilité, le phasage temporel ou l'amplitude. Ainsi, même si on observe une réduction notable du module annuel et du coefficient de variation cela n'est pas suffisant pour simuler correctement les débits. Seule la saisonnalité reste bien respectée et notamment sur la période pré-2000 et il est donc impossible de conclure sur un quelconque apport.\\
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Variations du niveau d'eau}}
+
+Les résultats sur les niveaux des lacs sont présentés sur la figure \ref{h_globe_obs} et la figure \ref{h_globe_seasonal}. Les tableaux de scores se trouvent dans la section \ref{chap:annexe_h_globe} de l'annexe \ref{chap:resultats-etude-globale}. \\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{subplot_h_new_flake}
+\caption{Séries temporelles des variations de niveau d'eau simulées par CTRIP-MLake et des observations issues d'Hydroweb sur la période 1993-2014. A) Lac Victoria (Ouganda), B) lac Baïkal (Russie), C) Lac Ladoga (Russie).}
+\label{h_globe_obs}
+\end{figure}
+
+~\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{seasonal_h_flake_globe}
+\caption{Cycles saisonniers des variations de niveau d'eau simulées par CTRIP-MLake et des observations issues d'Hydroweb sur la période 1993-2014. A) Lac Victoria (Ouganda), B) lac Baïkal (Russie), C) Lac Ladoga (Russie).}
+\label{h_globe_seasonal}
+\end{figure}
+
+\clearpage
+
+Pour le lac Baïkal, les hauteurs simulées correspondent aux observations avec une cohérence sur la variabilité interannuelle et des amplitudes qui restent proches. Un léger décalage apparaît à partir de 2002 mais dans l'ensemble le cycle et la temporalité sont respectés. La corrélation entre les simulations et les observations est bonne ($\overline{r}=0.75$) et les meilleurs scores sont atteints pour la configuration $ctrip\_mlake\_w05$. Cela est confirmé par des écarts-types similaires ($\overline{\sigma_{s}}=0.28m$ et $\sigma_{o}=0.28m$). Enfin la variabilité relative $\alpha$=1 confirme les performances de MLake à représenter les variations du lac Baïkal tant sur la saisonnalité que sur l'amplitude.
+
+L'analyse du cycle saisonnier montre un décalage temporel de deux mois sur les basses eaux du lac Baïkal. Ce décalage est en partie rattrapé à l'automne au moment des pics de débits mais reste quand même visible. Malgré ce décalage, les pentes des courbes sont quasiment parallèles et montrent une adéquation du modèle à simuler la dynamique du lac Baïkal.\\
+
+Les résultats pour le lac Ladoga sont similaires. En effet, on observe aussi un décalage temporel, ici d'un mois, entre les simulations et les observations. Ce décalage fait que les pics de débits sont atteints précocement dans l'année. \textit{A contrario}, les étiages sont très bien simulés avec une très bonne précision de la baisse automnale des niveaux. Ce décalage a tendance à réduire les performances du modèle notamment en jouant sur la corrélation. Celle-ci est plutôt basse ($\overline{r}$ = 0.37) malgré une allure qui semble concorder. Cette faible corrélation est aussi la conséquence de la sous-estimation des débits dans les années 1994-1995 et la surestimation pour les étiages de 2003. Malgré cela les écarts-types sont satisfaisants ($\overline{\sigma_{s}}=0.23m$ et $\sigma_{o}=0.26m$) pour une variabilité relative de $\alpha$ = 0.88. \\
+
+Les résultats sur le lac Victoria sont différents par rapport aux deux lacs précédents. Sur la figure \ref{h_globe_obs} se distinguent deux périodes: la période pré-2002, où les niveaux d'eau sont plutôt bien représentés que ce soit la variabilité ou la temporalité, puis une période post-2002 où l'on observe un décrochage des niveaux mesurés du lac de plus d'un mètre. Durant les années 2003-2007, le lac semble atteindre un nouvel état d'équilibre et malgré ce décrochage, la variabilité saisonnière des simulations reste corrélée avec le signal observé.\\
+La section \ref{sec:victoria} a déjà présenté le cas spécifique du bassin du lac Victoria qui possède une dépendance aux conditions atmosphériques et à l'anthropisation de son effluent. Pour éviter d'introduire des biais provenant des règles de fonctionnement anthropique, l'analyse des simulations se fait, de façon similaire aux débits, sur la période pré-2004.\\
+Même si l'exutoire du lac Victoria est anthropisé les simulations représentent bien l'amplitude et la temporalité des variations de niveau du lac avant 2004. La période de hautes eaux du lac Victoria des années 1998-2000 est très bien simulée. La dispersion sur cette période confirme l'analyse visuelle avec une variabilité relative de $\alpha$ = 1.1 ($\overline{\sigma_{s}}$ = 0.37m et $\sigma_{o}$ = 0.35m). En lien avec la représentation correcte de la variabilité, la corrélation est aussi forte sur la période ($\overline{r}$ = 0.83). La figure \ref{h_globe_seasonal} confirme ces deux derniers résultats avec une simulation adéquate de la période de hautes eaux de début d'été et de la période de basses eaux d'octobre. 
+
+\subsubsection*{{\fontfamily{lmss}\selectfont Test de sensibilité}}
+Le test de sensibilité a été reconduit ici sur une gamme de valeurs plus grande. L'approche reste 'one at a time' mais s'applique maintenant à une gamme plus large et surtout aux résultats sur les débits et sur les hauteurs.
+Les diagrammes de Taylor pour les hauteurs (Figure \ref{h_globe_taylor}) indiquent une sensibilité des simulations au bassin considéré. Ainsi, sur le lac Baïkal, même si le paramètre reste robuste, la configuration $ctrip\_mlake\_w1$ présente de meilleurs résultats. En particulier, la distribution des scores fait apparaître un maximum de performances autour de cette configuration.
+À l'opposé, les résultats pour le lac Ladoga sont beaucoup moins nets et mise à part la configuration $ctrip\_mlake\_w01$, toutes les configurations se tiennent dans une gamme de scores proches. On peut toutefois noter une légère amélioration dans le cas des facteurs multiplicatifs $0.7$ et $1$. Les résultats sont similaires sur le lac Victoria avec globalement des scores moins bons mais qui présentent de meilleurs résultats lorsque la largeur du seuil est réduite.\\
+Dans l'ensemble, la largeur du seuil n'a qu'une faible influence sur les simulations de niveau d'eau même si cela reste variable suivant les bassins. \\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{taylor-h-globe}
+\caption{Diagramme de Taylor représentant, pour les différentes configurations du modèle, les performances de CTRIP-MLake à simuler les marnages sur la période 1983-2014 pour le Nil Blanc (A) et l'Angara (B), sur la période 1983-2006 pour la Neva (C).}
+\label{h_globe_taylor}
+\end{figure}
+
+Les conclusions sont différentes si l'on se focalise sur les simulations de débits (Figure \ref{q_globe_taylor}). Dans ce cas, les performances de CTRIP sont sensibles à la largeur du seuil. Sur les trois bassins, l'introduction du schéma de lac améliore distinctement les performances. La largeur du seuil impacte donc les scores de débits et on remarque qu'une diminution d'un facteur autour de $0.5$ et $0.7$ présente les meilleurs résultats. Dans le cas du lac Victoria, il n'est pas surprenant de retrouver des résultats inexploitables en l'état et des scores réalistes seulement pour la configuration $ctrip\_mlake\_w01$. En effet, les débits observés sont très faibles et ne présentent aucune variabilité saisonnière ce qui traduit à la fois une grande dispersion et une très faible corrélation avec les simulations.
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{taylor_q_globe}
+\caption{Diagramme de Taylor représentant, pour les différentes configurations du modèle, les performances de CTRIP-MLake à simuler les débits sur la période 1983-2014 pour le lac Baïkal (A) et le lac Ladoga (B), sur la période 1983-2006 pour le lac Victoria (C).}
+\label{q_globe_taylor}
+\end{figure}
+
+En conclusion, le paramètre de largeur du seuil est robuste pour la simulation des hauteurs d'eau mais reste un paramètre important dans le contrôle du débit à l'exutoire. Si l'on se réfère au test de sensibilité, les configurations privilégiées pour une meilleure représentation de ces débits des lacs se trouvent être entre $ctrip\_mlake\_w05$ et $ctrip\_mlake\_w1$. Dans l'ensemble, il convient d'éviter d'augmenter la largeur du seuil au-delà de la valeur prescrite par CTRIP.
+
+\clearpage
+
+\section{{\fontfamily{lmss}\selectfont Discussions}}
+\label{sec:discussions_globe}
+
+Les résultats présentés dans la section précédente confirment la capacité du modèle CTRIP-MLake à simuler les débits des principaux bassins fluviaux et des variations de niveaux des principaux lacs. Cela confirme aussi l'apport d'un modèle non-calibré comme MLake pour décrire le bilan de masse des lacs.\\
+Cependant les performances du modèle sont limitées pour plusieurs raisons listées dans la suite de la section.
+
+\subsection{{\fontfamily{lmss}\selectfont Anthropisation}}
+
+Les grands bassins fluviaux sont, dans la majorité des cas, anthropisés mais à des degrés différents. Que ce soit pour les besoins de l'agriculture, de l'industrie, du secteur de l'énergie ou de l'approvisionnement en eau potable, les réserves de surface, quand elles existent, sont la ressource la plus accessible. Même si ces réservoirs offrent des services écosystémiques indéniables, l'augmentation de la pression anthropique modifie les variables de surface et de routage comme les ruissellements ou les débits \citep{grill2019, best2019}.\\
+Les lacs ne font pas exception à ce constat et la manière dont leurs niveaux varient est, dans de nombreux cas, liée à des évolutions d'origine anthropique \citep{wurtsbaugh2017, woolway2020}.\\
+
+Au vu des résultats, l'Angara est le fleuve qui semble avoir les débits les plus régulés avec des variations très fortes et un seuil du débit minimal aux alentours de 1500 m$^{3}.s^{-1}$. Ce régime altéré est produit par l'effet conjoint des trois barrages construits sur l'Angara (Irkoutsk, Bratsk et Ust'-Illim). Des études ont déjà mis en avant cet effet et montré que l'impact des réservoirs était perceptible assez loin sur le Yenissei \citep{adam2007}. Dans notre cas, c'est le barrage d'Irkoutsk qui modifie le régime du fleuve. Sa construction a, par ailleurs, aussi modifié les conditions du lac Baïkal qui a vu son volume augmenté de 37 km$^{3}$ et son niveau de 0.79 m \citep{sinyukovich2019}. À cela s'ajoute une baisse d'un tiers de l'amplitude des débits \citep{vyruchalkina2004}.\\  
+L'objectif premier du lac est de réguler les flux de masse à l'aval durant les pics de crues. Pour autant, les règles de gestion des eaux imposent une régulation saisonnière calée sur le cycle naturel de la rivière.\\
+Cette variabilité spécifique explique en grande partie les faibles scores de NSE impactés par la très faible corrélation entre les débits simulés et observés. Ils sont aussi liés à la physique de MLake dont l'objectif est de reproduire le cycle naturel du bilan d'eau des lacs. 
+
+\subsection{{\fontfamily{lmss}\selectfont Baisse historique des niveaux du lac Victoria}}
+
+L'anthropisation des eaux du lac Victoria et de son effluent le Nil Blanc est assez nette tant sur les observations de débits que sur les niveaux du lac. Les modifications anthropiques et la gestion du barrage de Nalubaale sont les raisons principales expliquant les biais entre simulations et observations. \\
+Pour comprendre les enjeux de la gestion des eaux du Nil, il est important de décrire succinctement le contexte local. Le barrage d'Owen Falls a été mis en service en 1954 afin de profiter du débit du Nil à cet endroit pour satisfaire aux besoins en électricité. La construction du complexe a été soumis à des règles et notamment à ce qu'on appelle l'"Agreed Curve", un accord de gestion de l'effluent mis en place pour définir le débit minimal garantissant un cycle naturel du lac Victoria. En 2000, le complexe a été agrandi avec la construction d'un deuxième barrage sous l'impulsion de la Banque Mondiale \citep{kull2006}. \\
+De nombreuses études font état d'un non-respect de cet accord comme principale raison de la baisse sévère du niveau du lac sur la période 2004-2006 \citep{kull2006, sutcliffe2007, vanderkelen2018a, getirana2020}. Selon ces mêmes études, la part anthropique liée au déclin du lac Victoria serait à hauteur de 55\% tandis que les 45\% restant seraient attribués à la sécheresse historique touchant la région sur la même période. Selon \citet{vanderkelen2018a}, les estimations de précipitations issues des données PERSIANN-CDR font état d'une baisse des cumuls entre 2004 et 2005 de 13\% comparé à la moyenne climatologique.\\
+
+En analysant les forçages E2O, la sécheresse est notable pour les années 2004-2005 et équivaut à une anomalie de lame d'eau de 0.20 mm. En réponse, la baisse moyenne de niveau du lac associée est de 0.39 m (pour un intervalle compris entre 0.25 m et 0.57 m suivant les largeurs de seuil) ce qui est insuffisant pour retrouver le signal observé de -1.04 m.\\
+Cette baisse est notamment expliquée, sur cette période, par une hausse significative des lâchés de barrage \citep{getirana2020}. La baisse non-naturelle supplémentaire serait de l'ordre de 0.61m, valeur qui expliquerait dans notre étude le biais entre les deux minimas \citep{sutcliffe2007}.\\
+
+Aucun module de gestion anthropique des eaux n'est, à ce jour, intégré à CTRIP et il n'est donc pas possible de vérifier l'impact du barrage sur nos simulations. Néanmoins MLake simule les variations naturelles du lac Victoria et les résultats permettent de confirmer indirectement que la part du non-respect du cycle naturel a engendré une baisse significative des niveaux de lac entre 0.79 m et 0.47 m sur la période 2004-2005.
+
+\subsection{{\fontfamily{lmss}\selectfont Déphasage temporel des débits des rivières boréales}}
+
+L'anthropisation n'est pas la seule raison des différences entre les simulations et les observations. Elles peuvent aussi provenir de biais issus de la représentation physique des processus dans ISBA-CTRIP. Ainsi le cycle saisonnier du lac Baïkal présente un déphasage systématique de deux mois entre les simulations et les observations. Ce phénomène n'est pas visible sur les débits de l'Angara du fait des manœuvres du barrage à Irkoutsk. Par contre, ce déphasage se retrouve, dans un ordre de grandeur similaire, sur les débits de la Neva dont le pic de débit est atteint précocement dans les simulations.\\
+
+Comme le révèle \citet{decharme2019}, les simulations de débits de rivières pour les régions boréales sont contraintes par le bilan d'énergie de surface et la capacité du modèle à simuler la fonte nivale. Dans notre cas, ISBA-CTRIP résout un unique bilan d'énergie pour la végétation et ne prend donc pas en compte les effets radiatifs de la forêt sur la neige déposée en dessous. Au sein d'une maille, la température issue du bilan d'énergie représente alors celle de tout le continuum sol-végétation-neige et la fraction de sol reçoit une fraction de rayonnement solaire plus importante. Ce biais n'est pas significatif pour nos régions mais a des conséquences importantes pour les zones où la végétation est dense comme les régions scandinaves ou celle du lac Baïkal. Ainsi la partie sud-est du lac Baïkal représente une surface de 200 500 km$^{2}$ exclusivement recouverte de conifères, appelée "forêt de conifères transbaïkal", et soumise à un climat subarctique. Pour le lac Ladoga, la situation est similaire. Dans ces zones, la fraction plus importante de rayonnement solaire reçue par le sol réchauffe plus rapidement la surface du sol, ce qui provoque un dégel de la glace contenue dans le sol plus rapide que la neige qui le recouvre. Il y a donc une inversion du processus de fonte et la fonte nivale, au lieu de contribuer à l'augmentation des débits, s'infiltre et contribue à l'augmentation du stock d'eau dans le sol.\\
+
+La prise en compte d'un bilan d'énergie distinct pour la végétation, la neige et le sol comme proposé par \citet{boone2017} est requise pour décrire de manière précise les interactions entre les variables de surface. Ainsi l'approche proposée dans le modèle MEB (Multi-Energy Balance) propose une représentation explicite du sol et de la canopée prenant aussi en compte une formulation des flux turbulents et une paramétrisation de la litière \citep{napoly2017}. Par rapport à ISBA, le modèle MEB considère un réservoir explicite de neige pour la canopée, ce qui permet une représentation des interactions de flux entre la surface et l'atmosphère sous le couvert forestier et réduit la vitesse du vent sous canopée.\\
+Cette nouvelle paramétrisation induit un effet d'ombrage de la canopée sur le sol qui réduit l'amplitude des flux conductifs et le cycle diurne des températures dans le sol \citep{napoly2020}. L'effet principal de cette approche est de corriger l'épaisseur de neige simulé tout comme sa variabilité temporelle. La figure \ref{napoly2020} présente l'effet d'ISBA-MEB sur deux sites d'études au Canada. L'amélioration dans les simulations est notable et assure une cohérence entre le manteau neigeux simulé et observé.
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{napoly2020}
+\caption{Cycle annuel de l'épaisseur des manteaux neigeux simulés et observés pour deux sites d'observations en Saskatchewan (Canada). Source: \citet{napoly2020}.}
+\label{napoly2020}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{napoly_2020}
+\caption{Cycle annuel de la température du sol entre la surface et 100 cm simulé par ISBA et MEB et observé sur un site d'pbservation en Saskatchewan (Canada). Source: \citet{napoly2020}.}
+\label{napoly_2020}
+\end{figure}
+
+Comme on peut le voir sur la figure \ref{napoly_2020}, l'effet d'une meilleure simulation du manteau neigeux corrige le cycle annuel de température du sol. ISBA avait une tendance à simuler une couche de sol trop froide en hiver et à provoquer un réchauffement précoce et plus important de cette même couche en été par rapport aux observations. Grâce à la prise en compte d'un bilan distinct, ces gradients sont diminués et on observe une amélioration du cycle saisonnier pour les processus thermiques dans le sol \citep{napoly2020}.\\
+
+Grâce à cette étude, il est possible de proposer des hypothèses sur l'impact de ce nouveau schéma sur l'hydrologie. En effet, la tendance d'ISBA à faire geler le sol de façon brusque et intense atténue les drainages et diminue la disponibilité en eau. Cela expliquerait le décalage temporel observé sur le lac Baïkal lors de la période de basses eaux. À l'inverse, la tendance d'ISBA à réchauffer le sol provoque une intense fonte neigeuse. Cette fonte contribue alors à un pic de débit précoce comme observé sur le bassin de l'Angara et de la Néva. Bien sûr, ces hypothèses doivent être vérifiées par une étude plus précise prenant notamment en compte le couplage en MEB et CTRIP.
+
+
+\subsection{{\fontfamily{lmss}\selectfont Sensibilité à la largeur du seuil}}
+
+En première approximation, le facteur multiplicatif 1 présente des résultats satisfaisants ce qui confirme que la largeur de la rivière en aval est un paramètre acceptable pour déterminer le débit de déversement. Cependant une étude de sensibilité plus détaillée est nécessaire car la modification de la largeur du seuil permet d'améliorer significativement les performances du modèle MLake. Cela permettra aussi de déterminer, dans le cas où une valeur optimale systématique est trouvée, une paramétrisation pour des lacs pour lesquels aucune donnée n'est disponible.\\
+La sensibilité du modèle a été analysée par une méthode simple 'one at a time' permettant d'attribuer toute modification des résultats à cette seule variable.\\
+Cette analyse révèle une amélioration globale des performances du modèle lorsque la largeur du seuil est réduite. Cet effet s'explique par une augmentation de l'effet de rétention au niveau du déversement lorsque le seuil est réduit. \\
+
+Comme expliqué dans la section \ref{subsec:param_riv}, la largeur des rivières est calculée sur la base du débit moyen annuel sur le tronçon et appliquée au lac sous la forme d'une fraction de sa circonférence totale. Dans MLake, le lac est modélisé avec une surface assimilée à un cercle équivalent dont l'aire est prescrite par ECOCLIMAP. En considérant une hypsométrie linéaire, il vient que le lac est représenté sous la forme d'un cylindre. Dans ce cas, il n'y a pas d'effet de la profondeur sur la contraction ou l'expansion de l'aire du lac. De plus la circonférence du lac modélisée, sous forme de cercle, est plus petite que la circonférence réelle ce qui explique les meilleures performances dans le cas d'une largeur de seuil réduite. Puisque la largeur du seuil représente une fraction de la circonférence totale, sa réduction sans modification de la largeur augmente synthétiquement le rapport relatif entre les deux longueurs.\\
+Une solution pour aborder ce problème repose sur l'accès à des observations, mais les données sur les caractéristiques de lacs sont peu disponibles et limitées notamment à cause des coûts humains et financiers que les campagnes de mesures nécessitent \citep{duan2013}. À cela s'ajoutent les limites de la télédétection pour mesurer certaines variables telles que la charge en eau au dessus du seuil. Il semble, en effet, assez compliqué d'avoir un accès direct à ce type de données en constante évolution sans station de mesures continues. Une autre méthode possible pourrait être d'estimer une largeur générique de seuil basée sur un regroupement des lacs selon leur géomorphologie.\\
+Pour répondre à cette problématique, l'étude menée par \citet{bowling2010} propose dans le développement du module de lac de considérer une fraction dynamique de la circonférence totale proportionnelle  au niveau d'eau dans le lac. Cela introduit, par contre, des questions sur la morphologie et l'intérêt d'intégrer une description précise des propriétés géomorphologiques, non abordées à ce stade de l'étude. Pour autant, ces questions sur la morphologie des lacs sont primordiales et nécessitent d'être abordées.\\
+
+La morphologie des lacs est une des principales sources d'incertitudes dans l'étude des propriétés lacustres. Comme nous venons de le voir, elle peut amener à des surestimations sur les différentes variables étudiées car non stationnaires ou difficilement mesurables, comme le débit. Parmi ces caractéristiques, la connaissance de la bathymétrie est sûrement une des clés pour une meilleure compréhension des processus physiques, biologiques et écologiques \citep{blais1995, yao2018}. De plus, la bathymétrie influence le temps de résidence, le marnage et tous les processus de mouvements d'eau comme les seiches \citep{fricker2000,bastviken2004}.\\
+Ces questions, et plus particulièrement la problématique de la bathymétrie ont été abordées dans le cadre de cette thèse. L'étude est en cours de validation et des détails sont donnés dans l'annexe \ref{chap:morpho_lac} de cette thèse. L'annexe permet de poser le problème et d'amener des réponses quant au développement d'une bathymétrie lacustre à l'échelle globale.
+\clearpage
+\section{{\fontfamily{lmss}\selectfont Simulations à l'échelle du globe}}
+
+Grâce aux résultats obtenus dans ces différentes régions, nous avons pu démontrer l'intérêt d'utiliser le modèle de bilan de masse non calibré MLake dans les simulations hydrologiques appliquées à différentes zones du globe. Que ce soit pour des lacs très anthropisés ou dominés par les forçages atmosphériques ou bien par leurs composantes fluviales, MLake améliore les performances de CTRIP dans les simulations de débits et intègre une variable pour le suivi des variations de niveau d'eau. \\
+Le seul point de vue local est limitant et ne caractérise que peu la dynamique globale. Cependant, les simulations globales de CTRIP-MLake ne sont pas uniquement dépendantes du modèle MLake mais incluent d'autres schémas devant aussi être validés à 1/12°.\\
+
+Les premières simulations globales CTRIP-MLake reposent sur une version préliminaire du modèle CTRIP à 1/12°, appelé CTRIP-12D, développé par Simon Munier, chercheur au CNRM. En reprenant les travaux existants en global sur la version de CTRIP au 0.5° \citep{decharme2019}, une première maquette de CTRIP-12D a été développée. Les résultats, incluant le modèle MLake, sont présentés ici et feront l'objet d'une future valorisation scientifique.
+
+\subsection{{\fontfamily{lmss}\selectfont Configuration de CTRIP-12D global}}
+
+Dans son application à l'échelle globale, le modèle CTRIP-12D reprend le cadre expérimental utilisé dans la section ci-avant (section \ref{sec:trip_globe_carac}), en cohérence avec l'étude de \citet{decharme2019}. Les processus physiques n'ont pas été modifiés et seules les paramètres ont été recalculés afin de prendre en compte le passage d'une résolution de 0.5° à 1/12°.\\
+
+La simulation globale est effectuée en mode offline et les forçages atmosphériques sont issus des réanalyses Earth2Observe utilisées pour la validation du modèle (section \ref{sec:e2O}). La seule modification apportée concerne la non prise en compte de l'estimation de l'évaporation produite par FLake sur les lacs. Le calcul des variations de stock en eau dépend donc seulement du ruissellement et du drainage sur chaque maille du modèle. Le ruissellement total utilisé pour forcer CTRIP est issu d'une simulation d'ISBA-DF forcée par les réanalyses E2O sur la période 1978-2014.\\ 
+Dans ce cadre, le modèle MLake continue d'utiliser les masques de lacs pour l'estimation des ruissellements entrants dans les lacs et l'intégration de ces mêmes lacs dans le réseau (section \ref{sec:masque_lac}) mais ceux-ci s'appliquent exclusivement aux ruissellements et drainage. Dans cette configuration, le couvert principal présent sur chaque maille dans la base ECOCLIMAP est considéré par ISBA qui calcule l'évapotranspiration résultante. Les estimations d'évapotranspiration d'un couvert végétal ou d'un sol nu sont différentes de l'évaporation au-dessus d'un lac mais une comparaison des débits produits par CTRIP-MLake avec les deux types de forçages sur les trois bassins de validation globale amène à des différences acceptables (Figure \ref{seasonal_flake_e20}). Seul le lac Victoria, qui possède un bilan hydrologique fortement dépendant de la composante atmosphérique présente un cycle saisonnier significativement différent. Il est donc possible de dégager une tendance générale de ces simulations sans pour autant amener une validation complète du schéma de lac à l'échelle globale.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{seasonal_q_flake_e20}
+\caption{Cycle saisonnier des débits simulés pour les trois bassins d'études avec et sans la correction des flux par FLake sur la période 1983-2014. A) Nil Blanc. B) Angara. C) Neva.}
+\label{seasonal_flake_e20}
+\end{figure}
+\clearpage
+\subsection{{\fontfamily{lmss}\selectfont Résultats préliminaires}}
+
+L'évaluation des simulations globales de CTRIP est effectuée en deux étapes: tout d'abord en analysant les résultats d'une simulation qui prend en compte explicitement le bilan de masse des lacs,  dans un second temps en comparant ces résultats à une simulation de référence sans prise en compte des lacs. En plus des critères retenus pour le choix des stations de mesures à l'échelle globale, donnés en section \ref{sec:donnees_globe_debits}, un second filtrage a été appliqué pour réaliser l'analyse. Ainsi, les stations dont le critère NSE est inférieur à -1 dans les deux simulations sont écartées. Ce choix s'explique par le fait que de tels scores montrent l'incapacité de CTRIP à représenter la dynamique des débits. Dans le cadre d'une évaluation préliminaire portant sur MLake, il est nécessaire de conserver seulement des stations pouvant être analysées de façon représentative. Sur les 9666 stations disponibles dans la base de mesures, 4133 stations ont  donc été écartées pour ne conserver que 5533 stations. \\
+
+\subsubsection*{Configurations}
+
+La comparaison est effectuée entre deux configurations:\\
+
+\begin{itemize}
+\item $CTRIP\_12D\_nolake$, une simulation à l'échelle globale, à 1/12°, avec le schéma d'aquifères et celui représentant les plaines d'inondations. Cette configuration a été validée à 0.5° par \citet{decharme2019};\\
+
+\item $CTRIP\_12D\_mLake$ qui contient, en plus des schémas d'aquifères et de plaines d'inondations, le modèle MLake pour les lacs à 1/12°.
+\end{itemize}
+~\\
+Ces simulations sont effectuées en offline et aucune rétroaction sur l'atmosphère n'est prise en compte.
+
+\subsubsection*{Résultats préliminaires}
+
+Les résultats préliminaires présentés dans cette section s'appuient sur les figures \ref{nse_globe}, \ref{kge_globe}, \ref{diff_nse_globe}, \ref{diff_kge_globe}, \ref{ctrip_globe} et \ref{cycle_globe}. Des figures supplémentaires et notamment des cartes régionales sont disponibles dans l'annexe \ref{chap:resultats-etude-globale}. Les scores utilisés restent les mêmes que ceux présentés dans l'annexe \ref{chap:critere-evaluation} sur la base des observations faites à partir des bases de données GRDC, ARCTICNET et de la banque Hydro. \\
+
+Dans l'ensemble, les tendances sur les scores hydrologiques restent similaires aux résultats présentés dans la section \ref{sec:validation_globe} avec des régions qui présentent de nettes améliorations (Figure \ref{nse_globe} et \ref{kge_globe}). Sur les 5533 stations de l'analyse, la simulation des débits est très disparate avec un score moyen pour le NSE de -0.32 et une dispersion de 1.49 (tableau \ref{tab_repartition_12d}). Ces faibles scores sont notamment expliqués par les 25\% de stations dont le score est inférieur à -0.5. À l'inverse de l'Amérique du Nord dont les scores de NSE sont majoritairement dégradés, 44.6­\% des stations présentent un score supérieur à 0.2 dont celles d'Europe, d'Amazonie ou encore d'Asie du sud-est et du Japon. Les étiages sont, dans l'ensemble, correctement représentés puisque 41.3\% des stations ont un NSE$_{log}$ supérieur à 0.2 pour un score moyen global de 0.04.\\
+Les scores de KGE présentent, eux, des résultats plus encourageants avec une majorité de stations dont le critère est positif. Même si les scores bruts restent dans une gamme faible, ce sont des régions à grande densité lacustre comme la Scandinavie et le Canada qui présentent les meilleurs scores. Sur l'ensemble des stations, en plus d'une dispersion plus faible (0.32), le score moyen de KGE (0.3) est largement supérieur à celui du NSE. Plus généralement, 84.7\% des stations présentent un KGE significativement élevé et seulement 2.9\% des stations ont un KGE inférieur à -0.5. Dans le même sens, les hydrogrammes simulés et observés sont fortement corrélés  dans la majorité des régions ($\overline{r}$ = 0.54) et seule la zone arctique présente des corrélations plus faibles. Néanmoins, 63.7\% des stations ont une forte corrélation, supérieure à 0.5. Comme nous l'avons déjà vu, le KGE est plus équilibré, dans sa conception, entre ses différents termes et il est donc moins sensible aux extrêmes. Le NSE, quant à lui, est très impacté par la corrélation mais il est aussi sensible aux écoulements très variables (tels que dans les régions arctiques soumises à des conditions de gel-dégel) \citep{gupta2009}. Cela pourrait, en partie, expliquer la différence de scores et les faibles performances du modèle au regard du NSE sur l'Amérique du Nord et en Scandinavie.\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{nse_globe}
+\caption{Carte des scores de NSE (A) et de NSE$_{log}$ (B) pour la simulation CTRIP-12D globale sur la période 1978-2014.}
+\label{nse_globe}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{kge_globe}
+\caption{Carte des scores de KGE (A) et de corrélation (B) pour la simulation CTRIP-12D globale sur la période 1978-2014.}
+\label{kge_globe}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{nse_diff_globe}
+\caption{Carte globale des différences de NSE (A) et de NSE$_{log}$ (B) entre les deux configurations présentant l'impact de l'ajout de MLake sur la période 1978-2014.}
+\label{diff_nse_globe}
+\end{figure}
+
+~\\
+
+\begin{figure}
+\centering
+\includegraphics[width=1.\textwidth]{kge_diff_globe}
+\caption{Carte globale des différences de KGE et de corrélation entre les deux configurations présentant l'impact de l'ajout de MLake sur la période 1978-2014.}
+\label{diff_kge_globe}
+\end{figure}
+
+\clearpage
+
+Ces premiers résultats montrent la capacité de CTRIP-MLake à simuler les débits des rivières particulièrement sur les grands bassins fluviaux (Saint-Laurent, Amazone, Mékong) ou les régions dépendantes de l'alimentation des lacs (Nord Canadien, Scandinavie). Cependant, cette première analyse ne permet pas de quantifier précisément l'apport de MLake sur ces résultats et offre seulement un aperçu global des performances du modèle. Pour aller plus loin, il convient de comparer directement les performances de la simulation $CTRIP\_MLake$ de la simulation sans la dynamique des lacs.\\
+Cette comparaison montre une contribution positive de MLake sur la simulation des débits des rivières et notamment sur les zones de grande densité lacustre comme l'Amérique du Nord et la Scandinavie (Figure \ref{diff_nse_globe} et\ref{diff_kge_globe}). Ces résultats sur les différences entre la configuration avec et sans lacs confirment l'analyse des scores réalisée précédemment. Ainsi, tous les scores utilisés présentent des améliorations nettes sur ces régions. À l'inverse, certains grands bassins fluviaux comme le Mékong ou des pays comme le Japon, qui avaient déjà des scores élevés, sont peu impactés par l'introduction du bilan de masse des lacs. En définitive, les différences moyennes sont positives de l'ordre de 0.02 pour le KGE, 0.11 pour le NSE et 0.18 pour le NSE$_{log}$ (tableau \ref{tab_repartition_12d}). La figure \ref{ctrip_globe} montre que l'apport de MLake est nettement visible sur les stations qui avaient des scores initialement faibles.\\
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{distri_score_12d}
+\caption{Distribution des scores de NSE (A), NSE$_{log}$ (B) et KGE (C) présentant le pourcentage de stations au dessus de chaque classes de valeurs sur la période 1978-2014.}
+\label{ctrip_globe}
+\end{figure}
+
+La contribution du modèle de lac peut être quantifiée plus précisément en regardant les scores de NIC. Ceux-ci révèlent un apport positif de MLake sur les simulations de débits (Tableau \ref{ctrip_classe_globe}). Ainsi 45.4\% des stations sont impactées positivement par l'introduction des lacs, la majorité de ces stations (97.8\%) dans un intervalle compris entre 0 et 0.5 pour un score moyen de 0.36. Il est aussi intéressant de noter que 35\% des stations ne sont pas impactées par l'introduction de MLake.\\
+
+Parmi les stations ayant des scores très positifs, quatre stations ont été choisies en exemple (Figure \ref{cycle_globe}). Deux stations de contrôle ont été choisies pour vérifier la cohérence des résultats avec ceux de la section précédente: la station de Irkoutsk sur l'Angara et la station de Novosaratovka sur la Neva. Les deux autres stations ont été choisies car elles sont des exemples significatifs de l'apport de MLake dans le modèle. La première se situe juste en amont des chutes du Niagara au Canada et à l'exutoire, non anthropisé, du lac Ontario. La deuxième se situe sur la rivière Lockhart à l'exutoire, lui aussi non anthropisé, du lac de l'Artillerie au Canada. \\
+Ces hydrogrammes confirment l'intérêt de l'ajout du bilan de masse des lacs dans CTRIP puisque les débits simulés par CTRIP-MLake permettent d'obtenir une variabilité et une amplitude plus réalistes. Ainsi l'effet tampon des lacs a pour conséquence un lissage des hydrogrammes et de leurs amplitudes ainsi qu'un décalage du cycle annuel qui permet une amélioration des scores sur ces stations. Cet effet est particulièrement important dans le cas où l'exutoire du lac est naturel comme pour le lac Ontario et celui de l'Artillerie. Dans ces deux cas, l'ajout de MLake améliore significativement les scores de KGE avec des augmentations respectives de 3.36 points et de 2.51 points. Il est à noter que ces résultats sont localement bons mais présentent des scores moins probants sur d'autres stations. L'annexe \ref{chap:resultats-etude-globale} présente certains cas où, malgré le schéma de lacs, les scores sont dégradés. Dans ces configurations, les lacs considérés sont en fait des réservoirs avec une dynamique non naturelle. Sur ces deux exemples présentés, les débits de pointe sont nettement plus élevés et ne respectent pas l'hydrogramme observé. Bien sûr, le non-étalonnage du modèle a un impact négatif sur ce type de situation qui est en partie causée par le manque de représentation des facteurs anthropiques dans CTRIP. À terme, le domaine d'application de MLake ne concernera que les bassins non anthropisés.
+
+\begin{figure}[h!]
+\includegraphics[width=1.\textwidth]{hydrographe_ctrip_globe}
+\caption{Hydrogrammes des débits simulés par CTRIP-MLake et observés pour quatre bassins sur la période 1978-2014. A) Angara, B) Neva, C) Niagara, D) Lockhart.}
+\label{cycle_globe}
+\end{figure}
+
+\clearpage
+\subsection{{\fontfamily{lmss}\selectfont Discussions}}
+
+Les résultats et les conclusions sur l'impact de MLake à l'échelle globale présentés dans la section \ref{sec:eval_globe} sont confirmés par les scores de la simulation globale préliminaire de CTRIP à 1/12°.\\
+La prise en compte du bilan de masse assure une meilleure simulation des débits des grands bassins fluviaux et des zones de grande densité lacustre avec dans l'ensemble une amélioration des performances du modèle. Néanmoins, ces résultats sont à nuancer car cette simulation est limitée par sa paramétrisation et la non prise en compte de certains processus. \\
+Ainsi les forçages ne sont pas corrigés pour prendre en compte l'évaporation au-dessus des lacs et CTRIP est uniquement forcé par les variables de surface (ruissellement et drainage) issus d'ISBA. À cela s'ajoute une absence de couverture en glace pour les lacs. Cet effet domine les bilans de flux d'énergie et de masse dans les régions nordiques. Même si dans le schéma ISBA, le gel du sol est simulé, il n'est pas du même ordre de grandeur. Des biais systématiques apparaissent donc dans ces termes et seront, à l'avenir, corrigés par un modèle couplé prenant explicitement en compte les termes d'évaporation au-dessus des lacs. Au-delà de la couverture en glace, les biais sur les flux de chaleur latente se propagent dans la simulation des débits dans les cas où les lacs sont dominés par les composantes atmosphériques.\\
+Enfin, il est difficile de quantifier les incertitudes issues des forçages atmosphériques et notamment des précipitations. Cependant, il semble que l'ajout du processus de bilan de masse des lacs compense en partie les biais introduits par les forçages ou encore le manque de représentation de certains processus (notamment anthropiques). Même si le couplage rivière-lac apporte des résultats sensiblement meilleurs, il est nécessaire de coupler ce système avec un modèle atmosphérique afin de prendre en compte de façon plus réaliste les flux de masse et d'énergie qui existent entre la surface et l'atmosphère. Les biais proviennent aussi de l'incapacité du modèle à simuler les débits issus de barrages et plus généralement les manœuvres non-naturelles (Figure \ref{barrage_12d}).\\
+
+Les incertitudes ne sont pas seulement issues des processus physiques et peuvent aussi venir de la gestion du couvert dans le modèle. L'introduction des lacs dans CTRIP repose sur la carte d'occupation des sols ECOCLIMAP. Celle-ci contient environ 15 000 lacs et même si elle est adaptée aux applications de modélisation climatique et atmosphérique, des zones blanches subsistent. À l'inverse, on peut noter que d'autres zones contiennent une information sur la présence de lac qui résulte de fausses détections. C'est notamment le cas au niveau de grands bassins fluviaux comme celui de l'Amazone ou de du Mackenzie. La largeur de ces fleuves est telle que certains tronçons sont identifiés comme étant des lacs et non comme des rivières. Des biais apparaissent alors par la prise en compte d'une dynamique non réaliste (Figure \ref{rivers}). Malgré cela, le déphasage temporel introduit par MLake peut aussi améliorer la simulation des débits, comme par exemple sur l'Amazone, et aider à corriger les biais inhérents à certains processus de CTRIP sur cette région. \\
+Sur cet aspect géographique, il est aussi bon de rappeler que la construction du réseau de rivière 1/12° a été réalisée indépendamment d'ECOCLIMAP. C'est pourquoi des incohérences subsistent sur certaines stations où la maille de lac identifiée à 1/12° ne correspond en fait pas au même tronçon de rivière.\\
+Enfin, il faut garder à l'esprit que cette base de données ne prend pas en compte la totalité des lacs et qu'en plus certaines régions du monde ne sont pas influencées par ceux-ci. La majorité des stations présentes dans la simulation globale ne voit pas d'amélioration dans les débits simulés justement parce que les processus représentés n'ont pas été modifiés par l'ajout de MLake.\\
+
+\clearpage
+\section{{\fontfamily{lmss}\selectfont Conclusion générale et Perspectives}}
+
+Dans ce chapitre, une estimation de l'impact des lacs et de leur paramétrisation sur les simulations de débits a été effectuée d'abord sur quatre sites d'études puis sur une simulation globale à 1/12° prenant en compte 5533 stations de mesures. Ce chapitre montre l'exploitation possible du modèle MLake au niveau global à la résolution 1/12°. Le modèle MLake est désormais disponible pour des simulations hydrologiques globales dans le modèle CTRIP.\\
+Au niveau local, la contribution des lacs améliore la simulation des débits notamment en matière de variabilité et de saisonnalité. Cela se traduit par une diminution de l'amplitude des débits notamment pour les régions Scandinaves et du Grand Nord Canadien. L'ajout de l'effet tampon corrige les débits simulés et permet une simulation correcte de la hauteur d'eau des lacs et de leur cycle annuel.\\
+
+Dans le détail, l'effet tampon est particulièrement visible sur les extrêmes de débits avec une réduction des débits de pointe et une augmentation des étiages. Les résultats sont ainsi particulièrement probants sur le bassin de l'Angara et de la Neva avec des critères de Nash-Sutcliffe positifs ($\overline{NSE}_{Angara}=0.2$ et $\overline{NSE}_{Neva}$ = 0.19) et une contribution significative du modèle ($\overline{NIC}_{Angara}$ = 0.87 et $\overline{NIC}_{Neva}$ = 0.56). Seuls les résultats pour le Nil Blanc dénotent une incapacité du modèle à simuler les débits sur ce bassin. Les biais présents dans les simulations sont généralement liés à une anthropisation des bassins et à la gestion non-naturelle des débits à l'exutoire. Pour corriger cela, une thèse est actuellement en cours afin de prendre en compte explicitement les règles de gestion spécifiques des eaux de barrages dans le bilan hydrologique global.\\
+
+En plus de simuler les débits, MLake apporte un diagnostic sur les variations du niveau des lacs. La simulation des ces variations est cohérente sur les trois lacs d'étude avec une performance significative sur le marnage annuel et interannuel. La corrélation sur les sites d'études oscille entre 0.37 et 0.83 pour une variabilité relative comprise entre 0.88 et 1.06. Il apparaît par contre un décalage temporel des extrêmes sur les niveaux du lac Baïkal et du lac Ladoga qui s'explique en partie par la résolution d'un unique bilan d'énergie pour le sol dans ISBA. En effet, le bilan d'énergie du sol ne distingue pas les interactions entre la canopée, le sol nu et la neige et amène alors à l'introduction de biais dans la simulation de la fonte nivale. Pour corriger ce bilan d'énergie, un schéma multi-énergie a été introduit dans ISBA afin de distinguer le bilan de la neige de celui de la canopée. Les premiers résultats sont encourageants et permettent de corriger la durée et l'intensité des processus de gel et de dégel dans le sol. Ce nouveau modèle ISBA-MEB sera testé en couplage avec CTRIP dans des études futures pour quantifier la réponse hydrologique.\\
+
+Le modèle CTRIP-MLake reste en cohérence avec ces résultats dans la simulation préliminaire à échelle globale. Sur 5533 stations, la majorité des améliorations se situe dans les zones de grande densité lacustre comme la Scandinavie ou la partie nord du Canada. Ces résultats sont à nuancer car tous les processus ne sont pas encore intégrés au modèle global et que des incertitudes résiduelles persistent notamment sur certaines paramétrisations d'ISBA ou de CTRIP. Il est toutefois encourageant de remarquer que l'introduction des lacs apporte une réponse homogène et consistante avec les études locales et accentue la nécessité d'un couplage global.\\
+
+Le test de sensibilité à la largeur du seuil montre que les variables hydrologiques sont sensibles à cette largeur. Il s'avère que les configurations possédant un facteur multiplicatif entre 0.5 et 1 présentent les performances les plus importantes tant sur les débits que sur les niveaux d'eau. Il semblerait donc que la largeur de la rivière en aval du lac soit un bon prédicteur pour la largeur du déversoir. En effet, sous les hypothèses de MLake, l'aire du lac est assimilée à celle d'un cercle dont la circonférence est inférieure à la circonférence réelle. La correction appliquée au seuil compense donc cet effet.\\
+
+Pour autant quelques leviers freinent encore ce couplage et notamment la correction des flux d'évaporation des lacs. Ces flux sont considérés, dans cette étude, indépendant de la morphologie du bassin lacustre et seulement dépendant des variables atmosphériques. Pourtant la forme du bassin joue sur la dynamique des variables morphologiques et notamment sur l'aire et la profondeur du lac. Il est évident que des simulations hydrologiques à long terme doivent prendre en compte une composante morphologique pour corriger les flux d'évaporation à l'interface lac-atmosphère. Cette composante dynamique n'est aujourd'hui pas présente dans le modèle et doit passer par le développement à l'échelle globale d'une paramétrisation de la bathymétrie des lacs. 
